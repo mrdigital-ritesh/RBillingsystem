@@ -6,8 +6,8 @@ Module Module1
         conn.Open()
         If conn.State <> ConnectionState.Open Then
             MsgBox("Not Connected")
-        Else
-            MsgBox("Connection Established")
+            'Else
+            'MsgBox("Connection Established")
         End If
     End Sub
 End Module
