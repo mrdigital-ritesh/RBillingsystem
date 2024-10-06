@@ -24,6 +24,7 @@ Partial Class product
     Private Sub InitializeComponent()
         DataGridView1 = New DataGridView()
         Panel1 = New Panel()
+        Button4 = New Button()
         stockdate = New TextBox()
         Label11 = New Label()
         disc = New TextBox()
@@ -56,17 +57,21 @@ Partial Class product
         ' 
         DataGridView1.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        DataGridView1.BackgroundColor = Color.Azure
+        DataGridView1.BorderStyle = BorderStyle.Fixed3D
         DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridView1.Location = New Point(12, 382)
         DataGridView1.Name = "DataGridView1"
+        DataGridView1.ReadOnly = True
         DataGridView1.Size = New Size(1121, 160)
-        DataGridView1.TabIndex = 16
+        DataGridView1.TabIndex = 15
         ' 
         ' Panel1
         ' 
         Panel1.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         Panel1.AutoSize = True
         Panel1.BackColor = SystemColors.GradientActiveCaption
+        Panel1.Controls.Add(Button4)
         Panel1.Controls.Add(stockdate)
         Panel1.Controls.Add(Label11)
         Panel1.Controls.Add(disc)
@@ -96,13 +101,23 @@ Partial Class product
         Panel1.Size = New Size(1121, 364)
         Panel1.TabIndex = 17
         ' 
+        ' Button4
+        ' 
+        Button4.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        Button4.Location = New Point(1023, 196)
+        Button4.Name = "Button4"
+        Button4.Size = New Size(86, 34)
+        Button4.TabIndex = 40
+        Button4.Text = "Button4"
+        Button4.UseVisualStyleBackColor = True
+        ' 
         ' stockdate
         ' 
         stockdate.Font = New Font("Segoe UI", 12F)
         stockdate.Location = New Point(791, 300)
         stockdate.Name = "stockdate"
         stockdate.Size = New Size(160, 29)
-        stockdate.TabIndex = 40
+        stockdate.TabIndex = 10
         ' 
         ' Label11
         ' 
@@ -120,7 +135,7 @@ Partial Class product
         disc.Location = New Point(417, 245)
         disc.Name = "disc"
         disc.Size = New Size(160, 29)
-        disc.TabIndex = 38
+        disc.TabIndex = 7
         ' 
         ' Label10
         ' 
@@ -139,7 +154,7 @@ Partial Class product
         category.Location = New Point(791, 141)
         category.Name = "category"
         category.Size = New Size(160, 29)
-        category.TabIndex = 36
+        category.TabIndex = 4
         ' 
         ' Label9
         ' 
@@ -156,20 +171,20 @@ Partial Class product
         ' Button3
         ' 
         Button3.Anchor = AnchorStyles.Top Or AnchorStyles.Right
-        Button3.Location = New Point(1023, 86)
+        Button3.Location = New Point(1023, 142)
         Button3.Name = "Button3"
         Button3.Size = New Size(86, 34)
-        Button3.TabIndex = 34
+        Button3.TabIndex = 12
         Button3.Text = "Button3"
         Button3.UseVisualStyleBackColor = True
         ' 
         ' Button2
         ' 
         Button2.Anchor = AnchorStyles.Top Or AnchorStyles.Right
-        Button2.Location = New Point(1023, 147)
+        Button2.Location = New Point(1023, 86)
         Button2.Name = "Button2"
         Button2.Size = New Size(86, 34)
-        Button2.TabIndex = 32
+        Button2.TabIndex = 13
         Button2.Text = "Button2"
         Button2.UseVisualStyleBackColor = True
         ' 
@@ -179,7 +194,7 @@ Partial Class product
         Button1.Location = New Point(1023, 29)
         Button1.Name = "Button1"
         Button1.Size = New Size(86, 34)
-        Button1.TabIndex = 18
+        Button1.TabIndex = 11
         Button1.Text = "Button1"
         Button1.UseVisualStyleBackColor = True
         ' 
@@ -189,7 +204,7 @@ Partial Class product
         supplier.Location = New Point(418, 300)
         supplier.Name = "supplier"
         supplier.Size = New Size(160, 29)
-        supplier.TabIndex = 31
+        supplier.TabIndex = 9
         ' 
         ' Label8
         ' 
@@ -207,7 +222,7 @@ Partial Class product
         qty.Location = New Point(791, 245)
         qty.Name = "qty"
         qty.Size = New Size(160, 29)
-        qty.TabIndex = 29
+        qty.TabIndex = 8
         ' 
         ' Label7
         ' 
@@ -235,7 +250,7 @@ Partial Class product
         mrp.Location = New Point(791, 195)
         mrp.Name = "mrp"
         mrp.Size = New Size(158, 29)
-        mrp.TabIndex = 25
+        mrp.TabIndex = 6
         ' 
         ' Label5
         ' 
@@ -253,7 +268,7 @@ Partial Class product
         purprice.Location = New Point(418, 195)
         purprice.Name = "purprice"
         purprice.Size = New Size(160, 29)
-        purprice.TabIndex = 23
+        purprice.TabIndex = 5
         ' 
         ' Label4
         ' 
@@ -271,7 +286,7 @@ Partial Class product
         pbrand.Location = New Point(418, 138)
         pbrand.Name = "pbrand"
         pbrand.Size = New Size(158, 29)
-        pbrand.TabIndex = 21
+        pbrand.TabIndex = 3
         ' 
         ' Label3
         ' 
@@ -289,7 +304,7 @@ Partial Class product
         pname.Location = New Point(791, 91)
         pname.Name = "pname"
         pname.Size = New Size(160, 29)
-        pname.TabIndex = 19
+        pname.TabIndex = 2
         ' 
         ' Label2
         ' 
@@ -307,7 +322,7 @@ Partial Class product
         pid.Location = New Point(418, 91)
         pid.Name = "pid"
         pid.Size = New Size(159, 29)
-        pid.TabIndex = 17
+        pid.TabIndex = 1
         ' 
         ' Label1
         ' 
@@ -362,5 +377,6 @@ Partial Class product
     Friend WithEvents Label10 As Label
     Friend WithEvents stockdate As TextBox
     Friend WithEvents Label11 As Label
+    Friend WithEvents Button4 As Button
 
 End Class

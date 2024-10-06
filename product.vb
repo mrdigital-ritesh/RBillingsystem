@@ -1,4 +1,5 @@
-﻿Imports MySql.Data.MySqlClient
+﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+Imports MySql.Data.MySqlClient
 Public Class product
     Dim qry As String
 
@@ -22,9 +23,11 @@ Public Class product
         Label11.Text = "Stock Date:"
         Label9.Text = "R-MART (PRODUCT)"
 
-        Button1.Text = "Add Item"
+        Button1.Text = "Insert Item"
         Button2.Text = "Update Item"
         Button3.Text = "Delete Item"
+        Button4.Text = "Clear"
+
         Button2.Enabled = False
         Button3.Enabled = False
 
@@ -70,6 +73,7 @@ Public Class product
         conn.Close()
     End Sub
 
+    'Category load in dropdown
     Public Sub loadcat()
         Call connect()
         qry = "SELECT cat_name FROM category"
@@ -85,9 +89,9 @@ Public Class product
         conn.Close()
     End Sub
 
-
+    'Insert data
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Call connect()
+        connect()
         Dim cmd As New MySqlCommand
         qry = "insert into products values('" & pid.Text & "','" & pname.Text & "','" & pbrand.Text &
             "','" & category.Text & "','" & purprice.Text & "','" & mrp.Text & "','" & disc.Text & "','" & qty.Text & "',
@@ -97,8 +101,42 @@ Public Class product
         cmd.Connection = conn
         cmd.ExecuteNonQuery()
         conn.Close()
-        Call showdata()
+        showdata()
         MsgBox("DATA SUCCESSFULLY INSERTED...")
+        clear()
+
+
+    End Sub
+
+
+    'Data select
+    Private Sub DataGridView1_CellMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles DataGridView1.CellMouseClick
+        If DataGridView1.SelectedCells.Count > 0 Then
+            Button2.Enabled = True
+            Button3.Enabled = True
+            pid.Text = DataGridView1.CurrentRow.Cells(0).Value.ToString
+            pname.Text = DataGridView1.CurrentRow.Cells(1).Value.ToString
+            pbrand.Text = DataGridView1.CurrentRow.Cells(2).Value.ToString
+            category.Text = DataGridView1.CurrentRow.Cells(3).Value.ToString
+            purprice.Text = DataGridView1.CurrentRow.Cells(4).Value.ToString
+            mrp.Text = DataGridView1.CurrentRow.Cells(5).Value.ToString
+            disc.Text = DataGridView1.CurrentRow.Cells(6).Value.ToString
+            qty.Text = DataGridView1.CurrentRow.Cells(7).Value.ToString
+            supplier.Text = DataGridView1.CurrentRow.Cells(8).Value.ToString
+            stockdate.Text = DataGridView1.CurrentRow.Cells(9).Value.ToString
+            'MsgBox(DataGridView1.CurrentRow.Cells(0).Value.ToString)
+        Else
+            Button2.Enabled = False
+            Button3.Enabled = False
+        End If
+
+    End Sub
+
+    'Clear field
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        clear()
+    End Sub
+    Public Sub clear()
         pname.Clear()
         pbrand.Clear()
         mrp.Clear()
@@ -107,22 +145,45 @@ Public Class product
         qty.Clear()
         supplier.Clear()
         category.Text = ""
-        Call autoid()
+        autoid()
+        stockdate.Text = Today.ToString("yyyy-MM-dd")
+        pname.Focus()
+    End Sub
+
+    'Delete
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Dim cmd As New MySqlCommand
+        Dim r As Integer
+        connect()
+        qry = "delete from products where pro_id = '" & pid.Text & "'"
+        cmd.CommandText = qry
+        cmd.Connection = conn
+        r = MsgBox("Do you want to delete Product id: " & pid.Text & "...", MsgBoxStyle.YesNo)
+        If r = 6 Then
+            cmd.ExecuteNonQuery()
+        End If
+        conn.Close()
+        showdata()
+        clear()
 
 
     End Sub
 
-
-
-    Private Sub DataGridView1_CellMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles DataGridView1.CellMouseClick
-        If DataGridView1.SelectedCells.Count > 0 Then
-            Button2.Enabled = True
-            Button3.Enabled = True
-            MsgBox(DataGridView1.CurrentRow.Cells(0).Value.ToString)
-        Else
-            Button2.Enabled = False
-            Button3.Enabled = False
+    'Update
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Dim cmd As New MySqlCommand
+        Dim r As Integer
+        connect()
+        qry = "update products set pro_name = '" & pname.Text & "',pro_brand = '" & pbrand.Text & "',cat_name='" & category.Text & "',pro_purprice='" & purprice.Text & "',pro_mrp='" & mrp.Text & "',pro_disc = '" & disc.Text & "',pro_qty ='" & qty.Text & "',supp_id = '" & supplier.Text & "',stockdate = curdate() where pro_id = '" & pid.Text & "'"
+        cmd.CommandText = qry
+        cmd.Connection = conn
+        r = MsgBox("Do you want to Update Product id: " & pid.Text & "...", MsgBoxStyle.YesNo)
+        If r = 6 Then
+            cmd.ExecuteNonQuery()
         End If
+        conn.Close()
+        showdata()
+        clear()
 
     End Sub
 End Class
