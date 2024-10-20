@@ -21,7 +21,7 @@ Public Class product
         Label7.Text = "Discount:"
         Label10.Text = "Supplier Name:"
         Label11.Text = "Stock Date:"
-        Label9.Text = "R-MART (PRODUCT)"
+        Label9.Text = "INVENTORY CONTROL"
 
         Button1.Text = "Insert Item"
         Button2.Text = "Update Item"

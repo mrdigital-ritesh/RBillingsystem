@@ -70,7 +70,8 @@ Partial Class product
         ' 
         Panel1.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         Panel1.AutoSize = True
-        Panel1.BackColor = SystemColors.GradientActiveCaption
+        Panel1.BackColor = Color.DarkTurquoise
+        Panel1.BorderStyle = BorderStyle.Fixed3D
         Panel1.Controls.Add(Button4)
         Panel1.Controls.Add(stockdate)
         Panel1.Controls.Add(Label11)
@@ -98,25 +99,27 @@ Partial Class product
         Panel1.Controls.Add(Label1)
         Panel1.Location = New Point(12, 12)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(1121, 364)
+        Panel1.Size = New Size(1125, 364)
         Panel1.TabIndex = 17
         ' 
         ' Button4
         ' 
         Button4.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        Button4.BackColor = SystemColors.ButtonFace
+        Button4.FlatStyle = FlatStyle.Flat
         Button4.Location = New Point(1023, 196)
         Button4.Name = "Button4"
         Button4.Size = New Size(86, 34)
         Button4.TabIndex = 40
         Button4.Text = "Button4"
-        Button4.UseVisualStyleBackColor = True
+        Button4.UseVisualStyleBackColor = False
         ' 
         ' stockdate
         ' 
         stockdate.Font = New Font("Segoe UI", 12F)
         stockdate.Location = New Point(791, 300)
         stockdate.Name = "stockdate"
-        stockdate.Size = New Size(160, 29)
+        stockdate.Size = New Size(159, 29)
         stockdate.TabIndex = 10
         ' 
         ' Label11
@@ -132,9 +135,9 @@ Partial Class product
         ' disc
         ' 
         disc.Font = New Font("Segoe UI", 12F)
-        disc.Location = New Point(417, 245)
+        disc.Location = New Point(418, 245)
         disc.Name = "disc"
-        disc.Size = New Size(160, 29)
+        disc.Size = New Size(159, 29)
         disc.TabIndex = 7
         ' 
         ' Label10
@@ -149,20 +152,21 @@ Partial Class product
         ' 
         ' category
         ' 
+        category.AllowDrop = True
         category.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         category.FormattingEnabled = True
         category.Location = New Point(791, 141)
         category.Name = "category"
-        category.Size = New Size(160, 29)
+        category.Size = New Size(159, 29)
         category.TabIndex = 4
         ' 
         ' Label9
         ' 
         Label9.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         Label9.AutoSize = True
-        Label9.BackColor = Color.White
+        Label9.BackColor = Color.Transparent
         Label9.Font = New Font("Rockwell", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label9.Location = New Point(593, 12)
+        Label9.Location = New Point(580, 12)
         Label9.Name = "Label9"
         Label9.Size = New Size(69, 21)
         Label9.TabIndex = 35
@@ -171,39 +175,45 @@ Partial Class product
         ' Button3
         ' 
         Button3.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        Button3.BackColor = SystemColors.ButtonFace
+        Button3.FlatStyle = FlatStyle.Flat
         Button3.Location = New Point(1023, 142)
         Button3.Name = "Button3"
         Button3.Size = New Size(86, 34)
         Button3.TabIndex = 12
         Button3.Text = "Button3"
-        Button3.UseVisualStyleBackColor = True
+        Button3.UseVisualStyleBackColor = False
         ' 
         ' Button2
         ' 
         Button2.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        Button2.BackColor = SystemColors.ButtonFace
+        Button2.FlatStyle = FlatStyle.Flat
         Button2.Location = New Point(1023, 86)
         Button2.Name = "Button2"
         Button2.Size = New Size(86, 34)
         Button2.TabIndex = 13
         Button2.Text = "Button2"
-        Button2.UseVisualStyleBackColor = True
+        Button2.UseVisualStyleBackColor = False
         ' 
         ' Button1
         ' 
         Button1.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        Button1.BackColor = SystemColors.ButtonFace
+        Button1.FlatStyle = FlatStyle.Flat
         Button1.Location = New Point(1023, 29)
         Button1.Name = "Button1"
         Button1.Size = New Size(86, 34)
         Button1.TabIndex = 11
         Button1.Text = "Button1"
-        Button1.UseVisualStyleBackColor = True
+        Button1.UseVisualStyleBackColor = False
         ' 
         ' supplier
         ' 
         supplier.Font = New Font("Segoe UI", 12F)
         supplier.Location = New Point(418, 300)
         supplier.Name = "supplier"
-        supplier.Size = New Size(160, 29)
+        supplier.Size = New Size(159, 29)
         supplier.TabIndex = 9
         ' 
         ' Label8
@@ -221,7 +231,7 @@ Partial Class product
         qty.Font = New Font("Segoe UI", 12F)
         qty.Location = New Point(791, 245)
         qty.Name = "qty"
-        qty.Size = New Size(160, 29)
+        qty.Size = New Size(159, 29)
         qty.TabIndex = 8
         ' 
         ' Label7
@@ -249,7 +259,7 @@ Partial Class product
         mrp.Font = New Font("Segoe UI", 12F)
         mrp.Location = New Point(791, 195)
         mrp.Name = "mrp"
-        mrp.Size = New Size(158, 29)
+        mrp.Size = New Size(159, 29)
         mrp.TabIndex = 6
         ' 
         ' Label5
@@ -267,7 +277,7 @@ Partial Class product
         purprice.Font = New Font("Segoe UI", 12F)
         purprice.Location = New Point(418, 195)
         purprice.Name = "purprice"
-        purprice.Size = New Size(160, 29)
+        purprice.Size = New Size(159, 29)
         purprice.TabIndex = 5
         ' 
         ' Label4
@@ -285,7 +295,7 @@ Partial Class product
         pbrand.Font = New Font("Segoe UI", 12F)
         pbrand.Location = New Point(418, 138)
         pbrand.Name = "pbrand"
-        pbrand.Size = New Size(158, 29)
+        pbrand.Size = New Size(159, 29)
         pbrand.TabIndex = 3
         ' 
         ' Label3
@@ -303,7 +313,7 @@ Partial Class product
         pname.Font = New Font("Segoe UI", 12F)
         pname.Location = New Point(791, 91)
         pname.Name = "pname"
-        pname.Size = New Size(160, 29)
+        pname.Size = New Size(159, 29)
         pname.TabIndex = 2
         ' 
         ' Label2
