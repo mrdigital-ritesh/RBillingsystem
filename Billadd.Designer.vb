@@ -22,6 +22,7 @@ Partial Class Billadd
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        components = New ComponentModel.Container()
         Label1 = New Label()
         Panel1 = New Panel()
         Label21 = New Label()
@@ -56,8 +57,9 @@ Partial Class Billadd
         Button2 = New Button()
         Button1 = New Button()
         ListView1 = New ListView()
-        PRODUCT_ID = New ColumnHeader()
         Panel2 = New Panel()
+        TextBox17 = New TextBox()
+        Label22 = New Label()
         Button5 = New Button()
         Label19 = New Label()
         TextBox16 = New TextBox()
@@ -71,6 +73,13 @@ Partial Class Billadd
         Label15 = New Label()
         TextBox11 = New TextBox()
         Label14 = New Label()
+        Label23 = New Label()
+        Label24 = New Label()
+        Label25 = New Label()
+        Label26 = New Label()
+        Timer1 = New Timer(components)
+        Label27 = New Label()
+        Label28 = New Label()
         Panel1.SuspendLayout()
         GroupBox1.SuspendLayout()
         Panel2.SuspendLayout()
@@ -425,12 +434,11 @@ Partial Class Billadd
         ' 
         ' ListView1
         ' 
-        ListView1.Columns.AddRange(New ColumnHeader() {PRODUCT_ID})
         ListView1.FullRowSelect = True
         ListView1.GridLines = True
         ListView1.Location = New Point(11, 314)
         ListView1.Name = "ListView1"
-        ListView1.Size = New Size(917, 409)
+        ListView1.Size = New Size(917, 391)
         ListView1.TabIndex = 19
         ListView1.UseCompatibleStateImageBehavior = False
         ' 
@@ -438,6 +446,8 @@ Partial Class Billadd
         ' 
         Panel2.BackColor = Color.DarkTurquoise
         Panel2.BorderStyle = BorderStyle.Fixed3D
+        Panel2.Controls.Add(TextBox17)
+        Panel2.Controls.Add(Label22)
         Panel2.Controls.Add(Button5)
         Panel2.Controls.Add(Label19)
         Panel2.Controls.Add(TextBox16)
@@ -453,15 +463,33 @@ Partial Class Billadd
         Panel2.Controls.Add(Label14)
         Panel2.Location = New Point(934, 303)
         Panel2.Name = "Panel2"
-        Panel2.Size = New Size(426, 420)
+        Panel2.Size = New Size(426, 402)
         Panel2.TabIndex = 20
+        ' 
+        ' TextBox17
+        ' 
+        TextBox17.Font = New Font("Segoe UI", 9.75F)
+        TextBox17.Location = New Point(239, 114)
+        TextBox17.Name = "TextBox17"
+        TextBox17.Size = New Size(138, 25)
+        TextBox17.TabIndex = 64
+        ' 
+        ' Label22
+        ' 
+        Label22.AutoSize = True
+        Label22.Font = New Font("Segoe UI", 9.75F)
+        Label22.Location = New Point(49, 122)
+        Label22.Name = "Label22"
+        Label22.Size = New Size(53, 17)
+        Label22.TabIndex = 65
+        Label22.Text = "Label22"
         ' 
         ' Button5
         ' 
         Button5.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         Button5.BackColor = SystemColors.ButtonFace
         Button5.FlatStyle = FlatStyle.Flat
-        Button5.Location = New Point(256, 344)
+        Button5.Location = New Point(256, 333)
         Button5.Name = "Button5"
         Button5.Size = New Size(131, 34)
         Button5.TabIndex = 63
@@ -472,7 +500,7 @@ Partial Class Billadd
         ' 
         Label19.AutoSize = True
         Label19.Font = New Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label19.Location = New Point(49, 310)
+        Label19.Location = New Point(49, 299)
         Label19.Name = "Label19"
         Label19.Size = New Size(76, 25)
         Label19.TabIndex = 62
@@ -482,7 +510,7 @@ Partial Class Billadd
         ' 
         TextBox16.Font = New Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         TextBox16.ForeColor = Color.Red
-        TextBox16.Location = New Point(49, 343)
+        TextBox16.Location = New Point(49, 332)
         TextBox16.Multiline = True
         TextBox16.Name = "TextBox16"
         TextBox16.Size = New Size(165, 41)
@@ -491,7 +519,7 @@ Partial Class Billadd
         ' TextBox15
         ' 
         TextBox15.Font = New Font("Segoe UI", 9.75F)
-        TextBox15.Location = New Point(239, 248)
+        TextBox15.Location = New Point(239, 243)
         TextBox15.Name = "TextBox15"
         TextBox15.Size = New Size(138, 25)
         TextBox15.TabIndex = 59
@@ -500,7 +528,7 @@ Partial Class Billadd
         ' 
         Label18.AutoSize = True
         Label18.Font = New Font("Segoe UI", 9.75F)
-        Label18.Location = New Point(49, 256)
+        Label18.Location = New Point(49, 251)
         Label18.Name = "Label18"
         Label18.Size = New Size(53, 17)
         Label18.TabIndex = 60
@@ -509,7 +537,7 @@ Partial Class Billadd
         ' TextBox14
         ' 
         TextBox14.Font = New Font("Segoe UI", 9.75F)
-        TextBox14.Location = New Point(239, 196)
+        TextBox14.Location = New Point(239, 200)
         TextBox14.Name = "TextBox14"
         TextBox14.Size = New Size(138, 25)
         TextBox14.TabIndex = 57
@@ -518,7 +546,7 @@ Partial Class Billadd
         ' 
         Label17.AutoSize = True
         Label17.Font = New Font("Segoe UI", 9.75F)
-        Label17.Location = New Point(47, 204)
+        Label17.Location = New Point(49, 208)
         Label17.Name = "Label17"
         Label17.Size = New Size(53, 17)
         Label17.TabIndex = 58
@@ -527,7 +555,7 @@ Partial Class Billadd
         ' TextBox13
         ' 
         TextBox13.Font = New Font("Segoe UI", 9.75F)
-        TextBox13.Location = New Point(239, 143)
+        TextBox13.Location = New Point(239, 157)
         TextBox13.Name = "TextBox13"
         TextBox13.Size = New Size(138, 25)
         TextBox13.TabIndex = 55
@@ -536,7 +564,7 @@ Partial Class Billadd
         ' 
         Label16.AutoSize = True
         Label16.Font = New Font("Segoe UI", 9.75F)
-        Label16.Location = New Point(49, 151)
+        Label16.Location = New Point(49, 165)
         Label16.Name = "Label16"
         Label16.Size = New Size(53, 17)
         Label16.TabIndex = 56
@@ -545,7 +573,7 @@ Partial Class Billadd
         ' TextBox12
         ' 
         TextBox12.Font = New Font("Segoe UI", 9.75F)
-        TextBox12.Location = New Point(239, 86)
+        TextBox12.Location = New Point(239, 71)
         TextBox12.Name = "TextBox12"
         TextBox12.Size = New Size(138, 25)
         TextBox12.TabIndex = 53
@@ -554,7 +582,7 @@ Partial Class Billadd
         ' 
         Label15.AutoSize = True
         Label15.Font = New Font("Segoe UI", 9.75F)
-        Label15.Location = New Point(49, 94)
+        Label15.Location = New Point(49, 79)
         Label15.Name = "Label15"
         Label15.Size = New Size(53, 17)
         Label15.TabIndex = 54
@@ -563,7 +591,7 @@ Partial Class Billadd
         ' TextBox11
         ' 
         TextBox11.Font = New Font("Segoe UI", 9.75F)
-        TextBox11.Location = New Point(239, 35)
+        TextBox11.Location = New Point(239, 28)
         TextBox11.Name = "TextBox11"
         TextBox11.Size = New Size(138, 25)
         TextBox11.TabIndex = 51
@@ -572,22 +600,93 @@ Partial Class Billadd
         ' 
         Label14.AutoSize = True
         Label14.Font = New Font("Segoe UI", 9.75F)
-        Label14.Location = New Point(49, 43)
+        Label14.Location = New Point(49, 36)
         Label14.Name = "Label14"
         Label14.Size = New Size(53, 17)
         Label14.TabIndex = 52
         Label14.Text = "Label14"
         ' 
+        ' Label23
+        ' 
+        Label23.AutoSize = True
+        Label23.Font = New Font("Arial Narrow", 11.25F, FontStyle.Bold)
+        Label23.Location = New Point(12, 716)
+        Label23.Name = "Label23"
+        Label23.Size = New Size(57, 20)
+        Label23.TabIndex = 59
+        Label23.Text = "Label23"
+        ' 
+        ' Label24
+        ' 
+        Label24.AutoSize = True
+        Label24.Font = New Font("Arial Narrow", 11.25F, FontStyle.Bold)
+        Label24.Location = New Point(62, 716)
+        Label24.Name = "Label24"
+        Label24.Size = New Size(57, 20)
+        Label24.TabIndex = 60
+        Label24.Text = "Label24"
+        ' 
+        ' Label25
+        ' 
+        Label25.AutoSize = True
+        Label25.Font = New Font("Arial Narrow", 11.25F, FontStyle.Bold)
+        Label25.Location = New Point(224, 716)
+        Label25.Name = "Label25"
+        Label25.Size = New Size(57, 20)
+        Label25.TabIndex = 61
+        Label25.Text = "Label25"
+        ' 
+        ' Label26
+        ' 
+        Label26.AutoSize = True
+        Label26.Font = New Font("Arial Narrow", 11.25F, FontStyle.Bold)
+        Label26.Location = New Point(311, 716)
+        Label26.Name = "Label26"
+        Label26.Size = New Size(57, 20)
+        Label26.TabIndex = 62
+        Label26.Text = "Label26"
+        ' 
+        ' Timer1
+        ' 
+        ' 
+        ' Label27
+        ' 
+        Label27.AutoSize = True
+        Label27.Font = New Font("Arial Narrow", 11.25F, FontStyle.Bold)
+        Label27.Location = New Point(537, 716)
+        Label27.Name = "Label27"
+        Label27.Size = New Size(57, 20)
+        Label27.TabIndex = 64
+        Label27.Text = "Label27"
+        ' 
+        ' Label28
+        ' 
+        Label28.AutoSize = True
+        Label28.Font = New Font("Arial Narrow", 11.25F, FontStyle.Bold)
+        Label28.Location = New Point(450, 716)
+        Label28.Name = "Label28"
+        Label28.Size = New Size(57, 20)
+        Label28.TabIndex = 63
+        Label28.Text = "Label28"
+        ' 
         ' Billadd
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1370, 735)
+        ClientSize = New Size(1370, 749)
+        Controls.Add(Label27)
+        Controls.Add(Label28)
+        Controls.Add(Label26)
+        Controls.Add(Label25)
+        Controls.Add(Label24)
+        Controls.Add(Label23)
         Controls.Add(ListView1)
         Controls.Add(Panel1)
         Controls.Add(Panel2)
         Name = "Billadd"
         Text = "Billadd"
+        TopMost = True
+        WindowState = FormWindowState.Maximized
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
         GroupBox1.ResumeLayout(False)
@@ -646,4 +745,13 @@ Partial Class Billadd
     Friend WithEvents Label20 As Label
     Friend WithEvents Label21 As Label
     Friend WithEvents Button5 As Button
+    Friend WithEvents TextBox17 As TextBox
+    Friend WithEvents Label22 As Label
+    Friend WithEvents Label23 As Label
+    Friend WithEvents Label24 As Label
+    Friend WithEvents Label25 As Label
+    Friend WithEvents Label26 As Label
+    Friend WithEvents Timer1 As Timer
+    Friend WithEvents Label27 As Label
+    Friend WithEvents Label28 As Label
 End Class

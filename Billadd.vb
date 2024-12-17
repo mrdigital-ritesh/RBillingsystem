@@ -1,13 +1,30 @@
 ﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports MySql.Data.MySqlClient
+Imports System.Runtime.InteropServices
 Public Class Billadd
+
+
     Dim qry As String
     Dim cmd As MySqlCommand
     Dim Reader As MySqlDataReader
+    Dim totalItems As Integer = 0
+    Dim totalQuantity As Integer = 0
+    Dim preGst As Double = 0.0
+    Dim Amount As Double = 0.0
+    Dim totalDiscount As Double = 0.0
+    Dim totalAmount As Double = 0.0
+    Dim cgst As Double = 0.0
+    Dim sgst As Double = 0.0
+
+
     Private Sub Billadd_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
         Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
         Me.Size = New Size(screenWidth, screenHeight)
+
+
+        ' Full screen form
+        Me.TopMost = True
 
         'Me.FormBorderStyle = FormBorderStyle.None
         Me.WindowState = FormWindowState.Maximized
@@ -36,7 +53,14 @@ Public Class Billadd
         Label19.Text = "NET AMOUNT"
         Label20.Text = "BILL ID:"
         Label21.Text = ""
-
+        Label27.Text = ""
+        Label26.Text = ""
+        Label22.Text = "AMOUNT"
+        Label25.Text = "CASHIER ID:"
+        Label28.Text = "CASHIER NAME:"
+        Label23.Text = "DATE:"
+        Label24.Text = ""
+        Timer1.Enabled = True
         TextBox1.Enabled = False
         TextBox2.Enabled = False
         TextBox3.Enabled = False
@@ -93,12 +117,13 @@ Public Class Billadd
 
 
     Private Sub UpdateBill()
-        Dim totalItems As Integer = ListView1.Items.Count
-        Dim totalQuantity As Integer = 0
-        Dim totalDiscount As Double = 0.0
-        Dim totalAmount As Double = 0.0
-        Dim cgst As Double = 0.0
-        Dim sgst As Double = 0.0
+        totalItems = ListView1.Items.Count
+        totalQuantity = 0
+        totalDiscount = 0.0
+        totalAmount = 0.0
+        Amount = 0.0
+        cgst = 0.0
+        sgst = 0.0
 
         For Each itm As ListViewItem In ListView1.Items
             Dim qty As Integer = Convert.ToInt32(itm.SubItems(5).Text) ' Quantity
@@ -109,17 +134,23 @@ Public Class Billadd
             Dim discountedPrice As Double = price - (price * discount / 100)
             Dim itemTotal As Double = discountedPrice * qty
 
+            Dim amountqty = price * qty
+            Amount += amountqty
+
             totalQuantity += qty
             totalDiscount += (price * discount / 100) * qty
             totalAmount += itemTotal
 
-            Dim gstAmount As Double = itemTotal * gst / 100
+            preGst = Math.Round((itemTotal * 100) / (100 + gst), 2)
+            Dim gstAmount As Double = Math.Round(itemTotal - preGst, 2)
             cgst += gstAmount / 2
             sgst += gstAmount / 2
+
         Next
 
         TextBox11.Text = totalItems.ToString()
         TextBox12.Text = totalQuantity.ToString()
+        TextBox17.Text = Format(Amount, "0.00")
         TextBox13.Text = Format(totalDiscount, "0.00")
         TextBox14.Text = Format(cgst, "0.00")
         TextBox15.Text = Format(sgst, "0.00")
@@ -205,6 +236,7 @@ Public Class Billadd
         End If
         Reader.Close()
         conn.Close()
+        pid.Focus()
     End Sub
 
     Private Sub ListView1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListView1.SelectedIndexChanged
@@ -338,5 +370,13 @@ Public Class Billadd
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
         InsertNewCustomer()
+    End Sub
+
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        Label24.Text = Now
+    End Sub
+
+    Private Sub Label27_Click(sender As Object, e As EventArgs) Handles Label27.Click
+
     End Sub
 End Class
