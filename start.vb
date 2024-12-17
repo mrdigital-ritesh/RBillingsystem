@@ -9,22 +9,27 @@
     End Sub
 
 
-    Private Sub PictureBox2_Click_1(sender As Object, e As EventArgs) Handles PictureBox2.Click
-        loginform.Show()
 
-    End Sub
-
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-        loginform.Show()
-
-    End Sub
-
-    Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
-        loginform.Show()
-
-    End Sub
 
     Private Sub closebt_Click(sender As Object, e As EventArgs) Handles closebt.Click
         Me.Close()
+    End Sub
+
+    Private Sub PictureAdmin_Click(sender As Object, e As EventArgs) Handles PictureAdmin.Click
+        user = "admin"
+        loginform.Show()
+
+    End Sub
+
+    Private Sub PictureManager_Click(sender As Object, e As EventArgs) Handles PictureManager.Click
+        user = "manager"
+        loginform.Show()
+
+    End Sub
+
+    Private Sub PictureEmp_Click(sender As Object, e As EventArgs) Handles PictureEmp.Click
+        user = "emp"
+        loginform.Show()
+
     End Sub
 End Class

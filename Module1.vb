@@ -1,5 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 Module Module1
+    Public user As String = ""
+
     Public conn As New MySqlConnection
     Public Sub connect()
         conn.ConnectionString = "server=localhost;user id=root;password=Ritesh@123;database=vbbilling"

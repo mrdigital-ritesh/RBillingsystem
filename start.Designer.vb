@@ -26,13 +26,13 @@ Partial Class start
         EMPLOYEE = New Label()
         MANAGER = New Label()
         ADMIN = New Label()
-        PictureBox3 = New PictureBox()
-        PictureBox2 = New PictureBox()
-        PictureBox1 = New PictureBox()
+        PictureEmp = New PictureBox()
+        PictureManager = New PictureBox()
+        PictureAdmin = New PictureBox()
         closebt = New PictureBox()
-        CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
-        CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
-        CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
+        CType(PictureEmp, ComponentModel.ISupportInitialize).BeginInit()
+        CType(PictureManager, ComponentModel.ISupportInitialize).BeginInit()
+        CType(PictureAdmin, ComponentModel.ISupportInitialize).BeginInit()
         CType(closebt, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -79,38 +79,38 @@ Partial Class start
         ADMIN.TabIndex = 11
         ADMIN.Text = "ADMIN"
         ' 
-        ' PictureBox3
+        ' PictureEmp
         ' 
-        PictureBox3.BackColor = Color.Transparent
-        PictureBox3.BackgroundImage = My.Resources.Resources.cashier
-        PictureBox3.BackgroundImageLayout = ImageLayout.Stretch
-        PictureBox3.Location = New Point(614, 132)
-        PictureBox3.Name = "PictureBox3"
-        PictureBox3.Size = New Size(200, 200)
-        PictureBox3.TabIndex = 10
-        PictureBox3.TabStop = False
+        PictureEmp.BackColor = Color.Transparent
+        PictureEmp.BackgroundImage = My.Resources.Resources.cashier
+        PictureEmp.BackgroundImageLayout = ImageLayout.Stretch
+        PictureEmp.Location = New Point(614, 132)
+        PictureEmp.Name = "PictureEmp"
+        PictureEmp.Size = New Size(200, 200)
+        PictureEmp.TabIndex = 10
+        PictureEmp.TabStop = False
         ' 
-        ' PictureBox2
+        ' PictureManager
         ' 
-        PictureBox2.BackColor = Color.Transparent
-        PictureBox2.BackgroundImage = My.Resources.Resources.manager
-        PictureBox2.BackgroundImageLayout = ImageLayout.Stretch
-        PictureBox2.Location = New Point(338, 132)
-        PictureBox2.Name = "PictureBox2"
-        PictureBox2.Size = New Size(200, 200)
-        PictureBox2.TabIndex = 9
-        PictureBox2.TabStop = False
+        PictureManager.BackColor = Color.Transparent
+        PictureManager.BackgroundImage = My.Resources.Resources.manager
+        PictureManager.BackgroundImageLayout = ImageLayout.Stretch
+        PictureManager.Location = New Point(338, 132)
+        PictureManager.Name = "PictureManager"
+        PictureManager.Size = New Size(200, 200)
+        PictureManager.TabIndex = 9
+        PictureManager.TabStop = False
         ' 
-        ' PictureBox1
+        ' PictureAdmin
         ' 
-        PictureBox1.BackColor = Color.Transparent
-        PictureBox1.BackgroundImage = My.Resources.Resources.admin
-        PictureBox1.BackgroundImageLayout = ImageLayout.Stretch
-        PictureBox1.Location = New Point(54, 132)
-        PictureBox1.Name = "PictureBox1"
-        PictureBox1.Size = New Size(200, 200)
-        PictureBox1.TabIndex = 8
-        PictureBox1.TabStop = False
+        PictureAdmin.BackColor = Color.Transparent
+        PictureAdmin.BackgroundImage = My.Resources.Resources.admin
+        PictureAdmin.BackgroundImageLayout = ImageLayout.Stretch
+        PictureAdmin.Location = New Point(54, 132)
+        PictureAdmin.Name = "PictureAdmin"
+        PictureAdmin.Size = New Size(200, 200)
+        PictureAdmin.TabIndex = 8
+        PictureAdmin.TabStop = False
         ' 
         ' closebt
         ' 
@@ -133,9 +133,9 @@ Partial Class start
         Controls.Add(EMPLOYEE)
         Controls.Add(MANAGER)
         Controls.Add(ADMIN)
-        Controls.Add(PictureBox3)
-        Controls.Add(PictureBox2)
-        Controls.Add(PictureBox1)
+        Controls.Add(PictureEmp)
+        Controls.Add(PictureManager)
+        Controls.Add(PictureAdmin)
         Controls.Add(closebt)
         FormBorderStyle = FormBorderStyle.None
         MaximizeBox = False
@@ -145,9 +145,9 @@ Partial Class start
         SizeGripStyle = SizeGripStyle.Hide
         StartPosition = FormStartPosition.CenterScreen
         Text = "start"
-        CType(PictureBox3, ComponentModel.ISupportInitialize).EndInit()
-        CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
-        CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
+        CType(PictureEmp, ComponentModel.ISupportInitialize).EndInit()
+        CType(PictureManager, ComponentModel.ISupportInitialize).EndInit()
+        CType(PictureAdmin, ComponentModel.ISupportInitialize).EndInit()
         CType(closebt, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
@@ -156,8 +156,8 @@ Partial Class start
     Friend WithEvents EMPLOYEE As Label
     Friend WithEvents MANAGER As Label
     Friend WithEvents ADMIN As Label
-    Friend WithEvents PictureBox3 As PictureBox
-    Friend WithEvents PictureBox2 As PictureBox
-    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents PictureEmp As PictureBox
+    Friend WithEvents PictureManager As PictureBox
+    Friend WithEvents PictureAdmin As PictureBox
     Friend WithEvents closebt As PictureBox
 End Class

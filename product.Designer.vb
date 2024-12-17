@@ -153,7 +153,7 @@ Partial Class product
         ' category
         ' 
         category.AllowDrop = True
-        category.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        category.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0)
         category.FormattingEnabled = True
         category.Location = New Point(791, 141)
         category.Name = "category"
@@ -165,7 +165,7 @@ Partial Class product
         Label9.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         Label9.AutoSize = True
         Label9.BackColor = Color.Transparent
-        Label9.Font = New Font("Rockwell", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label9.Font = New Font("Rockwell", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0)
         Label9.Location = New Point(580, 12)
         Label9.Name = "Label9"
         Label9.Size = New Size(69, 21)
