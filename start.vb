@@ -1,4 +1,12 @@
 ﻿Public Class start
+    Protected Overrides ReadOnly Property CreateParams As CreateParams
+        Get
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ExStyle = cp.ExStyle Or &H2000000 ' WS_EX_COMPOSITED
+            Return cp
+        End Get
+    End Property
+
     Private Sub start_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.BackgroundImage = My.Resources.bg
         Me.BackgroundImageLayout = ImageLayout.Stretch

@@ -1,6 +1,8 @@
 ﻿Imports MySql.Data.MySqlClient
 Module Module1
     Public user As String = ""
+    Public userid As String = ""
+    Public username As String = ""
 
     Public conn As New MySqlConnection
     Public Sub connect()

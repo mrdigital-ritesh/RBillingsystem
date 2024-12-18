@@ -27,15 +27,27 @@ Partial Class loginform
         backbt = New PictureBox()
         closebt = New PictureBox()
         Panel1 = New Panel()
+        PictureBox2 = New PictureBox()
+        Button1 = New Button()
+        Label3 = New Label()
         Loginbtn = New Button()
         TextBox2 = New TextBox()
         Label2 = New Label()
         TextBox1 = New TextBox()
         Label1 = New Label()
         loginlabel = New Label()
+        Panel2 = New Panel()
+        Label4 = New Label()
+        PictureBox3 = New PictureBox()
+        TextBox3 = New TextBox()
+        PictureBox1 = New PictureBox()
         CType(backbt, ComponentModel.ISupportInitialize).BeginInit()
         CType(closebt, ComponentModel.ISupportInitialize).BeginInit()
         Panel1.SuspendLayout()
+        CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
+        Panel2.SuspendLayout()
+        CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
+        CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' MySqlCommand1
@@ -70,15 +82,49 @@ Partial Class loginform
         ' Panel1
         ' 
         Panel1.BackColor = SystemColors.MenuBar
+        Panel1.Controls.Add(PictureBox2)
+        Panel1.Controls.Add(Button1)
+        Panel1.Controls.Add(Label3)
         Panel1.Controls.Add(Loginbtn)
         Panel1.Controls.Add(TextBox2)
         Panel1.Controls.Add(Label2)
         Panel1.Controls.Add(TextBox1)
         Panel1.Controls.Add(Label1)
-        Panel1.Location = New Point(148, 146)
+        Panel1.Location = New Point(148, 97)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(574, 252)
+        Panel1.Size = New Size(574, 336)
         Panel1.TabIndex = 5
+        ' 
+        ' PictureBox2
+        ' 
+        PictureBox2.BackColor = Color.Transparent
+        PictureBox2.BackgroundImage = My.Resources.Resources.rfid
+        PictureBox2.BackgroundImageLayout = ImageLayout.Zoom
+        PictureBox2.Location = New Point(328, 282)
+        PictureBox2.Name = "PictureBox2"
+        PictureBox2.Size = New Size(38, 25)
+        PictureBox2.SizeMode = PictureBoxSizeMode.StretchImage
+        PictureBox2.TabIndex = 8
+        PictureBox2.TabStop = False
+        ' 
+        ' Button1
+        ' 
+        Button1.Font = New Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Button1.Location = New Point(191, 275)
+        Button1.Name = "Button1"
+        Button1.Size = New Size(193, 38)
+        Button1.TabIndex = 6
+        Button1.Text = "USE RFID"
+        Button1.UseVisualStyleBackColor = True
+        ' 
+        ' Label3
+        ' 
+        Label3.AutoSize = True
+        Label3.Location = New Point(267, 246)
+        Label3.Name = "Label3"
+        Label3.Size = New Size(41, 15)
+        Label3.TabIndex = 5
+        Label3.Text = "Label3"
         ' 
         ' Loginbtn
         ' 
@@ -93,17 +139,17 @@ Partial Class loginform
         ' TextBox2
         ' 
         TextBox2.Font = New Font("Segoe UI", 12F)
-        TextBox2.Location = New Point(281, 114)
-        TextBox2.Multiline = True
+        TextBox2.Location = New Point(303, 117)
         TextBox2.Name = "TextBox2"
-        TextBox2.Size = New Size(180, 31)
+        TextBox2.PasswordChar = "*"c
+        TextBox2.Size = New Size(180, 29)
         TextBox2.TabIndex = 3
         ' 
         ' Label2
         ' 
         Label2.AutoSize = True
         Label2.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold)
-        Label2.Location = New Point(68, 124)
+        Label2.Location = New Point(91, 120)
         Label2.Name = "Label2"
         Label2.Size = New Size(99, 21)
         Label2.TabIndex = 2
@@ -112,17 +158,16 @@ Partial Class loginform
         ' TextBox1
         ' 
         TextBox1.Font = New Font("Segoe UI", 12F)
-        TextBox1.Location = New Point(281, 46)
-        TextBox1.Multiline = True
+        TextBox1.Location = New Point(303, 53)
         TextBox1.Name = "TextBox1"
-        TextBox1.Size = New Size(180, 35)
+        TextBox1.Size = New Size(180, 29)
         TextBox1.TabIndex = 1
         ' 
         ' Label1
         ' 
         Label1.AutoSize = True
         Label1.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold)
-        Label1.Location = New Point(68, 60)
+        Label1.Location = New Point(91, 56)
         Label1.Name = "Label1"
         Label1.Size = New Size(72, 21)
         Label1.TabIndex = 0
@@ -133,11 +178,64 @@ Partial Class loginform
         loginlabel.AutoSize = True
         loginlabel.BackColor = Color.Transparent
         loginlabel.Font = New Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        loginlabel.Location = New Point(391, 73)
+        loginlabel.Location = New Point(359, 32)
         loginlabel.Name = "loginlabel"
         loginlabel.Size = New Size(153, 40)
         loginlabel.TabIndex = 6
         loginlabel.Text = "loginlabel" & vbCrLf
+        ' 
+        ' Panel2
+        ' 
+        Panel2.BackColor = Color.White
+        Panel2.BorderStyle = BorderStyle.Fixed3D
+        Panel2.Controls.Add(Label4)
+        Panel2.Controls.Add(PictureBox3)
+        Panel2.Controls.Add(TextBox3)
+        Panel2.Controls.Add(PictureBox1)
+        Panel2.Location = New Point(198, 94)
+        Panel2.Name = "Panel2"
+        Panel2.Size = New Size(474, 293)
+        Panel2.TabIndex = 7
+        ' 
+        ' Label4
+        ' 
+        Label4.AutoSize = True
+        Label4.Font = New Font("Arial", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label4.Location = New Point(178, 247)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(172, 17)
+        Label4.TabIndex = 8
+        Label4.Text = "Please Scan Your Card..."
+        ' 
+        ' PictureBox3
+        ' 
+        PictureBox3.Image = My.Resources.Resources.scangif
+        PictureBox3.Location = New Point(96, 17)
+        PictureBox3.Name = "PictureBox3"
+        PictureBox3.Size = New Size(279, 255)
+        PictureBox3.SizeMode = PictureBoxSizeMode.Zoom
+        PictureBox3.TabIndex = 7
+        PictureBox3.TabStop = False
+        ' 
+        ' TextBox3
+        ' 
+        TextBox3.BorderStyle = BorderStyle.None
+        TextBox3.ForeColor = Color.Transparent
+        TextBox3.Location = New Point(342, 244)
+        TextBox3.Name = "TextBox3"
+        TextBox3.Size = New Size(0, 16)
+        TextBox3.TabIndex = 6
+        ' 
+        ' PictureBox1
+        ' 
+        PictureBox1.BackColor = Color.Transparent
+        PictureBox1.BackgroundImage = My.Resources.Resources.previous
+        PictureBox1.BackgroundImageLayout = ImageLayout.Stretch
+        PictureBox1.Location = New Point(441, 7)
+        PictureBox1.Name = "PictureBox1"
+        PictureBox1.Size = New Size(25, 25)
+        PictureBox1.TabIndex = 5
+        PictureBox1.TabStop = False
         ' 
         ' loginform
         ' 
@@ -146,6 +244,7 @@ Partial Class loginform
         BackColor = Color.White
         BackgroundImageLayout = ImageLayout.Stretch
         ClientSize = New Size(870, 481)
+        Controls.Add(Panel2)
         Controls.Add(loginlabel)
         Controls.Add(Panel1)
         Controls.Add(backbt)
@@ -154,10 +253,16 @@ Partial Class loginform
         Name = "loginform"
         StartPosition = FormStartPosition.CenterScreen
         Text = "loginform"
+        TopMost = True
         CType(backbt, ComponentModel.ISupportInitialize).EndInit()
         CType(closebt, ComponentModel.ISupportInitialize).EndInit()
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
+        CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
+        Panel2.ResumeLayout(False)
+        Panel2.PerformLayout()
+        CType(PictureBox3, ComponentModel.ISupportInitialize).EndInit()
+        CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -171,4 +276,12 @@ Partial Class loginform
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents Loginbtn As Button
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Button1 As Button
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents PictureBox3 As PictureBox
+    Friend WithEvents Label4 As Label
 End Class

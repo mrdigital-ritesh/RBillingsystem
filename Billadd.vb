@@ -1,6 +1,5 @@
 ﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports MySql.Data.MySqlClient
-Imports System.Runtime.InteropServices
 Public Class Billadd
 
 
@@ -56,8 +55,8 @@ Public Class Billadd
         Label27.Text = ""
         Label26.Text = ""
         Label22.Text = "AMOUNT"
-        Label25.Text = "CASHIER ID:"
-        Label28.Text = "CASHIER NAME:"
+        Label25.Text = "EMPLOYEE ID:"
+        Label28.Text = "EMPLOYEE NAME:"
         Label23.Text = "DATE:"
         Label24.Text = ""
         Timer1.Enabled = True
