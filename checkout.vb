@@ -1,6 +1,9 @@
 ﻿Imports System.Windows.Forms.ListView
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports MySql.Data.MySqlClient
+Imports QRCoder
+Imports System.Drawing
+
 
 Public Class checkout
 
@@ -12,9 +15,10 @@ Public Class checkout
     End Sub
 
     Private Sub checkout_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Me.TopMost = True
         TextBox2.Focus()
-
+        ListView2.Visible = False
+        Me.TopMost = True
+        Panel5.Visible = False
 
         Label6.Text = "MODE: CASH"
         Label1.Text = "PROCEED TO PAY"
@@ -51,6 +55,7 @@ Public Class checkout
         Next
     End Sub
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+        Panel5.Visible = False
         Label6.Text = "MODE: CASH"
     End Sub
 
@@ -60,6 +65,19 @@ Public Class checkout
 
     Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
         Label6.Text = "MODE: UPI"
+        Panel5.Visible = True
+        Dim formattedAmount As String = totalAmount.ToString("F2") ' Ensures two decimal places
+        Dim upiString As String = $"upi://pay?pa=7597372851@paytm&pn=RITESH%20BAGDI&am={formattedAmount}&cu=INR&tn=TestTransaction"
+
+        Dim qrGenerator As New QRCodeGenerator()
+        Dim qrData As QRCodeData = qrGenerator.CreateQrCode(upiString, QRCodeGenerator.ECCLevel.Q)
+        Dim qrCode As New QRCode(qrData)
+
+        Dim qrBitmap As Bitmap = qrCode.GetGraphic(20)
+
+        PictureBox4.Image = qrBitmap
+        PictureBox4.SizeMode = PictureBoxSizeMode.StretchImage
+
     End Sub
 
     Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles TextBox2.TextChanged
@@ -146,7 +164,7 @@ Public Class checkout
 
 
     '------> from here all data go in database -RB
-    Private Async Sub InsertBill()
+    Private Sub InsertBill()
         Try
             If conn.State = ConnectionState.Closed Then
                 connect()
@@ -168,9 +186,8 @@ Public Class checkout
             cmd.Parameters.AddWithValue("@netamount", Convert.ToDouble(totalAmount))
             cmd.Parameters.AddWithValue("@date", DateTime.Now)
 
-            Await cmd.ExecuteNonQueryAsync()
+            cmd.ExecuteNonQuery()
 
-            MessageBox.Show("Bill inserted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         Catch ex As MySqlException
             MessageBox.Show("MySQL Error: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -184,24 +201,136 @@ Public Class checkout
     End Sub
 
 
-    Private Sub InsertBillData(billID As Integer, productID As String, quantity As Integer, price As Double, discount As Double, gst As Double, totalAmount As Double, preGstAmount As Double)
+    Private Sub InsertBillData(billID As Integer, productID As Integer, productname As String, productbrand As String, productcat As String, productMRP As Integer, quantity As Integer, discount As Double, gst As Double, totalAmount As Double, preGstAmount As Double)
         Try
             If conn.State = ConnectionState.Closed Then
                 connect()
             End If
 
-            qry = "INSERT INTO billdata (bill_id, pro_id, qty, price, discount, gst, total_amount, pregst_amount) " &
-                  "VALUES (@BillID, @ProductID, @Quantity, @Price, @Discount, @GST, @TotalAmount, @PreGSTAmount)"
+            qry = "INSERT INTO bill_data (bill_id, pro_id, pro_name, pro_brand, cat_name, pro_mrp, pro_qty, pro_disc, pro_gst, pro_total, pre_gst) " &
+              "VALUES (@BillID, @ProductID, @ProductName, @ProductBrand, @ProductCat, @ProductMRP, @Quantity, @Discount, @GST, @TotalAmount, @PreGSTAmount)"
             cmd = New MySqlCommand(qry, conn)
 
             cmd.Parameters.AddWithValue("@BillID", billID)
             cmd.Parameters.AddWithValue("@ProductID", productID)
+            cmd.Parameters.AddWithValue("@ProductName", productname)
+            cmd.Parameters.AddWithValue("@ProductBrand", productbrand)
+            cmd.Parameters.AddWithValue("@ProductCat", productcat)
+            cmd.Parameters.AddWithValue("@ProductMRP", productMRP)
             cmd.Parameters.AddWithValue("@Quantity", quantity)
-            cmd.Parameters.AddWithValue("@Price", price)
             cmd.Parameters.AddWithValue("@Discount", discount)
             cmd.Parameters.AddWithValue("@GST", gst)
             cmd.Parameters.AddWithValue("@TotalAmount", totalAmount)
             cmd.Parameters.AddWithValue("@PreGSTAmount", preGstAmount)
+
+            ' Execute the non-query command
+            cmd.ExecuteNonQuery()
+
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If conn IsNot Nothing AndAlso conn.State = ConnectionState.Open Then
+                conn.Close()
+            End If
+        End Try
+    End Sub
+
+
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        SaveBillData()
+        Billadd.reloadBill()
+    End Sub
+
+    'new code logic for all db
+
+
+    Private Sub SaveBillData()
+        Try
+
+            If String.IsNullOrWhiteSpace(custnum) Then
+                MessageBox.Show("Customer phone number is required.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
+            If CheckCustomer(custnum) Then
+                UpdateCustomerInfo()
+            Else
+                'For ADD new Customer
+                InsertNewCustomer()
+                If Not CheckCustomer(custnum) Then
+                    MessageBox.Show("Failed to add new customer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit Sub
+                End If
+            End If
+            'for BILL TABLE
+            InsertBill()
+            'for Bill data table
+            For Each item As ListViewItem In ListView2.Items
+                Dim productID As Integer = Convert.ToInt32(item.SubItems(0).Text)
+                Dim productname As String = item.SubItems(1).Text
+                Dim productbrand As String = item.SubItems(2).Text
+                Dim productcat As String = item.SubItems(3).Text
+                Dim productMRP As Double = Convert.ToDouble(item.SubItems(4).Text)
+                Dim productQty As Integer = Convert.ToInt32(item.SubItems(5).Text)
+                Dim discount As Double = Convert.ToDouble(item.SubItems(6).Text)
+                Dim gstrate As Double = Convert.ToDouble(item.SubItems(7).Text)
+                Dim totalamt As Double = Convert.ToDouble(item.SubItems(8).Text)
+                Dim PropreGst As Double = Convert.ToDouble(item.SubItems(9).Text)
+
+                InsertBillData(billid, productID, productname, productbrand, productcat, productMRP, productQty, discount, gstrate, totalamt, PropreGst)
+            Next
+
+            MessageBox.Show("Bill Generated succesfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Function CheckCustomer(phoneNumber As String) As Boolean
+        Dim result As Boolean = False
+        Try
+            If conn.State = ConnectionState.Closed Then
+                connect()
+            End If
+
+            Dim qry As String = "SELECT 1 FROM customer WHERE cust_ph = @PhoneNumber LIMIT 1"
+            cmd = New MySqlCommand(qry, conn)
+            cmd.Parameters.AddWithValue("@PhoneNumber", phoneNumber)
+
+            ' Use Using block to ensure the reader is closed automatically
+            Using reader As MySqlDataReader = cmd.ExecuteReader()
+                If reader.HasRows Then
+                    result = True
+                End If
+            End Using ' reader will be closed here automatically
+
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If conn IsNot Nothing AndAlso conn.State = ConnectionState.Open Then
+                conn.Close()
+            End If
+        End Try
+        Return result
+    End Function
+
+
+
+
+    Private Sub UpdateCustomerInfo()
+        Try
+            If conn.State = ConnectionState.Closed Then
+                connect()
+            End If
+
+            Dim qry As String = "UPDATE customer SET cust_name = @Name, cust_email = @Email, cust_dob = @DOB WHERE cust_ph = @Customerphone"
+            cmd = New MySqlCommand(qry, conn)
+
+            cmd.Parameters.AddWithValue("@Name", custname)
+            cmd.Parameters.AddWithValue("@Email", custmail)
+            cmd.Parameters.AddWithValue("@DOB", custdob)
+            cmd.Parameters.AddWithValue("@Customerphone", custnum)
 
             cmd.ExecuteNonQuery()
         Catch ex As Exception
@@ -213,7 +342,32 @@ Public Class checkout
         End Try
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        InsertBill()
+
+    Private Sub InsertNewCustomer()
+        Try
+            If conn.State = ConnectionState.Closed Then
+                connect()
+            End If
+
+            qry = "INSERT INTO customer (cust_ph, cust_name, cust_email, cust_dob) VALUES (@Customerphone, @Name, @Email, @DOB)"
+            cmd = New MySqlCommand(qry, conn)
+
+            cmd.Parameters.AddWithValue("@Name", custname)
+            cmd.Parameters.AddWithValue("@Email", custmail)
+            cmd.Parameters.AddWithValue("@DOB", custdob)
+            cmd.Parameters.AddWithValue("@Customerphone", custnum)
+
+            cmd.ExecuteNonQuery()
+
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If conn IsNot Nothing AndAlso conn.State = ConnectionState.Open Then
+                conn.Close()
+            End If
+        End Try
+
     End Sub
+
+
 End Class

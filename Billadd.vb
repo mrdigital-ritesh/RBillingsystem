@@ -92,7 +92,29 @@ Public Class Billadd
         e.DrawDefault = True
     End Sub
 
+    Public Sub reloadBill()
+        autobill()
+        TextBox1.Text = String.Empty
+        TextBox2.Text = String.Empty
+        TextBox3.Text = String.Empty
+        TextBox4.Text = String.Empty
+        TextBox5.Text = String.Empty
+        TextBox6.Text = String.Empty
+        TextBox7.Text = String.Empty
+        TextBox8.Text = String.Empty
+        TextBox9.Text = String.Empty
+        TextBox10.Text = String.Empty
+        TextBox11.Text = String.Empty
+        TextBox12.Text = String.Empty
+        TextBox13.Text = String.Empty
+        TextBox14.Text = String.Empty
+        TextBox15.Text = String.Empty
+        TextBox16.Text = String.Empty
+        TextBox17.Text = String.Empty
+        DateTimePicker1.Text = Now()
+        ListView1.Items.Clear()
 
+    End Sub
 
     Public Sub autobill()
         Try
@@ -356,36 +378,6 @@ Public Class Billadd
             End Try
         End If
     End Sub
-
-    Private Sub InsertNewCustomer()
-        Try
-            If conn.State = ConnectionState.Closed Then
-                connect()
-            End If
-
-            qry = "INSERT INTO customer (cust_ph, cust_name, cust_email, cust_dob) VALUES (@PhoneNumber, @Name, @Email, @DOB)"
-            cmd = New MySqlCommand(qry, conn)
-
-            cmd.Parameters.AddWithValue("@PhoneNumber", TextBox8.Text)
-            cmd.Parameters.AddWithValue("@Name", TextBox9.Text)
-            cmd.Parameters.AddWithValue("@Email", TextBox10.Text)
-            cmd.Parameters.AddWithValue("@DOB", DateTimePicker1.Value.ToString("yyyy-MM-dd"))
-
-            cmd.ExecuteNonQuery()
-            MessageBox.Show("New customer added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-        Catch ex As Exception
-            MessageBox.Show("Error: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            If conn IsNot Nothing AndAlso conn.State = ConnectionState.Open Then
-                conn.Close()
-            End If
-        End Try
-        InsertNewCustomer()
-
-    End Sub
-
-
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Label24.Text = Now

@@ -18,9 +18,6 @@ Module Module1
     Public custmail As String
     Public custdob As String
 
-
-
-
     Public conn As New MySqlConnection
     Public Sub connect()
         conn.ConnectionString = "server=localhost;user id=root;password=Ritesh@123;database=vbbilling"

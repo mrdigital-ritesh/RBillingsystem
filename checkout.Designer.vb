@@ -33,6 +33,9 @@ Partial Class checkout
         Button1 = New Button()
         Label6 = New Label()
         Panel4 = New Panel()
+        Panel5 = New Panel()
+        Label10 = New Label()
+        PictureBox4 = New PictureBox()
         label8 = New TextBox()
         Label7 = New Label()
         TextBox3 = New TextBox()
@@ -52,6 +55,8 @@ Partial Class checkout
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         Panel2.SuspendLayout()
         Panel4.SuspendLayout()
+        Panel5.SuspendLayout()
+        CType(PictureBox4, ComponentModel.ISupportInitialize).BeginInit()
         Panel3.SuspendLayout()
         SuspendLayout()
         ' 
@@ -175,6 +180,7 @@ Partial Class checkout
         ' 
         ' Panel4
         ' 
+        Panel4.Controls.Add(Panel5)
         Panel4.Controls.Add(label8)
         Panel4.Controls.Add(Label7)
         Panel4.Controls.Add(TextBox3)
@@ -187,6 +193,33 @@ Partial Class checkout
         Panel4.Name = "Panel4"
         Panel4.Size = New Size(623, 261)
         Panel4.TabIndex = 1
+        ' 
+        ' Panel5
+        ' 
+        Panel5.Controls.Add(Label10)
+        Panel5.Controls.Add(PictureBox4)
+        Panel5.Location = New Point(1, 5)
+        Panel5.Name = "Panel5"
+        Panel5.Size = New Size(622, 260)
+        Panel5.TabIndex = 9
+        ' 
+        ' Label10
+        ' 
+        Label10.AutoSize = True
+        Label10.Font = New Font("Arial Narrow", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label10.Location = New Point(264, 241)
+        Label10.Name = "Label10"
+        Label10.Size = New Size(95, 16)
+        Label10.TabIndex = 7
+        Label10.Text = "SCAN QR TO PAY"
+        ' 
+        ' PictureBox4
+        ' 
+        PictureBox4.Location = New Point(177, 8)
+        PictureBox4.Name = "PictureBox4"
+        PictureBox4.Size = New Size(268, 232)
+        PictureBox4.TabIndex = 0
+        PictureBox4.TabStop = False
         ' 
         ' label8
         ' 
@@ -283,7 +316,7 @@ Partial Class checkout
         ' 
         ' ListView2
         ' 
-        ListView2.Location = New Point(10, 0)
+        ListView2.Location = New Point(3, 15)
         ListView2.Name = "ListView2"
         ListView2.Size = New Size(415, 105)
         ListView2.TabIndex = 11
@@ -336,6 +369,9 @@ Partial Class checkout
         Panel2.PerformLayout()
         Panel4.ResumeLayout(False)
         Panel4.PerformLayout()
+        Panel5.ResumeLayout(False)
+        Panel5.PerformLayout()
+        CType(PictureBox4, ComponentModel.ISupportInitialize).EndInit()
         Panel3.ResumeLayout(False)
         Panel3.PerformLayout()
         ResumeLayout(False)
@@ -364,4 +400,7 @@ Partial Class checkout
     Friend WithEvents Button1 As Button
     Friend WithEvents Label9 As Label
     Friend WithEvents ListView2 As ListView
+    Friend WithEvents Panel5 As Panel
+    Friend WithEvents PictureBox4 As PictureBox
+    Friend WithEvents Label10 As Label
 End Class
