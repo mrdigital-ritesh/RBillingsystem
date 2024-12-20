@@ -6,14 +6,8 @@ Public Class Billadd
     Dim qry As String
     Dim cmd As MySqlCommand
     Dim Reader As MySqlDataReader
-    Dim totalItems As Integer = 0
-    Dim totalQuantity As Integer = 0
-    Dim preGst As Double = 0.0
-    Dim Amount As Double = 0.0
-    Dim totalDiscount As Double = 0.0
-    Dim totalAmount As Double = 0.0
-    Dim cgst As Double = 0.0
-    Dim sgst As Double = 0.0
+
+
 
 
     Private Sub Billadd_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -21,10 +15,7 @@ Public Class Billadd
         Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
         Me.Size = New Size(screenWidth, screenHeight)
 
-
-        ' Full screen form
-        Me.TopMost = True
-
+        Me.TopMost = False
         'Me.FormBorderStyle = FormBorderStyle.None
         Me.WindowState = FormWindowState.Maximized
         pid.Focus()
@@ -50,7 +41,7 @@ Public Class Billadd
         Label17.Text = "CGST:"
         Label18.Text = "SGST:"
         Label19.Text = "NET AMOUNT"
-        Label20.Text = "BILL ID:"
+        Label20.Text = "BILL NO:"
         Label21.Text = ""
         Label27.Text = ""
         Label26.Text = ""
@@ -72,20 +63,37 @@ Public Class Billadd
         Button2.Text = "DELETE ITEM"
         Button3.Text = "DRAFT ITEM"
         Button4.Text = "CLEAR"
-        Button5.Text = "Generate Bill"
+        Button5.Text = "CHECKOUT"
 
+        ListView1.OwnerDraw = True
         ListView1.View = View.Details
+
         ListView1.Columns.Clear()
-        ListView1.Columns.Add("PRODUCT ID", 100, HorizontalAlignment.Left)
-        ListView1.Columns.Add("PRODUCT NAME", 150, HorizontalAlignment.Left)
-        ListView1.Columns.Add("BRAND", 120, HorizontalAlignment.Left)
-        ListView1.Columns.Add("CATEGORY", 100, HorizontalAlignment.Left)
-        ListView1.Columns.Add("PRICE", 100, HorizontalAlignment.Left)
-        ListView1.Columns.Add("QUANTITY", 70, HorizontalAlignment.Left)
-        ListView1.Columns.Add("DISCOUNT", 80, HorizontalAlignment.Left)
-        ListView1.Columns.Add("GST", 80, HorizontalAlignment.Left)
-        ListView1.Columns.Add("TOTAL", 120, HorizontalAlignment.Left)
+        ListView1.Columns.Add("  PRODUCT ID", 100, HorizontalAlignment.Center)
+        ListView1.Columns.Add("PRODUCT NAME", 150, HorizontalAlignment.Center)
+        ListView1.Columns.Add("BRAND", 120, HorizontalAlignment.Center)
+        ListView1.Columns.Add("CATEGORY", 100, HorizontalAlignment.Center)
+        ListView1.Columns.Add("PRICE", 100, HorizontalAlignment.Center)
+        ListView1.Columns.Add("QTY", 70, HorizontalAlignment.Center)
+        ListView1.Columns.Add("DIS %", 80, HorizontalAlignment.Center)
+        ListView1.Columns.Add("GST %", 80, HorizontalAlignment.Center)
+        ListView1.Columns.Add("TOTAL", 120, HorizontalAlignment.Center)
+        ListView1.Columns.Add("PREGST", 120, HorizontalAlignment.Center)
+
     End Sub
+    Private Sub ListView1_DrawColumnHeader(sender As Object, e As DrawListViewColumnHeaderEventArgs) Handles ListView1.DrawColumnHeader
+        Using headerFont As New Font(e.Font, FontStyle.Bold)
+            e.Graphics.FillRectangle(Brushes.LightBlue, e.Bounds)
+            TextRenderer.DrawText(e.Graphics, e.Header.Text, headerFont, e.Bounds, Color.Black, TextFormatFlags.VerticalCenter Or TextFormatFlags.HorizontalCenter)
+        End Using
+    End Sub
+
+    Private Sub ListView1_DrawItem(sender As Object, e As DrawListViewItemEventArgs) Handles ListView1.DrawItem
+        e.DrawDefault = True
+    End Sub
+
+
+
     Public Sub autobill()
         Try
             If conn.State = ConnectionState.Closed Then
@@ -100,8 +108,11 @@ Public Class Billadd
             If Reader.Read() AndAlso Not IsDBNull(Reader(0)) Then
                 Dim bill_id As Double = Convert.ToDouble(Reader(0))
                 Me.Label21.Text = (bill_id + 1).ToString()
+                billid = Label21.Text
             Else
                 Me.Label21.Text = "2001"
+                billid = Label21.Text
+
             End If
 
             Reader.Close()
@@ -153,16 +164,17 @@ Public Class Billadd
         TextBox13.Text = Format(totalDiscount, "0.00")
         TextBox14.Text = Format(cgst, "0.00")
         TextBox15.Text = Format(sgst, "0.00")
-        TextBox16.Text = Format(totalAmount)
+        TextBox16.Text = Math.Round(totalAmount)
+
     End Sub
 
 
     Private Sub pid_TextChanged(sender As Object, e As EventArgs) Handles pid.TextChanged
         Call connect()
         qry = "SELECT p.*, c.gst " &
-                    "FROM products p " &
-                    "INNER JOIN category c ON p.cat_name = c.cat_name " &
-                    "WHERE p.pro_id = @ProID"
+                "FROM products p " &
+                "INNER JOIN category c ON p.cat_name = c.cat_name " &
+                "WHERE p.pro_id = @ProID"
         cmd = New MySqlCommand(qry, conn)
         cmd.Parameters.AddWithValue("@ProID", pid.Text)
 
@@ -186,7 +198,6 @@ Public Class Billadd
                 proDiscount = Convert.ToDouble(Reader("pro_disc"))
                 proGST = Convert.ToDouble(Reader("gst"))
 
-
                 TextBox1.Text = proName
                 TextBox2.Text = proBrand
                 TextBox3.Text = proCategory
@@ -201,6 +212,9 @@ Public Class Billadd
 
                 Dim discountedPrice As Double = proPrice - (proPrice * proDiscount / 100)
                 Dim totalAmount As Double = discountedPrice * enteredQty
+
+                ' Calculate pre-GST amount
+                Dim preGstAmount As Double = Math.Round((totalAmount * 100) / (100 + proGST), 2)
 
                 Dim exists As Boolean = False
 
@@ -228,6 +242,7 @@ Public Class Billadd
                     itm.SubItems.Add(Format(proDiscount, "0.00")) ' Discount
                     itm.SubItems.Add(Format(proGST, "0.00")) ' GST percentage
                     itm.SubItems.Add(Format(totalAmount, "0.00")) ' Total amount
+                    itm.SubItems.Add(Format(preGstAmount, "0.00")) ' Pre-GST amount
                     ListView1.Items.Add(itm)
                 End If
             End While
@@ -237,6 +252,7 @@ Public Class Billadd
         conn.Close()
         pid.Focus()
     End Sub
+
 
     Private Sub ListView1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListView1.SelectedIndexChanged
         If ListView1.SelectedItems.Count > 0 Then
@@ -365,11 +381,11 @@ Public Class Billadd
                 conn.Close()
             End If
         End Try
+        InsertNewCustomer()
+
     End Sub
 
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        InsertNewCustomer()
-    End Sub
+
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Label24.Text = Now
@@ -377,5 +393,40 @@ Public Class Billadd
 
     Private Sub Label27_Click(sender As Object, e As EventArgs) Handles Label27.Click
 
+    End Sub
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        pid.Clear()
+        TextBox1.Clear()
+        TextBox2.Clear()
+        TextBox3.Clear()
+        TextBox4.Clear()
+        TextBox5.Clear()
+        TextBox6.Clear()
+        TextBox7.Clear()
+        TextBox8.Clear()
+        TextBox9.Clear()
+        TextBox10.Clear()
+        TextBox11.Clear()
+        TextBox12.Clear()
+        TextBox13.Clear()
+        TextBox14.Clear()
+        TextBox15.Clear()
+        TextBox16.Clear()
+        TextBox17.Clear()
+        DateTimePicker1.Text = Now
+        ListView1.Items.Clear()
+
+
+    End Sub
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        checkout.SetListViewData(ListView1.Items)
+        custnum = TextBox8.Text
+        custname = TextBox9.Text
+        custmail = TextBox10.Text
+        custdob = DateTimePicker1.Value.ToString("yyyy-MM-dd")
+
+        checkout.Show()
     End Sub
 End Class

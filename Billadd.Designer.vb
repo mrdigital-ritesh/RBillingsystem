@@ -90,10 +90,10 @@ Partial Class Billadd
         Label1.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         Label1.AutoSize = True
         Label1.BackColor = Color.Transparent
-        Label1.Font = New Font("Rockwell", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label1.Font = New Font("Javanese Text", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label1.Location = New Point(638, 10)
         Label1.Name = "Label1"
-        Label1.Size = New Size(82, 21)
+        Label1.Size = New Size(112, 47)
         Label1.TabIndex = 35
         Label1.Text = "BILLING"
         ' 
@@ -136,7 +136,7 @@ Partial Class Billadd
         ' 
         Label21.AutoSize = True
         Label21.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold)
-        Label21.Location = New Point(148, 23)
+        Label21.Location = New Point(148, 22)
         Label21.Name = "Label21"
         Label21.Size = New Size(64, 21)
         Label21.TabIndex = 59
@@ -468,9 +468,11 @@ Partial Class Billadd
         ' 
         ' TextBox17
         ' 
+        TextBox17.BackColor = SystemColors.Window
         TextBox17.Font = New Font("Segoe UI", 9.75F)
         TextBox17.Location = New Point(239, 114)
         TextBox17.Name = "TextBox17"
+        TextBox17.ReadOnly = True
         TextBox17.Size = New Size(138, 25)
         TextBox17.TabIndex = 64
         ' 
@@ -508,19 +510,23 @@ Partial Class Billadd
         ' 
         ' TextBox16
         ' 
+        TextBox16.BackColor = SystemColors.Window
         TextBox16.Font = New Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         TextBox16.ForeColor = Color.Red
         TextBox16.Location = New Point(49, 332)
         TextBox16.Multiline = True
         TextBox16.Name = "TextBox16"
+        TextBox16.ReadOnly = True
         TextBox16.Size = New Size(165, 41)
         TextBox16.TabIndex = 61
         ' 
         ' TextBox15
         ' 
+        TextBox15.BackColor = SystemColors.Window
         TextBox15.Font = New Font("Segoe UI", 9.75F)
         TextBox15.Location = New Point(239, 243)
         TextBox15.Name = "TextBox15"
+        TextBox15.ReadOnly = True
         TextBox15.Size = New Size(138, 25)
         TextBox15.TabIndex = 59
         ' 
@@ -536,9 +542,11 @@ Partial Class Billadd
         ' 
         ' TextBox14
         ' 
+        TextBox14.BackColor = SystemColors.Window
         TextBox14.Font = New Font("Segoe UI", 9.75F)
         TextBox14.Location = New Point(239, 200)
         TextBox14.Name = "TextBox14"
+        TextBox14.ReadOnly = True
         TextBox14.Size = New Size(138, 25)
         TextBox14.TabIndex = 57
         ' 
@@ -554,9 +562,11 @@ Partial Class Billadd
         ' 
         ' TextBox13
         ' 
+        TextBox13.BackColor = SystemColors.Window
         TextBox13.Font = New Font("Segoe UI", 9.75F)
         TextBox13.Location = New Point(239, 157)
         TextBox13.Name = "TextBox13"
+        TextBox13.ReadOnly = True
         TextBox13.Size = New Size(138, 25)
         TextBox13.TabIndex = 55
         ' 
@@ -572,9 +582,11 @@ Partial Class Billadd
         ' 
         ' TextBox12
         ' 
+        TextBox12.BackColor = SystemColors.Window
         TextBox12.Font = New Font("Segoe UI", 9.75F)
         TextBox12.Location = New Point(239, 71)
         TextBox12.Name = "TextBox12"
+        TextBox12.ReadOnly = True
         TextBox12.Size = New Size(138, 25)
         TextBox12.TabIndex = 53
         ' 
@@ -590,9 +602,11 @@ Partial Class Billadd
         ' 
         ' TextBox11
         ' 
+        TextBox11.BackColor = SystemColors.Window
         TextBox11.Font = New Font("Segoe UI", 9.75F)
         TextBox11.Location = New Point(239, 28)
         TextBox11.Name = "TextBox11"
+        TextBox11.ReadOnly = True
         TextBox11.Size = New Size(138, 25)
         TextBox11.TabIndex = 51
         ' 
