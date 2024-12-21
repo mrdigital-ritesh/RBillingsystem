@@ -400,7 +400,6 @@ Public Class Billadd
                 Dim discountedPrice As Double = price - (price * discount / 100)
                 Dim totalAmount As Double = discountedPrice * newQty
 
-                ' Update total amount for the item in the ListView
                 selectedItem.SubItems(8).Text = Format(totalAmount, "0.00")
                 UpdateBill() ' Recalculate the total bill
 
@@ -411,7 +410,6 @@ Public Class Billadd
             MessageBox.Show("Please select an item from the list to update.", "No Item Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
 
-        ' Clear the quantity input field after update
         TextBox5.Clear()
     End Sub
 

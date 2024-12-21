@@ -23,6 +23,7 @@ Partial Class EmployeeInsert
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Panel1 = New Panel()
+        ButtonBrowse = New Button()
         Button4 = New Button()
         Button3 = New Button()
         Button2 = New Button()
@@ -61,6 +62,7 @@ Partial Class EmployeeInsert
         ' Panel1
         ' 
         Panel1.BackColor = Color.DarkTurquoise
+        Panel1.Controls.Add(ButtonBrowse)
         Panel1.Controls.Add(Button4)
         Panel1.Controls.Add(Button3)
         Panel1.Controls.Add(Button2)
@@ -87,6 +89,19 @@ Partial Class EmployeeInsert
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(1350, 287)
         Panel1.TabIndex = 0
+        ' 
+        ' ButtonBrowse
+        ' 
+        ButtonBrowse.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        ButtonBrowse.BackColor = Color.Honeydew
+        ButtonBrowse.FlatStyle = FlatStyle.Flat
+        ButtonBrowse.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        ButtonBrowse.Location = New Point(121, 247)
+        ButtonBrowse.Name = "ButtonBrowse"
+        ButtonBrowse.Size = New Size(69, 26)
+        ButtonBrowse.TabIndex = 89
+        ButtonBrowse.Text = "BROWSE"
+        ButtonBrowse.UseVisualStyleBackColor = False
         ' 
         ' Button4
         ' 
@@ -117,7 +132,7 @@ Partial Class EmployeeInsert
         Button2.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         Button2.BackColor = SystemColors.ButtonFace
         Button2.FlatStyle = FlatStyle.Flat
-        Button2.Location = New Point(1228, 100)
+        Button2.Location = New Point(1228, 96)
         Button2.Name = "Button2"
         Button2.Size = New Size(86, 34)
         Button2.TabIndex = 87
@@ -364,19 +379,19 @@ Partial Class EmployeeInsert
         ' 
         ' DataGridView1
         ' 
+        DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         DataGridView1.BackgroundColor = SystemColors.ButtonFace
         DataGridView1.BorderStyle = BorderStyle.Fixed3D
         DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridView1.GridColor = SystemColors.InfoText
         DataGridView1.Location = New Point(10, 363)
         DataGridView1.Name = "DataGridView1"
-        DataGridView1.SelectionMode = DataGridViewSelectionMode.FullColumnSelect
         DataGridView1.Size = New Size(1348, 374)
         DataGridView1.TabIndex = 2
         ' 
         ' EmployeeInsert
         ' 
-        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1370, 749)
         Controls.Add(DataGridView1)
@@ -384,7 +399,7 @@ Partial Class EmployeeInsert
         Controls.Add(Panel1)
         Name = "EmployeeInsert"
         StartPosition = FormStartPosition.CenterScreen
-        Text = "Employee"
+        Text = "path"
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
@@ -424,4 +439,5 @@ Partial Class EmployeeInsert
     Friend WithEvents Button3 As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents Button5 As Button
+    Friend WithEvents ButtonBrowse As Button
 End Class
