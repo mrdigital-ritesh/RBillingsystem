@@ -24,7 +24,7 @@ Public Class Billadd
         Label2.Text = "PRODUCT ID:"
         Label3.Text = "PRODUCT NAME:"
         Label4.Text = "PRODUCT BRAND:"
-        Label5.Text = "PRODUCT CATEGORY:"
+        Label5.Text = "HSN CODE:"
         Label6.Text = "PRODUCT PRICE:"
         Label7.Text = "PRODUCT QUANTITY:"
         Label8.Text = "PRODUCT DISCOUNT % :"
@@ -72,7 +72,7 @@ Public Class Billadd
         ListView1.Columns.Add("  PRODUCT ID", 100, HorizontalAlignment.Center)
         ListView1.Columns.Add("PRODUCT NAME", 150, HorizontalAlignment.Center)
         ListView1.Columns.Add("BRAND", 120, HorizontalAlignment.Center)
-        ListView1.Columns.Add("CATEGORY", 100, HorizontalAlignment.Center)
+        ListView1.Columns.Add("HSN CODE", 100, HorizontalAlignment.Center)
         ListView1.Columns.Add("PRICE", 100, HorizontalAlignment.Center)
         ListView1.Columns.Add("QTY", 70, HorizontalAlignment.Center)
         ListView1.Columns.Add("DIS %", 80, HorizontalAlignment.Center)
@@ -190,90 +190,145 @@ Public Class Billadd
 
     End Sub
 
+    Private suppressTextChanged As Boolean = False ' Prevent overlap
 
     Private Sub pid_TextChanged(sender As Object, e As EventArgs) Handles pid.TextChanged
-        Call connect()
-        qry = "SELECT p.*, c.gst " &
-                "FROM products p " &
-                "INNER JOIN category c ON p.cat_name = c.cat_name " &
-                "WHERE p.pro_id = @ProID"
-        cmd = New MySqlCommand(qry, conn)
-        cmd.Parameters.AddWithValue("@ProID", pid.Text)
+        If suppressTextChanged Then Exit Sub ' Prevent overlapping executions
+        suppressTextChanged = True
 
-        Dim proID As String = ""
-        Dim proName As String = ""
-        Dim proBrand As String = ""
-        Dim proCategory As String = ""
-        Dim proPrice As Double = 0.0
-        Dim proDiscount As Double = 0.0
-        Dim proGST As Double = 0.0
-        Dim enteredQty As Integer = 1
+        Try
+            If String.IsNullOrWhiteSpace(pid.Text) Then
+                suppressTextChanged = False
+                Exit Sub
+            End If
 
-        Reader = cmd.ExecuteReader()
-        If Reader.HasRows Then
-            While Reader.Read()
+            TextBox5.Clear() ' Clear quantity input
+
+            If conn.State = ConnectionState.Closed Then
+                connect()
+            End If
+
+            qry = "SELECT p.*, c.gst " &
+              "FROM products p " &
+              "INNER JOIN category c ON p.hsn_code = c.hsn_code " &
+              "WHERE p.pro_id = @ProID"
+
+            cmd = New MySqlCommand(qry, conn)
+            cmd.Parameters.AddWithValue("@ProID", pid.Text)
+
+            Dim proID As String = ""
+            Dim proName As String = ""
+            Dim proBrand As String = ""
+            Dim proHSN As String = ""
+            Dim proPrice As Double = 0.0
+            Dim proDiscount As Double = 0.0
+            Dim proGST As Double = 0.0
+            Dim stock As Integer = 0
+            Dim enteredQty As Integer = 1
+
+            Reader = cmd.ExecuteReader()
+            If Reader.HasRows Then
+                Reader.Read()
+
+                ' Fetch product details
                 proID = Reader("pro_id").ToString()
                 proName = Reader("pro_name").ToString()
                 proBrand = Reader("pro_brand").ToString()
-                proCategory = Reader("cat_name").ToString()
+                proHSN = Reader("hsn_code").ToString()
                 proPrice = Convert.ToDouble(Reader("pro_mrp"))
                 proDiscount = Convert.ToDouble(Reader("pro_disc"))
                 proGST = Convert.ToDouble(Reader("gst"))
+                stock = Convert.ToInt32(Reader("pro_qty"))
 
+                ' Update UI fields
                 TextBox1.Text = proName
                 TextBox2.Text = proBrand
-                TextBox3.Text = proCategory
-                TextBox4.Text = proPrice
-
-                TextBox6.Text = proDiscount
-                TextBox7.Text = proGST
+                TextBox3.Text = proHSN
+                TextBox4.Text = Format(proPrice, "0.00")
+                TextBox6.Text = Format(proDiscount, "0.00")
+                TextBox7.Text = Format(proGST, "0.00")
 
                 If Not String.IsNullOrWhiteSpace(TextBox5.Text) Then
                     enteredQty = Convert.ToInt32(TextBox5.Text)
                 End If
 
-                Dim discountedPrice As Double = proPrice - (proPrice * proDiscount / 100)
-                Dim totalAmount As Double = discountedPrice * enteredQty
+                ' Validate stock
+                If enteredQty > stock Then
+                    MessageBox.Show("Insufficient stock. Available quantity: " & stock.ToString(), "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Reader.Close()
+                    conn.Close()
+                    pid.Focus()
+                    suppressTextChanged = False
+                    Exit Sub
+                End If
 
-                ' Calculate pre-GST amount
-                Dim preGstAmount As Double = Math.Round((totalAmount * 100) / (100 + proGST), 2)
-
+                ' Check if product is already in the ListView
                 Dim exists As Boolean = False
-
                 For Each itm As ListViewItem In ListView1.Items
-                    If itm.SubItems(0).Text = proID Then
+                    If String.Equals(itm.SubItems(0).Text, proID, StringComparison.OrdinalIgnoreCase) Then
+                        ' Product already exists; update quantity and total
                         Dim existingQty As Integer = Convert.ToInt32(itm.SubItems(5).Text)
                         Dim newQty As Integer = existingQty + enteredQty
-                        itm.SubItems(5).Text = newQty.ToString()
 
-                        Dim existingTotal As Double = Convert.ToDouble(itm.SubItems(8).Text)
-                        itm.SubItems(8).Text = Format(existingTotal + totalAmount, "0.00")
+                        If newQty > stock Then
+                            MessageBox.Show("Insufficient stock. Available quantity: " & stock.ToString(), "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            Reader.Close()
+                            conn.Close()
+                            pid.Focus()
+                            suppressTextChanged = False
+                            Exit Sub
+                        End If
+
+                        ' Update ListView item
+                        itm.SubItems(5).Text = newQty.ToString()
+                        Dim totalAmount As Double = (proPrice - (proPrice * proDiscount / 100)) * newQty
+                        itm.SubItems(8).Text = Format(totalAmount, "0.00")
 
                         exists = True
                         Exit For
                     End If
                 Next
 
+                ' If the product is not already in the ListView, add it
                 If Not exists Then
+                    Dim discountedPrice As Double = proPrice - (proPrice * proDiscount / 100)
+                    Dim totalAmount As Double = discountedPrice * enteredQty
+                    Dim preGstAmount As Double = Math.Round((totalAmount * 100) / (100 + proGST), 2)
+
+                    ' Add new product to the ListView
                     Dim itm As New ListViewItem(proID)
                     itm.SubItems.Add(proName)
                     itm.SubItems.Add(proBrand)
-                    itm.SubItems.Add(proCategory)
-                    itm.SubItems.Add(Format(proPrice, "0.00")) ' Original price
-                    itm.SubItems.Add(enteredQty.ToString()) ' Quantity
-                    itm.SubItems.Add(Format(proDiscount, "0.00")) ' Discount
-                    itm.SubItems.Add(Format(proGST, "0.00")) ' GST percentage
-                    itm.SubItems.Add(Format(totalAmount, "0.00")) ' Total amount
-                    itm.SubItems.Add(Format(preGstAmount, "0.00")) ' Pre-GST amount
+                    itm.SubItems.Add(proHSN)
+                    itm.SubItems.Add(Format(proPrice, "0.00"))
+                    itm.SubItems.Add(enteredQty.ToString())
+                    itm.SubItems.Add(Format(proDiscount, "0.00"))
+                    itm.SubItems.Add(Format(proGST, "0.00"))
+                    itm.SubItems.Add(Format(totalAmount, "0.00"))
+                    itm.SubItems.Add(Format(preGstAmount, "0.00"))
                     ListView1.Items.Add(itm)
                 End If
-            End While
-            UpdateBill()
-        End If
-        Reader.Close()
-        conn.Close()
-        pid.Focus()
+
+                UpdateBill()
+            Else
+                'MessageBox.Show("Product not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If Reader IsNot Nothing AndAlso Not Reader.IsClosed Then
+                Reader.Close()
+            End If
+            If conn IsNot Nothing AndAlso conn.State = ConnectionState.Open Then
+                conn.Close()
+            End If
+            suppressTextChanged = False ' Allow further executions
+            pid.Focus()
+        End Try
     End Sub
+
+
 
 
     Private Sub ListView1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListView1.SelectedIndexChanged
@@ -282,7 +337,7 @@ Public Class Billadd
 
             TextBox1.Text = selectedItem.SubItems(1).Text ' Product Name
             TextBox2.Text = selectedItem.SubItems(2).Text ' Brand
-            TextBox3.Text = selectedItem.SubItems(3).Text ' Category
+            TextBox3.Text = selectedItem.SubItems(3).Text ' Hsn
             TextBox4.Text = selectedItem.SubItems(4).Text ' Price
             TextBox5.Text = selectedItem.SubItems(5).Text ' Quantity
             TextBox6.Text = selectedItem.SubItems(6).Text ' Discount
@@ -295,20 +350,59 @@ Public Class Billadd
         If ListView1.SelectedItems.Count > 0 Then
             Dim selectedItem As ListViewItem = ListView1.SelectedItems(0)
 
+            Dim productID As String = selectedItem.SubItems(0).Text
             Dim newQty As Integer
+
             If Integer.TryParse(TextBox5.Text, newQty) AndAlso newQty > 0 Then
+                Dim stock As Integer = 0
+                Try
+                    If conn.State = ConnectionState.Closed Then
+                        connect()
+                    End If
+
+                    Dim qry As String = "SELECT pro_qty FROM products WHERE pro_id = @ProID"
+                    cmd = New MySqlCommand(qry, conn)
+                    cmd.Parameters.AddWithValue("@ProID", productID)
+
+                    ' Execute the query to fetch the stock quantity
+                    Reader = cmd.ExecuteReader()
+
+                    If Reader.HasRows Then
+                        While Reader.Read()
+                            stock = Convert.ToInt32(Reader("pro_qty"))
+                        End While
+                    End If
+                    Reader.Close()
+
+                    ' Check if the new quantity exceeds available stock
+                    If newQty > stock Then
+                        MessageBox.Show("Insufficient stock. Available quantity: " & stock.ToString(), "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        conn.Close()
+
+                        Reader.Close()
+                        conn.Close()
+                        Exit Sub ' Exit if stock is insufficient
+                    End If
+
+                Catch ex As Exception
+                    MessageBox.Show("Error: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    If conn IsNot Nothing AndAlso conn.State = ConnectionState.Open Then
+                        conn.Close()
+                    End If
+                End Try
+
+                ' If stock is sufficient, update the quantity and total amount in ListView
                 selectedItem.SubItems(5).Text = newQty.ToString()
 
+                ' Calculate new total amount
                 Dim price As Double = Convert.ToDouble(selectedItem.SubItems(4).Text)
                 Dim discount As Double = Convert.ToDouble(selectedItem.SubItems(6).Text)
                 Dim discountedPrice As Double = price - (price * discount / 100)
                 Dim totalAmount As Double = discountedPrice * newQty
 
-                Dim gst As Double = Convert.ToDouble(selectedItem.SubItems(7).Text)
-
-
+                ' Update total amount for the item in the ListView
                 selectedItem.SubItems(8).Text = Format(totalAmount, "0.00")
-                UpdateBill()
+                UpdateBill() ' Recalculate the total bill
 
             Else
                 MessageBox.Show("Please enter a valid quantity.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -316,8 +410,11 @@ Public Class Billadd
         Else
             MessageBox.Show("Please select an item from the list to update.", "No Item Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
+
+        ' Clear the quantity input field after update
         TextBox5.Clear()
     End Sub
+
 
 
 

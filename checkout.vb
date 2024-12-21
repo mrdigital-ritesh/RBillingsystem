@@ -10,12 +10,14 @@ Public Class checkout
     Dim qry As String
     Dim cmd As MySqlCommand
     Dim Reader As MySqlDataReader
+    Dim mode As String = ""
     Private Sub closebt_Click(sender As Object, e As EventArgs) Handles closebt.Click
         Me.Close()
     End Sub
 
     Private Sub checkout_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         TextBox2.Focus()
+        mode = "CASH"
         ListView2.Visible = False
         Me.TopMost = True
         Panel5.Visible = False
@@ -57,14 +59,19 @@ Public Class checkout
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
         Panel5.Visible = False
         Label6.Text = "MODE: CASH"
+        mode = "CASH"
     End Sub
 
     Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
         Label6.Text = "MODE: CARD"
+        mode = "CARD"
+
     End Sub
 
     Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
         Label6.Text = "MODE: UPI"
+        mode = "UPI"
+
         Panel5.Visible = True
         Dim formattedAmount As String = totalAmount.ToString("F2") ' Ensures two decimal places
         Dim upiString As String = $"upi://pay?pa=7597372851@paytm&pn=RITESH%20BAGDI&am={formattedAmount}&cu=INR&tn=TestTransaction"
@@ -170,8 +177,8 @@ Public Class checkout
                 connect()
             End If
 
-            qry = "INSERT INTO bills (bill_id, userid, cust_ph, total_item, total_qty, amount, total_dis, cgst, sgst, netamount, date) " &
-              "VALUES (@bill_id, @userid, @cust_ph, @total_item, @total_qty, @amount, @total_dis, @cgst, @sgst, @netamount, @date)"
+            qry = "INSERT INTO bills (bill_id, userid, cust_ph, total_item, total_qty, amount, total_dis, cgst, sgst, netamount, date ,mode) " &
+              "VALUES (@bill_id, @userid, @cust_ph, @total_item, @total_qty, @amount, @total_dis, @cgst, @sgst, @netamount, @date,@mode)"
             cmd = New MySqlCommand(qry, conn)
 
             cmd.Parameters.AddWithValue("@bill_id", billid)
@@ -185,6 +192,7 @@ Public Class checkout
             cmd.Parameters.AddWithValue("@sgst", Convert.ToDouble(sgst))
             cmd.Parameters.AddWithValue("@netamount", Convert.ToDouble(totalAmount))
             cmd.Parameters.AddWithValue("@date", DateTime.Now)
+            cmd.Parameters.AddWithValue("@mode", mode)
 
             cmd.ExecuteNonQuery()
 
@@ -201,21 +209,21 @@ Public Class checkout
     End Sub
 
 
-    Private Sub InsertBillData(billID As Integer, productID As Integer, productname As String, productbrand As String, productcat As String, productMRP As Integer, quantity As Integer, discount As Double, gst As Double, totalAmount As Double, preGstAmount As Double)
+    Private Sub InsertBillData(billID As Integer, productID As Integer, productname As String, productbrand As String, producthsn As String, productMRP As Integer, quantity As Integer, discount As Double, gst As Double, totalAmount As Double, preGstAmount As Double)
         Try
             If conn.State = ConnectionState.Closed Then
                 connect()
             End If
 
-            qry = "INSERT INTO bill_data (bill_id, pro_id, pro_name, pro_brand, cat_name, pro_mrp, pro_qty, pro_disc, pro_gst, pro_total, pre_gst) " &
-              "VALUES (@BillID, @ProductID, @ProductName, @ProductBrand, @ProductCat, @ProductMRP, @Quantity, @Discount, @GST, @TotalAmount, @PreGSTAmount)"
+            qry = "INSERT INTO bill_data (bill_id, pro_id, pro_name, pro_brand, hsn_code, pro_mrp, pro_qty, pro_disc, pro_gst, pro_total, pre_gst) " &
+              "VALUES (@BillID, @ProductID, @ProductName, @ProductBrand, @Producthsn, @ProductMRP, @Quantity, @Discount, @GST, @TotalAmount, @PreGSTAmount)"
             cmd = New MySqlCommand(qry, conn)
 
             cmd.Parameters.AddWithValue("@BillID", billID)
             cmd.Parameters.AddWithValue("@ProductID", productID)
             cmd.Parameters.AddWithValue("@ProductName", productname)
             cmd.Parameters.AddWithValue("@ProductBrand", productbrand)
-            cmd.Parameters.AddWithValue("@ProductCat", productcat)
+            cmd.Parameters.AddWithValue("@Producthsn", producthsn)
             cmd.Parameters.AddWithValue("@ProductMRP", productMRP)
             cmd.Parameters.AddWithValue("@Quantity", quantity)
             cmd.Parameters.AddWithValue("@Discount", discount)
@@ -223,7 +231,13 @@ Public Class checkout
             cmd.Parameters.AddWithValue("@TotalAmount", totalAmount)
             cmd.Parameters.AddWithValue("@PreGSTAmount", preGstAmount)
 
-            ' Execute the non-query command
+            cmd.ExecuteNonQuery()
+            ' FOR MANAGE QTY (STOCK)
+            qry = "UPDATE products SET pro_qty = pro_qty - @Quantity WHERE pro_id = @ProductID"
+            cmd = New MySqlCommand(qry, conn)
+            cmd.Parameters.AddWithValue("@Quantity", quantity)
+            cmd.Parameters.AddWithValue("@ProductID", productID)
+
             cmd.ExecuteNonQuery()
 
         Catch ex As Exception
@@ -239,7 +253,6 @@ Public Class checkout
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         SaveBillData()
-        Billadd.reloadBill()
     End Sub
 
     'new code logic for all db
@@ -270,7 +283,7 @@ Public Class checkout
                 Dim productID As Integer = Convert.ToInt32(item.SubItems(0).Text)
                 Dim productname As String = item.SubItems(1).Text
                 Dim productbrand As String = item.SubItems(2).Text
-                Dim productcat As String = item.SubItems(3).Text
+                Dim producthsn As String = item.SubItems(3).Text
                 Dim productMRP As Double = Convert.ToDouble(item.SubItems(4).Text)
                 Dim productQty As Integer = Convert.ToInt32(item.SubItems(5).Text)
                 Dim discount As Double = Convert.ToDouble(item.SubItems(6).Text)
@@ -278,8 +291,9 @@ Public Class checkout
                 Dim totalamt As Double = Convert.ToDouble(item.SubItems(8).Text)
                 Dim PropreGst As Double = Convert.ToDouble(item.SubItems(9).Text)
 
-                InsertBillData(billid, productID, productname, productbrand, productcat, productMRP, productQty, discount, gstrate, totalamt, PropreGst)
+                InsertBillData(billid, productID, productname, productbrand, producthsn, productMRP, productQty, discount, gstrate, totalamt, PropreGst)
             Next
+            Billadd.reloadBill()
 
             MessageBox.Show("Bill Generated succesfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Catch ex As Exception

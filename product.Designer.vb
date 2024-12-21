@@ -34,7 +34,6 @@ Partial Class product
         Button3 = New Button()
         Button2 = New Button()
         Button1 = New Button()
-        supplier = New TextBox()
         Label8 = New Label()
         qty = New TextBox()
         Label7 = New Label()
@@ -49,6 +48,7 @@ Partial Class product
         Label2 = New Label()
         pid = New TextBox()
         Label1 = New Label()
+        ComboBox1 = New ComboBox()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         Panel1.SuspendLayout()
         SuspendLayout()
@@ -72,6 +72,7 @@ Partial Class product
         Panel1.AutoSize = True
         Panel1.BackColor = Color.DarkTurquoise
         Panel1.BorderStyle = BorderStyle.Fixed3D
+        Panel1.Controls.Add(ComboBox1)
         Panel1.Controls.Add(Button4)
         Panel1.Controls.Add(stockdate)
         Panel1.Controls.Add(Label11)
@@ -82,7 +83,6 @@ Partial Class product
         Panel1.Controls.Add(Button3)
         Panel1.Controls.Add(Button2)
         Panel1.Controls.Add(Button1)
-        Panel1.Controls.Add(supplier)
         Panel1.Controls.Add(Label8)
         Panel1.Controls.Add(qty)
         Panel1.Controls.Add(Label7)
@@ -153,7 +153,7 @@ Partial Class product
         ' category
         ' 
         category.AllowDrop = True
-        category.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        category.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         category.FormattingEnabled = True
         category.Location = New Point(791, 141)
         category.Name = "category"
@@ -165,7 +165,7 @@ Partial Class product
         Label9.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         Label9.AutoSize = True
         Label9.BackColor = Color.Transparent
-        Label9.Font = New Font("Rockwell", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        Label9.Font = New Font("Rockwell", 14.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label9.Location = New Point(580, 12)
         Label9.Name = "Label9"
         Label9.Size = New Size(69, 21)
@@ -207,14 +207,6 @@ Partial Class product
         Button1.TabIndex = 11
         Button1.Text = "Button1"
         Button1.UseVisualStyleBackColor = False
-        ' 
-        ' supplier
-        ' 
-        supplier.Font = New Font("Segoe UI", 12F)
-        supplier.Location = New Point(418, 300)
-        supplier.Name = "supplier"
-        supplier.Size = New Size(159, 29)
-        supplier.TabIndex = 9
         ' 
         ' Label8
         ' 
@@ -344,6 +336,16 @@ Partial Class product
         Label1.TabIndex = 16
         Label1.Text = "Label1"
         ' 
+        ' ComboBox1
+        ' 
+        ComboBox1.AllowDrop = True
+        ComboBox1.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        ComboBox1.FormattingEnabled = True
+        ComboBox1.Location = New Point(418, 300)
+        ComboBox1.Name = "ComboBox1"
+        ComboBox1.Size = New Size(159, 29)
+        ComboBox1.TabIndex = 41
+        ' 
         ' product
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -363,7 +365,6 @@ Partial Class product
     End Sub
     Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents supplier As TextBox
     Friend WithEvents Label8 As Label
     Friend WithEvents qty As TextBox
     Friend WithEvents Label7 As Label
@@ -388,5 +389,6 @@ Partial Class product
     Friend WithEvents stockdate As TextBox
     Friend WithEvents Label11 As Label
     Friend WithEvents Button4 As Button
+    Friend WithEvents ComboBox1 As ComboBox
 
 End Class

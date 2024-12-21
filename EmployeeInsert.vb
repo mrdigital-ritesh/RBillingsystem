@@ -6,4 +6,6 @@
         'Me.FormBorderStyle = FormBorderStyle.None
         Me.WindowState = FormWindowState.Maximized
     End Sub
+
+
 End Class
