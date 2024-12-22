@@ -10,7 +10,9 @@ Public Class EmployeeInsert
         Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
         Me.Size = New Size(screenWidth, screenHeight)
         Me.WindowState = FormWindowState.Maximized
-
+        AdminDashboard.Close()
+        ManagerDashboard.Close()
+        EmployeeDashboard.Close()
         PictureBox1.Image = My.Resources.defaultphoto
         showdata()
         PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage ' Make the image stretch to fit the PictureBox
@@ -383,5 +385,11 @@ Public Class EmployeeInsert
         End If
     End Sub
 
-
+    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
+        If user = "admin" Then
+            AdminDashboard.Show()
+        ElseIf user = "manager" Then
+            ManagerDashboard.Show()
+        End If
+    End Sub
 End Class

@@ -53,15 +53,18 @@ Partial Class EmployeeInsert
         TextBox7 = New TextBox()
         Label10 = New Label()
         DataGridView1 = New DataGridView()
+        PictureBox2 = New PictureBox()
         Panel1.SuspendLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         Panel2.SuspendLayout()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
+        CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' Panel1
         ' 
         Panel1.BackColor = Color.DarkTurquoise
+        Panel1.Controls.Add(PictureBox2)
         Panel1.Controls.Add(ButtonBrowse)
         Panel1.Controls.Add(Button4)
         Panel1.Controls.Add(Button3)
@@ -389,6 +392,16 @@ Partial Class EmployeeInsert
         DataGridView1.Size = New Size(1348, 374)
         DataGridView1.TabIndex = 2
         ' 
+        ' PictureBox2
+        ' 
+        PictureBox2.BackgroundImage = My.Resources.Resources.backbtn2
+        PictureBox2.BackgroundImageLayout = ImageLayout.Zoom
+        PictureBox2.Location = New Point(0, -3)
+        PictureBox2.Name = "PictureBox2"
+        PictureBox2.Size = New Size(62, 46)
+        PictureBox2.TabIndex = 91
+        PictureBox2.TabStop = False
+        ' 
         ' EmployeeInsert
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -406,6 +419,7 @@ Partial Class EmployeeInsert
         Panel2.ResumeLayout(False)
         Panel2.PerformLayout()
         CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
+        CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
@@ -440,4 +454,5 @@ Partial Class EmployeeInsert
     Friend WithEvents Button2 As Button
     Friend WithEvents Button5 As Button
     Friend WithEvents ButtonBrowse As Button
+    Friend WithEvents PictureBox2 As PictureBox
 End Class

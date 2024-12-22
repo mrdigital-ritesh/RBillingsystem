@@ -10,7 +10,9 @@ Public Class product
         Me.Size = New Size(screenWidth, screenHeight)
         'Me.FormBorderStyle = FormBorderStyle.None
         Me.WindowState = FormWindowState.Maximized
-
+        AdminDashboard.Close()
+        ManagerDashboard.Close()
+        EmployeeDashboard.Close()
         Label1.Text = "Product Id:"
         Label2.Text = "Product Name:"
         Label3.Text = "Product Brand:"
@@ -273,4 +275,11 @@ Public Class product
         Return True
     End Function
 
+    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
+        If user = "admin" Then
+            AdminDashboard.Show()
+        ElseIf user = "manager" Then
+            ManagerDashboard.Show()
+        End If
+    End Sub
 End Class

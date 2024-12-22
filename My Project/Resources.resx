@@ -118,49 +118,88 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="bgnew" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ImagesRB\bgnew.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rupee (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ImagesRB\rupee (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="6867638" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ImagesRB\6867638.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="atm-card" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ImagesRB\atm-card.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="left-arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ImagesRB\left-arrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rfid" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ImagesRB\rfid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="bg" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ImagesRB\bg.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="logout" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\logout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cashier" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\ImagesRB\cashier.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="scangif" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ImagesRB\scangif.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="man" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\man.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="upi" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ImagesRB\upi.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="backbtn2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\backbtn2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pngegg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\pngegg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="adm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\adm.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rupee (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\rupee (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cartimg1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\cartimg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Barode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\Barode.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="left-arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\left-arrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Barode1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\Barode.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="inventory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\inventory.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="previous" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\ImagesRB\previous.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="bg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\bg.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rfid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\rfid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="manager" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\ImagesRB\manager.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="defaultphoto" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\defaultphoto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="atm-card" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\atm-card.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="close" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\ImagesRB\close.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="calender" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\calender.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="admin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\ImagesRB\admin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="defaultphoto" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ImagesRB\defaultphoto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bgnew" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\bgnew.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="download (7)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\download (7).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="6867638" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\6867638.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="upi" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\upi.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="scangif" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\scangif.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cartimg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\cartimg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="customers" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ImagesRB\customers.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

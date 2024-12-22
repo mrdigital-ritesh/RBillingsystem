@@ -53,10 +53,12 @@ Partial Class ManagerInsert
         Label2 = New Label()
         TextBox1 = New TextBox()
         Panel1 = New Panel()
+        PictureBox2 = New PictureBox()
         Panel2.SuspendLayout()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         Panel1.SuspendLayout()
+        CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' Panel2
@@ -361,6 +363,7 @@ Partial Class ManagerInsert
         ' Panel1
         ' 
         Panel1.BackColor = Color.DarkTurquoise
+        Panel1.Controls.Add(PictureBox2)
         Panel1.Controls.Add(ButtonBrowse)
         Panel1.Controls.Add(Button4)
         Panel1.Controls.Add(Button3)
@@ -389,6 +392,16 @@ Partial Class ManagerInsert
         Panel1.Size = New Size(1348, 287)
         Panel1.TabIndex = 3
         ' 
+        ' PictureBox2
+        ' 
+        PictureBox2.BackgroundImage = My.Resources.Resources.backbtn2
+        PictureBox2.BackgroundImageLayout = ImageLayout.Zoom
+        PictureBox2.Location = New Point(0, -2)
+        PictureBox2.Name = "PictureBox2"
+        PictureBox2.Size = New Size(62, 46)
+        PictureBox2.TabIndex = 90
+        PictureBox2.TabStop = False
+        ' 
         ' ManagerInsert
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -405,6 +418,7 @@ Partial Class ManagerInsert
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
+        CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
@@ -439,4 +453,5 @@ Partial Class ManagerInsert
     Friend WithEvents Label2 As Label
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents PictureBox2 As PictureBox
 End Class

@@ -25,6 +25,7 @@ Partial Class Billadd
         components = New ComponentModel.Container()
         Label1 = New Label()
         Panel1 = New Panel()
+        PictureBox2 = New PictureBox()
         ComboBox1 = New ComboBox()
         Button6 = New Button()
         Label21 = New Label()
@@ -74,16 +75,20 @@ Partial Class Billadd
         Label15 = New Label()
         TextBox11 = New TextBox()
         Label14 = New Label()
-        Label23 = New Label()
         Label24 = New Label()
         Label25 = New Label()
         Label26 = New Label()
         Timer1 = New Timer(components)
         Label27 = New Label()
         Label28 = New Label()
+        PictureBox3 = New PictureBox()
+        PictureBox1 = New PictureBox()
         Panel1.SuspendLayout()
+        CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
         GroupBox1.SuspendLayout()
         Panel2.SuspendLayout()
+        CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
+        CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' Label1
@@ -104,6 +109,7 @@ Partial Class Billadd
         Panel1.AutoSize = True
         Panel1.BackColor = Color.DarkTurquoise
         Panel1.BorderStyle = BorderStyle.Fixed3D
+        Panel1.Controls.Add(PictureBox2)
         Panel1.Controls.Add(ComboBox1)
         Panel1.Controls.Add(Button6)
         Panel1.Controls.Add(Label21)
@@ -134,6 +140,16 @@ Partial Class Billadd
         Panel1.Size = New Size(1350, 287)
         Panel1.TabIndex = 18
         ' 
+        ' PictureBox2
+        ' 
+        PictureBox2.BackgroundImage = My.Resources.Resources.backbtn2
+        PictureBox2.BackgroundImageLayout = ImageLayout.Zoom
+        PictureBox2.Location = New Point(-5, -3)
+        PictureBox2.Name = "PictureBox2"
+        PictureBox2.Size = New Size(62, 46)
+        PictureBox2.TabIndex = 92
+        PictureBox2.TabStop = False
+        ' 
         ' ComboBox1
         ' 
         ComboBox1.FormattingEnabled = True
@@ -160,7 +176,7 @@ Partial Class Billadd
         ' 
         Label21.AutoSize = True
         Label21.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold)
-        Label21.Location = New Point(148, 22)
+        Label21.Location = New Point(192, 22)
         Label21.Name = "Label21"
         Label21.Size = New Size(64, 21)
         Label21.TabIndex = 59
@@ -170,7 +186,7 @@ Partial Class Billadd
         ' 
         Label20.AutoSize = True
         Label20.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold)
-        Label20.Location = New Point(52, 23)
+        Label20.Location = New Point(96, 23)
         Label20.Name = "Label20"
         Label20.Size = New Size(67, 21)
         Label20.TabIndex = 58
@@ -632,21 +648,11 @@ Partial Class Billadd
         Label14.TabIndex = 52
         Label14.Text = "Label14"
         ' 
-        ' Label23
-        ' 
-        Label23.AutoSize = True
-        Label23.Font = New Font("Arial Narrow", 11.25F, FontStyle.Bold)
-        Label23.Location = New Point(12, 716)
-        Label23.Name = "Label23"
-        Label23.Size = New Size(57, 20)
-        Label23.TabIndex = 59
-        Label23.Text = "Label23"
-        ' 
         ' Label24
         ' 
         Label24.AutoSize = True
         Label24.Font = New Font("Arial Narrow", 11.25F, FontStyle.Bold)
-        Label24.Location = New Point(62, 716)
+        Label24.Location = New Point(50, 716)
         Label24.Name = "Label24"
         Label24.Size = New Size(57, 20)
         Label24.TabIndex = 60
@@ -656,7 +662,7 @@ Partial Class Billadd
         ' 
         Label25.AutoSize = True
         Label25.Font = New Font("Arial Narrow", 11.25F, FontStyle.Bold)
-        Label25.Location = New Point(224, 716)
+        Label25.Location = New Point(349, 716)
         Label25.Name = "Label25"
         Label25.Size = New Size(57, 20)
         Label25.TabIndex = 61
@@ -666,7 +672,7 @@ Partial Class Billadd
         ' 
         Label26.AutoSize = True
         Label26.Font = New Font("Arial Narrow", 11.25F, FontStyle.Bold)
-        Label26.Location = New Point(311, 716)
+        Label26.Location = New Point(447, 716)
         Label26.Name = "Label26"
         Label26.Size = New Size(57, 20)
         Label26.TabIndex = 62
@@ -679,7 +685,7 @@ Partial Class Billadd
         ' 
         Label27.AutoSize = True
         Label27.Font = New Font("Arial Narrow", 11.25F, FontStyle.Bold)
-        Label27.Location = New Point(537, 716)
+        Label27.Location = New Point(673, 716)
         Label27.Name = "Label27"
         Label27.Size = New Size(57, 20)
         Label27.TabIndex = 64
@@ -689,23 +695,46 @@ Partial Class Billadd
         ' 
         Label28.AutoSize = True
         Label28.Font = New Font("Arial Narrow", 11.25F, FontStyle.Bold)
-        Label28.Location = New Point(450, 716)
+        Label28.Location = New Point(553, 716)
         Label28.Name = "Label28"
         Label28.Size = New Size(57, 20)
         Label28.TabIndex = 63
         Label28.Text = "Label28"
+        ' 
+        ' PictureBox3
+        ' 
+        PictureBox3.BackColor = Color.Transparent
+        PictureBox3.BackgroundImage = My.Resources.Resources.calender
+        PictureBox3.BackgroundImageLayout = ImageLayout.Zoom
+        PictureBox3.Location = New Point(15, 712)
+        PictureBox3.Name = "PictureBox3"
+        PictureBox3.Size = New Size(24, 27)
+        PictureBox3.TabIndex = 65
+        PictureBox3.TabStop = False
+        ' 
+        ' PictureBox1
+        ' 
+        PictureBox1.BackColor = Color.Transparent
+        PictureBox1.BackgroundImage = My.Resources.Resources.customers
+        PictureBox1.BackgroundImageLayout = ImageLayout.Zoom
+        PictureBox1.Location = New Point(308, 708)
+        PictureBox1.Name = "PictureBox1"
+        PictureBox1.Size = New Size(32, 34)
+        PictureBox1.TabIndex = 66
+        PictureBox1.TabStop = False
         ' 
         ' Billadd
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1370, 749)
+        Controls.Add(PictureBox1)
+        Controls.Add(PictureBox3)
         Controls.Add(Label27)
         Controls.Add(Label28)
         Controls.Add(Label26)
         Controls.Add(Label25)
         Controls.Add(Label24)
-        Controls.Add(Label23)
         Controls.Add(ListView1)
         Controls.Add(Panel1)
         Controls.Add(Panel2)
@@ -715,10 +744,13 @@ Partial Class Billadd
         WindowState = FormWindowState.Maximized
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
+        CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
         GroupBox1.ResumeLayout(False)
         GroupBox1.PerformLayout()
         Panel2.ResumeLayout(False)
         Panel2.PerformLayout()
+        CType(PictureBox3, ComponentModel.ISupportInitialize).EndInit()
+        CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -772,7 +804,6 @@ Partial Class Billadd
     Friend WithEvents Button5 As Button
     Friend WithEvents TextBox17 As TextBox
     Friend WithEvents Label22 As Label
-    Friend WithEvents Label23 As Label
     Friend WithEvents Label24 As Label
     Friend WithEvents Label25 As Label
     Friend WithEvents Label26 As Label
@@ -781,4 +812,7 @@ Partial Class Billadd
     Friend WithEvents Label28 As Label
     Friend WithEvents Button6 As Button
     Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents PictureBox3 As PictureBox
+    Friend WithEvents PictureBox1 As PictureBox
 End Class

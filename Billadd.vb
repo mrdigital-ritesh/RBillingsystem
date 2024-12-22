@@ -15,6 +15,9 @@ Public Class Billadd
         LoadDraftBills()
         Me.KeyPreview = True
         Me.TopMost = False
+        AdminDashboard.Close()
+        ManagerDashboard.Close()
+        EmployeeDashboard.Close()
         'Me.FormBorderStyle = FormBorderStyle.None
         Me.WindowState = FormWindowState.Maximized
         pid.Focus()
@@ -42,12 +45,11 @@ Public Class Billadd
         Label19.Text = "NET AMOUNT"
         Label20.Text = "BILL NO:"
         Label21.Text = ""
-        Label27.Text = ""
-        Label26.Text = ""
+        Label27.Text = username
+        Label26.Text = userid
         Label22.Text = "AMOUNT"
         Label25.Text = "EMPLOYEE ID:"
         Label28.Text = "EMPLOYEE NAME:"
-        Label23.Text = "DATE:"
         Label24.Text = ""
         Timer1.Enabled = True
         TextBox1.Enabled = False
@@ -487,7 +489,8 @@ Public Class Billadd
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        Label24.Text = Now
+        Label24.Text = DateTime.Now.ToString("dddd")
+        Label24.Text += "   " & DateTime.Now.ToString("dd MMMM yyyy") & "   " & TimeOfDay()
     End Sub
 
     Private Sub Label27_Click(sender As Object, e As EventArgs) Handles Label27.Click
@@ -686,6 +689,15 @@ Public Class Billadd
         UpdateBill()
     End Sub
 
+    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
+        If user = "admin" Then
+            AdminDashboard.Show()
+        ElseIf user = "manager" Then
+            ManagerDashboard.Show()
+        ElseIf user = "emp" Then
+            EmployeeDashboard.Show()
+        End If
+    End Sub
 
 
 End Class

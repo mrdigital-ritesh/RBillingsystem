@@ -24,6 +24,7 @@ Partial Class product
     Private Sub InitializeComponent()
         DataGridView1 = New DataGridView()
         Panel1 = New Panel()
+        ComboBox1 = New ComboBox()
         Button4 = New Button()
         stockdate = New TextBox()
         Label11 = New Label()
@@ -48,9 +49,10 @@ Partial Class product
         Label2 = New Label()
         pid = New TextBox()
         Label1 = New Label()
-        ComboBox1 = New ComboBox()
+        PictureBox2 = New PictureBox()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         Panel1.SuspendLayout()
+        CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' DataGridView1
@@ -72,6 +74,7 @@ Partial Class product
         Panel1.AutoSize = True
         Panel1.BackColor = Color.DarkTurquoise
         Panel1.BorderStyle = BorderStyle.Fixed3D
+        Panel1.Controls.Add(PictureBox2)
         Panel1.Controls.Add(ComboBox1)
         Panel1.Controls.Add(Button4)
         Panel1.Controls.Add(stockdate)
@@ -101,6 +104,16 @@ Partial Class product
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(1125, 364)
         Panel1.TabIndex = 17
+        ' 
+        ' ComboBox1
+        ' 
+        ComboBox1.AllowDrop = True
+        ComboBox1.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        ComboBox1.FormattingEnabled = True
+        ComboBox1.Location = New Point(418, 300)
+        ComboBox1.Name = "ComboBox1"
+        ComboBox1.Size = New Size(159, 29)
+        ComboBox1.TabIndex = 41
         ' 
         ' Button4
         ' 
@@ -336,15 +349,15 @@ Partial Class product
         Label1.TabIndex = 16
         Label1.Text = "Label1"
         ' 
-        ' ComboBox1
+        ' PictureBox2
         ' 
-        ComboBox1.AllowDrop = True
-        ComboBox1.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        ComboBox1.FormattingEnabled = True
-        ComboBox1.Location = New Point(418, 300)
-        ComboBox1.Name = "ComboBox1"
-        ComboBox1.Size = New Size(159, 29)
-        ComboBox1.TabIndex = 41
+        PictureBox2.BackgroundImage = My.Resources.Resources.backbtn2
+        PictureBox2.BackgroundImageLayout = ImageLayout.Zoom
+        PictureBox2.Location = New Point(-2, -2)
+        PictureBox2.Name = "PictureBox2"
+        PictureBox2.Size = New Size(62, 46)
+        PictureBox2.TabIndex = 92
+        PictureBox2.TabStop = False
         ' 
         ' product
         ' 
@@ -360,6 +373,7 @@ Partial Class product
         CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
+        CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -390,5 +404,6 @@ Partial Class product
     Friend WithEvents Label11 As Label
     Friend WithEvents Button4 As Button
     Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents PictureBox2 As PictureBox
 
 End Class

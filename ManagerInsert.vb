@@ -5,13 +5,21 @@ Public Class ManagerInsert
 
     Dim qry As String
     Private imageChanged As Boolean = False
-
+    Protected Overrides ReadOnly Property CreateParams As CreateParams
+        Get
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ExStyle = cp.ExStyle Or &H2000000 ' WS_EX_COMPOSITED
+            Return cp
+        End Get
+    End Property
     Private Sub Manager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
         Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
         Me.Size = New Size(screenWidth, screenHeight)
         Me.WindowState = FormWindowState.Maximized
-
+        AdminDashboard.Close()
+        ManagerDashboard.Close()
+        EmployeeDashboard.Close()
         PictureBox1.Image = My.Resources.defaultphoto
         showdata()
         PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage ' Make the image stretch to fit the PictureBox
@@ -403,5 +411,7 @@ Public Class ManagerInsert
         End If
     End Sub
 
-
+    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
+        AdminDashboard.Show()
+    End Sub
 End Class
