@@ -21,6 +21,7 @@ Public Class checkout
         ListView2.Visible = False
         Me.TopMost = True
         Panel5.Visible = False
+        Panel6.Visible = False
 
         Label6.Text = "MODE: CASH"
         Label1.Text = "PROCEED TO PAY"
@@ -58,12 +59,16 @@ Public Class checkout
     End Sub
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
         Panel5.Visible = False
+        Panel6.Visible = False
+
         Label6.Text = "MODE: CASH"
         mode = "CASH"
     End Sub
 
     Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
         Label6.Text = "MODE: CARD"
+        Panel6.Visible = True
+
         mode = "CARD"
 
     End Sub
@@ -71,6 +76,8 @@ Public Class checkout
     Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
         Label6.Text = "MODE: UPI"
         mode = "UPI"
+        Panel6.Visible = False
+
 
         Panel5.Visible = True
         Dim formattedAmount As String = totalAmount.ToString("F2") ' Ensures two decimal places

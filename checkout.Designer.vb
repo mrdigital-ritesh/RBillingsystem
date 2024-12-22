@@ -33,7 +33,21 @@ Partial Class checkout
         Button1 = New Button()
         Label6 = New Label()
         Panel4 = New Panel()
+        Panel6 = New Panel()
+        PictureBox9 = New PictureBox()
+        TextBox8 = New TextBox()
+        Label14 = New Label()
+        TextBox7 = New TextBox()
+        Label13 = New Label()
+        TextBox6 = New TextBox()
+        Label12 = New Label()
+        TextBox5 = New TextBox()
+        Label11 = New Label()
         Panel5 = New Panel()
+        PictureBox8 = New PictureBox()
+        PictureBox7 = New PictureBox()
+        PictureBox6 = New PictureBox()
+        PictureBox5 = New PictureBox()
         Label10 = New Label()
         PictureBox4 = New PictureBox()
         label8 = New TextBox()
@@ -48,6 +62,7 @@ Partial Class checkout
         ListView2 = New ListView()
         TextBox4 = New TextBox()
         Label2 = New Label()
+        PictureBox10 = New PictureBox()
         CType(closebt, ComponentModel.ISupportInitialize).BeginInit()
         Panel1.SuspendLayout()
         CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
@@ -55,9 +70,16 @@ Partial Class checkout
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         Panel2.SuspendLayout()
         Panel4.SuspendLayout()
+        Panel6.SuspendLayout()
+        CType(PictureBox9, ComponentModel.ISupportInitialize).BeginInit()
         Panel5.SuspendLayout()
+        CType(PictureBox8, ComponentModel.ISupportInitialize).BeginInit()
+        CType(PictureBox7, ComponentModel.ISupportInitialize).BeginInit()
+        CType(PictureBox6, ComponentModel.ISupportInitialize).BeginInit()
+        CType(PictureBox5, ComponentModel.ISupportInitialize).BeginInit()
         CType(PictureBox4, ComponentModel.ISupportInitialize).BeginInit()
         Panel3.SuspendLayout()
+        CType(PictureBox10, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' closebt
@@ -125,7 +147,7 @@ Partial Class checkout
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Font = New Font("Century", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.Font = New Font("Century", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0)
         Label1.ForeColor = Color.White
         Label1.Location = New Point(377, 10)
         Label1.Name = "Label1"
@@ -149,7 +171,7 @@ Partial Class checkout
         ' Label9
         ' 
         Label9.AutoSize = True
-        Label9.Font = New Font("Arial Narrow", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label9.Font = New Font("Arial Narrow", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0)
         Label9.Location = New Point(544, 18)
         Label9.Name = "Label9"
         Label9.Size = New Size(50, 20)
@@ -159,7 +181,7 @@ Partial Class checkout
         ' Button1
         ' 
         Button1.BackColor = Color.DeepSkyBlue
-        Button1.Font = New Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Button1.Font = New Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0)
         Button1.ForeColor = SystemColors.ControlLightLight
         Button1.Location = New Point(238, 305)
         Button1.Name = "Button1"
@@ -171,7 +193,7 @@ Partial Class checkout
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Font = New Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label6.Font = New Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0)
         Label6.Location = New Point(250, 14)
         Label6.Name = "Label6"
         Label6.Size = New Size(53, 20)
@@ -180,6 +202,7 @@ Partial Class checkout
         ' 
         ' Panel4
         ' 
+        Panel4.Controls.Add(Panel6)
         Panel4.Controls.Add(Panel5)
         Panel4.Controls.Add(label8)
         Panel4.Controls.Add(Label7)
@@ -194,8 +217,113 @@ Partial Class checkout
         Panel4.Size = New Size(623, 261)
         Panel4.TabIndex = 1
         ' 
+        ' Panel6
+        ' 
+        Panel6.Controls.Add(PictureBox10)
+        Panel6.Controls.Add(PictureBox9)
+        Panel6.Controls.Add(TextBox8)
+        Panel6.Controls.Add(Label14)
+        Panel6.Controls.Add(TextBox7)
+        Panel6.Controls.Add(Label13)
+        Panel6.Controls.Add(TextBox6)
+        Panel6.Controls.Add(Label12)
+        Panel6.Controls.Add(TextBox5)
+        Panel6.Controls.Add(Label11)
+        Panel6.Location = New Point(4, 3)
+        Panel6.Name = "Panel6"
+        Panel6.Size = New Size(622, 259)
+        Panel6.TabIndex = 11
+        ' 
+        ' PictureBox9
+        ' 
+        PictureBox9.BackColor = Color.Transparent
+        PictureBox9.BackgroundImage = My.Resources.Resources.mstrcrd
+        PictureBox9.BackgroundImageLayout = ImageLayout.Zoom
+        PictureBox9.Location = New Point(425, 17)
+        PictureBox9.Name = "PictureBox9"
+        PictureBox9.Size = New Size(162, 105)
+        PictureBox9.TabIndex = 15
+        PictureBox9.TabStop = False
+        ' 
+        ' TextBox8
+        ' 
+        TextBox8.Location = New Point(211, 194)
+        TextBox8.Multiline = True
+        TextBox8.Name = "TextBox8"
+        TextBox8.Size = New Size(78, 28)
+        TextBox8.TabIndex = 14
+        ' 
+        ' Label14
+        ' 
+        Label14.AutoSize = True
+        Label14.Font = New Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        Label14.Location = New Point(82, 205)
+        Label14.Name = "Label14"
+        Label14.Size = New Size(57, 15)
+        Label14.TabIndex = 13
+        Label14.Text = "CVV NO: "
+        ' 
+        ' TextBox7
+        ' 
+        TextBox7.Location = New Point(211, 140)
+        TextBox7.Multiline = True
+        TextBox7.Name = "TextBox7"
+        TextBox7.Size = New Size(124, 28)
+        TextBox7.TabIndex = 12
+        TextBox7.Text = "DD/MM/YYYY"
+        ' 
+        ' Label13
+        ' 
+        Label13.AutoSize = True
+        Label13.Font = New Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        Label13.Location = New Point(82, 151)
+        Label13.Name = "Label13"
+        Label13.Size = New Size(122, 15)
+        Label13.TabIndex = 11
+        Label13.Text = "CARD EXPIRY DATE:"
+        ' 
+        ' TextBox6
+        ' 
+        TextBox6.Location = New Point(211, 81)
+        TextBox6.Multiline = True
+        TextBox6.Name = "TextBox6"
+        TextBox6.Size = New Size(160, 28)
+        TextBox6.TabIndex = 10
+        ' 
+        ' Label12
+        ' 
+        Label12.AutoSize = True
+        Label12.Font = New Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        Label12.Location = New Point(82, 92)
+        Label12.Name = "Label12"
+        Label12.Size = New Size(119, 15)
+        Label12.TabIndex = 9
+        Label12.Text = "A/C HOLDER NAME:"
+        ' 
+        ' TextBox5
+        ' 
+        TextBox5.Location = New Point(211, 32)
+        TextBox5.Multiline = True
+        TextBox5.Name = "TextBox5"
+        TextBox5.Size = New Size(160, 28)
+        TextBox5.TabIndex = 8
+        ' 
+        ' Label11
+        ' 
+        Label11.AutoSize = True
+        Label11.Font = New Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0)
+        Label11.Location = New Point(82, 44)
+        Label11.Name = "Label11"
+        Label11.Size = New Size(90, 15)
+        Label11.TabIndex = 7
+        Label11.Text = "ACCOUNT NO:"
+        ' 
         ' Panel5
         ' 
+        Panel5.Controls.Add(PictureBox8)
+        Panel5.Controls.Add(PictureBox7)
+        Panel5.Controls.Add(PictureBox6)
+        Panel5.Controls.Add(PictureBox5)
         Panel5.Controls.Add(Label10)
         Panel5.Controls.Add(PictureBox4)
         Panel5.Location = New Point(1, 5)
@@ -203,10 +331,54 @@ Partial Class checkout
         Panel5.Size = New Size(622, 260)
         Panel5.TabIndex = 9
         ' 
+        ' PictureBox8
+        ' 
+        PictureBox8.BackColor = Color.Transparent
+        PictureBox8.BackgroundImage = My.Resources.Resources.upibhim
+        PictureBox8.BackgroundImageLayout = ImageLayout.Zoom
+        PictureBox8.Location = New Point(511, 151)
+        PictureBox8.Name = "PictureBox8"
+        PictureBox8.Size = New Size(61, 60)
+        PictureBox8.TabIndex = 17
+        PictureBox8.TabStop = False
+        ' 
+        ' PictureBox7
+        ' 
+        PictureBox7.BackColor = Color.Transparent
+        PictureBox7.BackgroundImage = My.Resources.Resources.ptm
+        PictureBox7.BackgroundImageLayout = ImageLayout.Zoom
+        PictureBox7.Location = New Point(500, 32)
+        PictureBox7.Name = "PictureBox7"
+        PictureBox7.Size = New Size(80, 70)
+        PictureBox7.TabIndex = 16
+        PictureBox7.TabStop = False
+        ' 
+        ' PictureBox6
+        ' 
+        PictureBox6.BackColor = Color.Transparent
+        PictureBox6.BackgroundImage = My.Resources.Resources.phnp
+        PictureBox6.BackgroundImageLayout = ImageLayout.Zoom
+        PictureBox6.Location = New Point(44, 151)
+        PictureBox6.Name = "PictureBox6"
+        PictureBox6.Size = New Size(61, 60)
+        PictureBox6.TabIndex = 15
+        PictureBox6.TabStop = False
+        ' 
+        ' PictureBox5
+        ' 
+        PictureBox5.BackColor = Color.Transparent
+        PictureBox5.BackgroundImage = My.Resources.Resources.gpay
+        PictureBox5.BackgroundImageLayout = ImageLayout.Zoom
+        PictureBox5.Location = New Point(44, 37)
+        PictureBox5.Name = "PictureBox5"
+        PictureBox5.Size = New Size(61, 60)
+        PictureBox5.TabIndex = 14
+        PictureBox5.TabStop = False
+        ' 
         ' Label10
         ' 
         Label10.AutoSize = True
-        Label10.Font = New Font("Arial Narrow", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label10.Font = New Font("Arial Narrow", 9F, FontStyle.Bold, GraphicsUnit.Point, 0)
         Label10.Location = New Point(264, 241)
         Label10.Name = "Label10"
         Label10.Size = New Size(95, 16)
@@ -225,7 +397,7 @@ Partial Class checkout
         ' 
         label8.BackColor = SystemColors.Window
         label8.BorderStyle = BorderStyle.FixedSingle
-        label8.Font = New Font("Arial Narrow", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        label8.Font = New Font("Arial Narrow", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0)
         label8.Location = New Point(191, 191)
         label8.Multiline = True
         label8.Name = "label8"
@@ -325,7 +497,7 @@ Partial Class checkout
         ' TextBox4
         ' 
         TextBox4.BackColor = SystemColors.Window
-        TextBox4.Font = New Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        TextBox4.Font = New Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0)
         TextBox4.ForeColor = Color.Red
         TextBox4.HideSelection = False
         TextBox4.Location = New Point(488, 9)
@@ -339,13 +511,24 @@ Partial Class checkout
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Font = New Font("Century", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label2.Font = New Font("Century", 12F, FontStyle.Bold, GraphicsUnit.Point, 0)
         Label2.ForeColor = SystemColors.WindowText
         Label2.Location = New Point(315, 15)
         Label2.Name = "Label2"
         Label2.Size = New Size(163, 20)
         Label2.TabIndex = 13
         Label2.Text = "AMOUNT TO PAY"
+        ' 
+        ' PictureBox10
+        ' 
+        PictureBox10.BackColor = Color.Transparent
+        PictureBox10.BackgroundImage = My.Resources.Resources.visa
+        PictureBox10.BackgroundImageLayout = ImageLayout.Zoom
+        PictureBox10.Location = New Point(425, 144)
+        PictureBox10.Name = "PictureBox10"
+        PictureBox10.Size = New Size(162, 105)
+        PictureBox10.TabIndex = 16
+        PictureBox10.TabStop = False
         ' 
         ' checkout
         ' 
@@ -369,11 +552,19 @@ Partial Class checkout
         Panel2.PerformLayout()
         Panel4.ResumeLayout(False)
         Panel4.PerformLayout()
+        Panel6.ResumeLayout(False)
+        Panel6.PerformLayout()
+        CType(PictureBox9, ComponentModel.ISupportInitialize).EndInit()
         Panel5.ResumeLayout(False)
         Panel5.PerformLayout()
+        CType(PictureBox8, ComponentModel.ISupportInitialize).EndInit()
+        CType(PictureBox7, ComponentModel.ISupportInitialize).EndInit()
+        CType(PictureBox6, ComponentModel.ISupportInitialize).EndInit()
+        CType(PictureBox5, ComponentModel.ISupportInitialize).EndInit()
         CType(PictureBox4, ComponentModel.ISupportInitialize).EndInit()
         Panel3.ResumeLayout(False)
         Panel3.PerformLayout()
+        CType(PictureBox10, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
@@ -403,4 +594,19 @@ Partial Class checkout
     Friend WithEvents Panel5 As Panel
     Friend WithEvents PictureBox4 As PictureBox
     Friend WithEvents Label10 As Label
+    Friend WithEvents PictureBox7 As PictureBox
+    Friend WithEvents PictureBox6 As PictureBox
+    Friend WithEvents PictureBox5 As PictureBox
+    Friend WithEvents PictureBox8 As PictureBox
+    Friend WithEvents Panel6 As Panel
+    Friend WithEvents Label11 As Label
+    Friend WithEvents TextBox5 As TextBox
+    Friend WithEvents TextBox8 As TextBox
+    Friend WithEvents Label14 As Label
+    Friend WithEvents TextBox7 As TextBox
+    Friend WithEvents Label13 As Label
+    Friend WithEvents TextBox6 As TextBox
+    Friend WithEvents Label12 As Label
+    Friend WithEvents PictureBox9 As PictureBox
+    Friend WithEvents PictureBox10 As PictureBox
 End Class
