@@ -25,6 +25,8 @@ Partial Class Billadd
         components = New ComponentModel.Container()
         Label1 = New Label()
         Panel1 = New Panel()
+        ComboBox1 = New ComboBox()
+        Button6 = New Button()
         Label21 = New Label()
         Label20 = New Label()
         GroupBox1 = New GroupBox()
@@ -53,7 +55,6 @@ Partial Class Billadd
         pid = New TextBox()
         Label2 = New Label()
         Button4 = New Button()
-        Button3 = New Button()
         Button2 = New Button()
         Button1 = New Button()
         ListView1 = New ListView()
@@ -103,6 +104,8 @@ Partial Class Billadd
         Panel1.AutoSize = True
         Panel1.BackColor = Color.DarkTurquoise
         Panel1.BorderStyle = BorderStyle.Fixed3D
+        Panel1.Controls.Add(ComboBox1)
+        Panel1.Controls.Add(Button6)
         Panel1.Controls.Add(Label21)
         Panel1.Controls.Add(Label20)
         Panel1.Controls.Add(GroupBox1)
@@ -124,13 +127,34 @@ Partial Class Billadd
         Panel1.Controls.Add(Label2)
         Panel1.Controls.Add(Button4)
         Panel1.Controls.Add(Label1)
-        Panel1.Controls.Add(Button3)
         Panel1.Controls.Add(Button2)
         Panel1.Controls.Add(Button1)
         Panel1.Location = New Point(10, 21)
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(1350, 287)
         Panel1.TabIndex = 18
+        ' 
+        ' ComboBox1
+        ' 
+        ComboBox1.FormattingEnabled = True
+        ComboBox1.Location = New Point(1123, 240)
+        ComboBox1.Name = "ComboBox1"
+        ComboBox1.Size = New Size(121, 23)
+        ComboBox1.TabIndex = 61
+        ' 
+        ' Button6
+        ' 
+        Button6.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        Button6.BackColor = SystemColors.ButtonFace
+        Button6.FlatStyle = FlatStyle.Flat
+        Button6.Font = New Font("Adobe Fan Heiti Std B", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Button6.ForeColor = SystemColors.ActiveCaptionText
+        Button6.Location = New Point(944, 240)
+        Button6.Name = "Button6"
+        Button6.Size = New Size(120, 23)
+        Button6.TabIndex = 60
+        Button6.Text = "HOLD BILL  (F10)"
+        Button6.UseVisualStyleBackColor = False
         ' 
         ' Label21
         ' 
@@ -389,33 +413,21 @@ Partial Class Billadd
         Button4.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         Button4.BackColor = SystemColors.ButtonFace
         Button4.FlatStyle = FlatStyle.Flat
-        Button4.Location = New Point(455, 228)
+        Button4.Location = New Point(457, 229)
         Button4.Name = "Button4"
-        Button4.Size = New Size(103, 34)
+        Button4.Size = New Size(140, 34)
         Button4.TabIndex = 40
         Button4.Text = "Button4"
         Button4.UseVisualStyleBackColor = False
-        ' 
-        ' Button3
-        ' 
-        Button3.Anchor = AnchorStyles.Top Or AnchorStyles.Right
-        Button3.BackColor = SystemColors.ButtonFace
-        Button3.FlatStyle = FlatStyle.Flat
-        Button3.Location = New Point(329, 228)
-        Button3.Name = "Button3"
-        Button3.Size = New Size(103, 34)
-        Button3.TabIndex = 12
-        Button3.Text = "Button3"
-        Button3.UseVisualStyleBackColor = False
         ' 
         ' Button2
         ' 
         Button2.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         Button2.BackColor = SystemColors.ButtonFace
         Button2.FlatStyle = FlatStyle.Flat
-        Button2.Location = New Point(195, 228)
+        Button2.Location = New Point(266, 229)
         Button2.Name = "Button2"
-        Button2.Size = New Size(103, 34)
+        Button2.Size = New Size(140, 34)
         Button2.TabIndex = 13
         Button2.Text = "Button2"
         Button2.UseVisualStyleBackColor = False
@@ -425,9 +437,9 @@ Partial Class Billadd
         Button1.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         Button1.BackColor = SystemColors.ButtonFace
         Button1.FlatStyle = FlatStyle.Flat
-        Button1.Location = New Point(72, 228)
+        Button1.Location = New Point(75, 229)
         Button1.Name = "Button1"
-        Button1.Size = New Size(103, 34)
+        Button1.Size = New Size(140, 34)
         Button1.TabIndex = 11
         Button1.Text = "Button1"
         Button1.UseVisualStyleBackColor = False
@@ -712,7 +724,6 @@ Partial Class Billadd
     End Sub
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Button4 As Button
-    Friend WithEvents Button3 As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents TextBox1 As TextBox
@@ -768,4 +779,6 @@ Partial Class Billadd
     Friend WithEvents Timer1 As Timer
     Friend WithEvents Label27 As Label
     Friend WithEvents Label28 As Label
+    Friend WithEvents Button6 As Button
+    Friend WithEvents ComboBox1 As ComboBox
 End Class

@@ -1,11 +1,12 @@
-﻿Imports System.IO
-Imports MySql.Data.MySqlClient
+﻿Imports MySql.Data.MySqlClient
+Imports System.IO
 
-Public Class EmployeeInsert
+Public Class ManagerInsert
+
     Dim qry As String
     Private imageChanged As Boolean = False
 
-    Private Sub Employee_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub Manager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
         Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
         Me.Size = New Size(screenWidth, screenHeight)
@@ -23,14 +24,14 @@ Public Class EmployeeInsert
         If openFileDialog.ShowDialog() = DialogResult.OK Then
             PictureBox1.Image = Image.FromFile(openFileDialog.FileName)
             imageChanged = True
+
         End If
     End Sub
 
     Public Sub showdata()
-        Call connect()
         TextBox1.Enabled = True
-
-        qry = "select userid as EmpID,username as EmpName,pwd as password,phone,email,aadhar as Aadharno,dob,doj from users where usertype = 'Emp'"
+        Call connect()
+        qry = "select userid as Manager_ID,username as Manager_Name,pwd as password,phone,email,aadhar as Aadharno,dob,doj from users where usertype = 'Manager'"
         Dim da As New MySqlDataAdapter(qry, conn)
         Dim dt As New DataTable()
 
@@ -70,13 +71,13 @@ Public Class EmployeeInsert
 
                 ' Insert the new employee data into the database
                 qry = "INSERT INTO users (userid, username, pwd, usertype, phone, email, aadhar, dob, doj, photo) " &
-                  "VALUES (@userid, @username, @pwd, @usertype, @phone, @email, @aadhar, @dob, @doj, @photo)"
+              "VALUES (@userid, @username, @pwd, @usertype, @phone, @email, @aadhar, @dob, @doj, @photo)"
 
                 Dim cmd As New MySqlCommand(qry, conn)
                 cmd.Parameters.AddWithValue("@userid", TextBox1.Text)
                 cmd.Parameters.AddWithValue("@username", TextBox2.Text)
                 cmd.Parameters.AddWithValue("@pwd", TextBox6.Text)
-                cmd.Parameters.AddWithValue("@usertype", "Emp")
+                cmd.Parameters.AddWithValue("@usertype", "Manager")
                 cmd.Parameters.AddWithValue("@phone", TextBox3.Text)
                 cmd.Parameters.AddWithValue("@email", TextBox4.Text)
                 cmd.Parameters.AddWithValue("@aadhar", TextBox5.Text)
@@ -87,7 +88,7 @@ Public Class EmployeeInsert
                 cmd.ExecuteNonQuery()
 
                 conn.Close()
-                MessageBox.Show("Employee data successfully inserted!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("Manager data successfully inserted!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 ClearFields()
 
@@ -102,20 +103,19 @@ Public Class EmployeeInsert
 
     Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
         If e.RowIndex >= 0 Then
+            Dim selectedRow As DataGridViewRow = DataGridView1.Rows(e.RowIndex)
             TextBox1.Enabled = False
 
-            Dim selectedRow As DataGridViewRow = DataGridView1.Rows(e.RowIndex)
-
-            If selectedRow.Cells("EmpID").Value IsNot DBNull.Value Then
-                TextBox1.Text = selectedRow.Cells("EmpID").Value.ToString() ' Employee ID
+            If selectedRow.Cells("Manager_ID").Value IsNot DBNull.Value Then
+                TextBox1.Text = selectedRow.Cells("Manager_ID").Value.ToString()
             End If
 
-            If selectedRow.Cells("EmpName").Value IsNot DBNull.Value Then
-                TextBox2.Text = selectedRow.Cells("EmpName").Value.ToString() ' Employee Name
+            If selectedRow.Cells("Manager_Name").Value IsNot DBNull.Value Then
+                TextBox2.Text = selectedRow.Cells("Manager_Name").Value.ToString()
             End If
 
             If selectedRow.Cells("phone").Value IsNot DBNull.Value Then
-                TextBox3.Text = selectedRow.Cells("phone").Value.ToString() ' Phone
+                TextBox3.Text = selectedRow.Cells("phone").Value.ToString()
             End If
 
             If selectedRow.Cells("email").Value IsNot DBNull.Value Then
@@ -140,20 +140,19 @@ Public Class EmployeeInsert
 
             imageChanged = False
 
-            ' Check if the EmpID (or any identifier) exists before fetching the image
-            Dim empId As String = selectedRow.Cells("EmpID").Value.ToString()
-            If Not String.IsNullOrEmpty(empId) Then
-                FetchImageAndDisplay(empId)
+            Dim ManagerId As String = selectedRow.Cells("Manager_ID").Value.ToString()
+            If Not String.IsNullOrEmpty(ManagerId) Then
+                FetchImageAndDisplay(ManagerId)
             End If
         End If
     End Sub
 
 
-    Private Sub FetchImageAndDisplay(empId As String)
+    Private Sub FetchImageAndDisplay(ManagerId As String)
         Try
-            Dim qry As String = "SELECT photo FROM users WHERE userid = @empId"
+            Dim qry As String = "SELECT photo FROM users WHERE userid = @Manager_Id"
             Dim cmd As New MySqlCommand(qry, conn)
-            cmd.Parameters.AddWithValue("@empId", empId)
+            cmd.Parameters.AddWithValue("@Manager_Id", ManagerId)
 
             conn.Open()
 
@@ -161,24 +160,21 @@ Public Class EmployeeInsert
 
             conn.Close()
 
+
             If photo IsNot DBNull.Value Then
                 Dim photoBytes As Byte() = CType(photo, Byte())
                 Using ms As New MemoryStream(photoBytes)
-                    ' Dispose of the previous image if it exists
                     If PictureBox1.Image IsNot Nothing Then
                         PictureBox1.Image.Dispose()
                     End If
 
-                    ' Load the image from the stream and clone it
                     Dim tempImage As Image = Image.FromStream(ms)
                     PictureBox1.Image = CType(tempImage.Clone(), Image) ' Clone the image to avoid stream issues
                     PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage
 
-                    ' Dispose of the temporary image after cloning
                     tempImage.Dispose()
                 End Using
             Else
-                ' Handle the case where there is no image in the database
                 If PictureBox1.Image IsNot Nothing Then
                     PictureBox1.Image.Dispose()
                 End If
@@ -204,31 +200,31 @@ Public Class EmployeeInsert
 
     Private Function ValidateFields() As Boolean
         If TextBox1.Text.Trim() = "" Then
-            MsgBox("Please enter Employee ID.")
+            MsgBox("Please enter Manager ID.")
             TextBox1.Focus()
             Return False
         End If
 
         If TextBox2.Text.Trim() = "" Then
-            MsgBox("Please enter Employee Name.")
+            MsgBox("Please enter Manager Name.")
             TextBox2.Focus()
             Return False
         End If
 
         If TextBox3.Text.Trim() = "" Then
-            MsgBox("Please enter Employee Phone No.")
+            MsgBox("Please enter Manager Phone No.")
             TextBox3.Focus()
             Return False
         End If
 
         If TextBox4.Text.Trim() = "" Then
-            MsgBox("Please enter Employee Email.")
+            MsgBox("Please enter Manager Email.")
             TextBox4.Focus()
             Return False
         End If
 
         If TextBox5.Text.Trim() = "" Then
-            MsgBox("Please enter Employee Aadhar No.")
+            MsgBox("Please enter Manager Aadhar No.")
             TextBox5.Focus()
             Return False
         End If
@@ -246,23 +242,23 @@ Public Class EmployeeInsert
         If DataGridView1.SelectedRows.Count > 0 Then
             Dim selectedRow As DataGridViewRow = DataGridView1.SelectedRows(0)
 
-            If selectedRow.Cells("EmpID").Value IsNot DBNull.Value AndAlso Not String.IsNullOrEmpty(selectedRow.Cells("EmpID").Value.ToString()) Then
-                Dim empId As String = selectedRow.Cells("EmpID").Value.ToString()
+            If selectedRow.Cells("Manager_ID").Value IsNot DBNull.Value AndAlso Not String.IsNullOrEmpty(selectedRow.Cells("Manager_ID").Value.ToString()) Then
+                Dim ManagerId As String = selectedRow.Cells("Manager_ID").Value.ToString()
 
-                Dim confirmDelete As DialogResult = MessageBox.Show("Are you sure you want to delete this employee?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                Dim confirmDelete As DialogResult = MessageBox.Show("Are you sure you want to delete this Manager.?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
                 If confirmDelete = DialogResult.Yes Then
                     Try
                         connect()
 
-                        Dim qry As String = "DELETE FROM users WHERE userid = @empId"
+                        Dim qry As String = "DELETE FROM users WHERE userid = @ManagerId"
                         Dim cmd As New MySqlCommand(qry, conn)
-                        cmd.Parameters.AddWithValue("@empId", empId)
+                        cmd.Parameters.AddWithValue("@ManagerId", ManagerId)
 
                         cmd.ExecuteNonQuery()
 
                         conn.Close()
-                        MessageBox.Show("Employee deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        MessageBox.Show("Manager deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                         ' Refresh the DataGridView
                         showdata()
@@ -272,22 +268,43 @@ Public Class EmployeeInsert
                     End Try
                 End If
             Else
-                MessageBox.Show("Selected row does not have a valid Employee ID.", "Invalid Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("Selected row does not have a valid Manager ID.", "Invalid Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             End If
         Else
-            MessageBox.Show("Please select an employee to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Please select a Manager to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         If TextBox1.Text.Trim() = "" Then
-            MessageBox.Show("Please select an employee from the list to update.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Please select an Manager from the list to update.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
         ' Check if the userid is already in use by someone else 
-        If ValidateFields() Then
+        Try
+            connect()
 
+            Dim checkUseridQuery As String = "SELECT COUNT(*) FROM users WHERE userid = @Managerid AND userid != @currentUserId"
+            Dim checkCmd As New MySqlCommand(checkUseridQuery, conn)
+            checkCmd.Parameters.AddWithValue("@Managerid", TextBox1.Text)
+            checkCmd.Parameters.AddWithValue("@currentUserId", TextBox1.Text) ' Ensure we're not checking for the current record
+
+            Dim count As Integer = Convert.ToInt32(checkCmd.ExecuteScalar())
+            If count > 0 Then
+                MessageBox.Show("The Manager ID is already in use by another Manager.", "UserID Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                conn.Close()
+                Return
+            End If
+            conn.Close()
+
+        Catch ex As Exception
+            MessageBox.Show("Error checking UserID existence: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            If conn.State = ConnectionState.Open Then conn.Close()
+            Return
+        End Try
+
+        If ValidateFields() Then
             Try
                 connect()
 
@@ -329,18 +346,21 @@ Public Class EmployeeInsert
                 cmd.ExecuteNonQuery()
 
                 conn.Close()
-                MessageBox.Show("Employee data updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("Manager data updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+                ' Clear the image change flag after successful update
                 imageChanged = False
 
 
             Catch ex As Exception
-                MessageBox.Show("Error updating employee data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Error updating Manager data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 If conn.State = ConnectionState.Open Then conn.Close()
             End Try
             ClearFields()
         End If
+        ' Refresh data
         showdata()
+
 
     End Sub
 
@@ -351,10 +371,10 @@ Public Class EmployeeInsert
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         If TextBox7.Text = "" AndAlso TextBox8.Text = "" Then
-            MsgBox("PLEASE ENTER EMPLOYEE ID OR NAME TO FIND")
+            MsgBox("PLEASE ENTER Manager ID OR NAME TO FIND")
         Else
-            Dim qry As String = "SELECT userid as EmpID, username as EmpName, pwd as password, phone, email, aadhar as Aadharno, dob, doj " &
-                                "FROM users WHERE usertype = 'Emp'"
+            Dim qry As String = "SELECT userid as Manager_ID, username as Manager_Name, pwd as password, phone, email, aadhar as Aadharno, dob, doj " &
+                                "FROM users WHERE usertype = 'Manager'"
 
             If TextBox7.Text <> "" Then
                 qry &= " AND userid = '" & TextBox7.Text & "'"
