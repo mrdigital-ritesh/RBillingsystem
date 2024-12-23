@@ -17,6 +17,7 @@
   <ItemGroup>
     <PackageReference Include="MessagingToolkit.Barcode" Version="1.7.0.2" />
     <PackageReference Include="MySql.Data" Version="9.0.0" />
+    <PackageReference Include="PDFsharp" Version="6.1.1" />
     <PackageReference Include="QRCoder" Version="1.6.0" />
     <PackageReference Include="Syncfusion.Chart.Windows" Version="28.1.35" />
     <PackageReference Include="Syncfusion.Diagram.Windows" Version="28.1.35" />

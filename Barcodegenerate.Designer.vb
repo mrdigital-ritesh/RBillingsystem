@@ -41,6 +41,7 @@ Partial Class Barcodegenerate
         Label1 = New Label()
         TextBox1 = New TextBox()
         FlowLayoutPanelPreview = New FlowLayoutPanel()
+        Button3 = New Button()
         Panel1.SuspendLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
@@ -152,6 +153,7 @@ Partial Class Barcodegenerate
         ' 
         ' Panel2
         ' 
+        Panel2.Controls.Add(Button3)
         Panel2.Controls.Add(Button2)
         Panel2.Controls.Add(Button1)
         Panel2.Controls.Add(ButtonSearch)
@@ -216,6 +218,15 @@ Partial Class Barcodegenerate
         FlowLayoutPanelPreview.Size = New Size(884, 687)
         FlowLayoutPanelPreview.TabIndex = 20
         ' 
+        ' Button3
+        ' 
+        Button3.Location = New Point(155, 184)
+        Button3.Name = "Button3"
+        Button3.Size = New Size(75, 23)
+        Button3.TabIndex = 4
+        Button3.Text = "Button3"
+        Button3.UseVisualStyleBackColor = True
+        ' 
         ' Barcodegenerate
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -255,4 +266,5 @@ Partial Class Barcodegenerate
     Friend WithEvents ButtonSearch As Button
     Friend WithEvents Button1 As Button
     Friend WithEvents Button2 As Button
+    Friend WithEvents Button3 As Button
 End Class
