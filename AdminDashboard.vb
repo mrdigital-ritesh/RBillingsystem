@@ -2,6 +2,7 @@
 Imports MySql.Data.MySqlClient
 Imports System.Runtime.InteropServices
 Imports System.Globalization
+Imports Syncfusion.Windows.Forms.Chart
 
 Public Class AdminDashboard
 
@@ -14,6 +15,21 @@ Public Class AdminDashboard
         End Get
     End Property
     Private Sub AdminDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'chart code
+
+        Dim series As New ChartSeries("Sales", ChartSeriesType.Pie)
+
+        ' Add data points (Name, Value)
+        series.Points.Add("2020", 50)
+        series.Points.Add("2021", 70)
+        series.Points.Add("2022", 90)
+        series.Points.Add("2023", 110)
+
+        ChartControl1.Series.Add(series)
+
+        ChartControl1.Refresh()
+
+        'main code
         loginform.Close()
         ManagerInsert.Close()
         EmployeeInsert.Close()
@@ -62,4 +78,6 @@ Public Class AdminDashboard
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
         product.Show()
     End Sub
+
+
 End Class

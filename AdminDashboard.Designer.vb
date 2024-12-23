@@ -23,20 +23,26 @@ Partial Class AdminDashboard
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
+        Dim ChartCustomPoint1 As Syncfusion.Windows.Forms.Chart.ChartCustomPoint = New Syncfusion.Windows.Forms.Chart.ChartCustomPoint()
         Label1 = New Label()
         Label2 = New Label()
         Panel1 = New Panel()
         PictureBox2 = New PictureBox()
         Panel3 = New Panel()
+        ChartControl1 = New Syncfusion.Windows.Forms.Chart.ChartControl()
         Panel7 = New Panel()
         PictureBox1 = New PictureBox()
         Panel6 = New Panel()
+        Label11 = New Label()
         Label6 = New Label()
         Panel5 = New Panel()
+        Label10 = New Label()
         Label5 = New Label()
         Panel4 = New Panel()
+        Label9 = New Label()
         Label4 = New Label()
         Panel2 = New Panel()
+        Label8 = New Label()
         Label3 = New Label()
         Label7 = New Label()
         Timer1 = New Timer(components)
@@ -47,10 +53,6 @@ Partial Class AdminDashboard
         Button4 = New Button()
         Button5 = New Button()
         ToolTip1 = New ToolTip(components)
-        Label8 = New Label()
-        Label9 = New Label()
-        Label10 = New Label()
-        Label11 = New Label()
         Panel1.SuspendLayout()
         CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
         Panel3.SuspendLayout()
@@ -110,6 +112,7 @@ Partial Class AdminDashboard
         ' 
         Panel3.BackColor = Color.White
         Panel3.BorderStyle = BorderStyle.FixedSingle
+        Panel3.Controls.Add(ChartControl1)
         Panel3.Controls.Add(Panel7)
         Panel3.Controls.Add(Panel6)
         Panel3.Controls.Add(Panel5)
@@ -119,6 +122,36 @@ Partial Class AdminDashboard
         Panel3.Name = "Panel3"
         Panel3.Size = New Size(1101, 667)
         Panel3.TabIndex = 4
+        ' 
+        ' ChartControl1
+        ' 
+        ChartControl1.ChartArea.CursorLocation = New Point(0, 0)
+        ChartControl1.ChartArea.CursorReDraw = False
+        ChartCustomPoint1.Font.Facename = "Segoe UI"
+        ChartControl1.CustomPoints.Add(ChartCustomPoint1)
+        ChartControl1.Font = New Font("Microsoft Sans Serif", 8.25F)
+        ' 
+        ' 
+        ' 
+        ChartControl1.Legend.Location = New Point(405, 75)
+        ChartControl1.Location = New Point(519, 216)
+        ChartControl1.Name = "ChartControl1"
+        ChartControl1.Palette = Syncfusion.Windows.Forms.Chart.ChartColorPalette.WarmCold
+        ChartControl1.PrimaryXAxis.LogLabelsDisplayMode = Syncfusion.Windows.Forms.Chart.LogLabelsDisplayMode.Default
+        ChartControl1.PrimaryXAxis.Margin = True
+        ChartControl1.PrimaryYAxis.LogLabelsDisplayMode = Syncfusion.Windows.Forms.Chart.LogLabelsDisplayMode.Default
+        ChartControl1.PrimaryYAxis.Margin = True
+        ChartControl1.Size = New Size(514, 412)
+        ChartControl1.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
+        ChartControl1.Style3D = True
+        ChartControl1.TabIndex = 6
+        ChartControl1.Text = "SALES "
+        ChartControl1.Tilt = 35F
+        ' 
+        ' 
+        ' 
+        ChartControl1.Title.Name = "Default"
+        ChartControl1.Titles.Add(ChartControl1.Title)
         ' 
         ' Panel7
         ' 
@@ -151,6 +184,16 @@ Partial Class AdminDashboard
         Panel6.Size = New Size(222, 120)
         Panel6.TabIndex = 4
         ' 
+        ' Label11
+        ' 
+        Label11.AutoSize = True
+        Label11.Font = New Font("Arial", 21.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label11.Location = New Point(95, 52)
+        Label11.Name = "Label11"
+        Label11.Size = New Size(31, 34)
+        Label11.TabIndex = 2
+        Label11.Text = "0"
+        ' 
         ' Label6
         ' 
         Label6.AutoSize = True
@@ -171,6 +214,16 @@ Partial Class AdminDashboard
         Panel5.Name = "Panel5"
         Panel5.Size = New Size(222, 120)
         Panel5.TabIndex = 3
+        ' 
+        ' Label10
+        ' 
+        Label10.AutoSize = True
+        Label10.Font = New Font("Arial", 21.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label10.Location = New Point(95, 52)
+        Label10.Name = "Label10"
+        Label10.Size = New Size(31, 34)
+        Label10.TabIndex = 2
+        Label10.Text = "0"
         ' 
         ' Label5
         ' 
@@ -193,6 +246,16 @@ Partial Class AdminDashboard
         Panel4.Size = New Size(222, 120)
         Panel4.TabIndex = 2
         ' 
+        ' Label9
+        ' 
+        Label9.AutoSize = True
+        Label9.Font = New Font("Arial", 21.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label9.Location = New Point(93, 52)
+        Label9.Name = "Label9"
+        Label9.Size = New Size(31, 34)
+        Label9.TabIndex = 2
+        Label9.Text = "0"
+        ' 
         ' Label4
         ' 
         Label4.AutoSize = True
@@ -213,6 +276,16 @@ Partial Class AdminDashboard
         Panel2.Name = "Panel2"
         Panel2.Size = New Size(222, 120)
         Panel2.TabIndex = 1
+        ' 
+        ' Label8
+        ' 
+        Label8.AutoSize = True
+        Label8.Font = New Font("Arial", 21.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label8.Location = New Point(95, 52)
+        Label8.Name = "Label8"
+        Label8.Size = New Size(31, 34)
+        Label8.TabIndex = 1
+        Label8.Text = "0"
         ' 
         ' Label3
         ' 
@@ -312,46 +385,6 @@ Partial Class AdminDashboard
         ToolTip1.SetToolTip(Button5, "BARCODE GENERATION")
         Button5.UseVisualStyleBackColor = True
         ' 
-        ' Label8
-        ' 
-        Label8.AutoSize = True
-        Label8.Font = New Font("Arial", 21.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label8.Location = New Point(95, 52)
-        Label8.Name = "Label8"
-        Label8.Size = New Size(31, 34)
-        Label8.TabIndex = 1
-        Label8.Text = "0"
-        ' 
-        ' Label9
-        ' 
-        Label9.AutoSize = True
-        Label9.Font = New Font("Arial", 21.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label9.Location = New Point(93, 52)
-        Label9.Name = "Label9"
-        Label9.Size = New Size(31, 34)
-        Label9.TabIndex = 2
-        Label9.Text = "0"
-        ' 
-        ' Label10
-        ' 
-        Label10.AutoSize = True
-        Label10.Font = New Font("Arial", 21.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label10.Location = New Point(95, 52)
-        Label10.Name = "Label10"
-        Label10.Size = New Size(31, 34)
-        Label10.TabIndex = 2
-        Label10.Text = "0"
-        ' 
-        ' Label11
-        ' 
-        Label11.AutoSize = True
-        Label11.Font = New Font("Arial", 21.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label11.Location = New Point(95, 52)
-        Label11.Name = "Label11"
-        Label11.Size = New Size(31, 34)
-        Label11.TabIndex = 2
-        Label11.Text = "0"
-        ' 
         ' AdminDashboard
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -420,4 +453,5 @@ Partial Class AdminDashboard
     Friend WithEvents Label9 As Label
     Friend WithEvents Label11 As Label
     Friend WithEvents Label10 As Label
+    Friend WithEvents ChartControl1 As Syncfusion.Windows.Forms.Chart.ChartControl
 End Class

@@ -78,9 +78,9 @@ Public Class checkout
         mode = "UPI"
         Panel6.Visible = False
 
-
+        Dim totalAmountQ = Math.Round(totalAmount)
         Panel5.Visible = True
-        Dim formattedAmount As String = totalAmount.ToString("F2") ' Ensures two decimal places
+        Dim formattedAmount As String = totalAmountQ.ToString("F2") ' Ensures two decimal places
         Dim upiString As String = $"upi://pay?pa=7597372851@paytm&pn=RITESH%20BAGDI&am={formattedAmount}&cu=INR&tn=TestTransaction"
 
         Dim qrGenerator As New QRCodeGenerator()
