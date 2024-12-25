@@ -14,8 +14,11 @@ Public Class Barcodegenerate
     End Property
     Dim count As Integer = 0
     Private Sub Barcodegenerate_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Set up the form on load
-
+        SearchProducts()
+        Me.KeyPreview = True
+        AdminDashboard.Close()
+        ManagerDashboard.Close()
+        EmployeeDashboard.Close()
         Me.BackgroundImage = My.Resources.bg
         Me.BackgroundImageLayout = ImageLayout.Stretch
         Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
@@ -23,21 +26,50 @@ Public Class Barcodegenerate
         Me.Size = New Size(screenWidth, screenHeight)
         Me.WindowState = FormWindowState.Maximized
 
-        ' Display user details
-        Label27.Text = username
-        Label26.Text = userid
-        Label25.Text = "EMPLOYEE ID:"
-        Label28.Text = "EMPLOYEE NAME:"
-        Label24.Text = ""
+        If user = "admin" Then
+            Label27.Text = username
+            Label26.Text = userid
+            Label25.Text = "ADMIN ID:"
+            Label28.Text = "ADMIN NAME:"
 
-        ' Enable timer for displaying time
+        ElseIf user = "manager" Then
+            Label27.Text = username
+            Label26.Text = userid
+            Label25.Text = "MANAGER ID:"
+            Label28.Text = "MANAGER NAME:"
+        ElseIf user = "emp" Then
+            Label27.Text = username
+            Label26.Text = userid
+            Label25.Text = "EMPLOYEE ID:"
+            Label28.Text = "EMPLOYEE NAME:"
+
+        End If
+        Label24.Text = ""
+        Label25.AutoSize = True
+        Label26.AutoSize = True
+        Label27.AutoSize = True
+        Label28.AutoSize = True
+
+        Label26.Left = Label25.Right + 8
+        Label27.Left = Label28.Right + 8
         Timer1.Enabled = True
         Me.FormBorderStyle = FormBorderStyle.Sizable
     End Sub
 
+    Private Sub Form1_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+        Select Case e.KeyCode
+            Case Keys.Escape
+                Button3.PerformClick()
+            Case Keys.F1
+                Button1.PerformClick()
+            Case Keys.F5
+                Button2.PerformClick()
+            Case Else
+        End Select
+    End Sub
+
     Private Sub GenerateBarcode(productId As String, productName As String, mrp As Decimal, dis As Decimal)
         Try
-            ' Validate Product ID
             If String.IsNullOrWhiteSpace(productId) Then
                 MessageBox.Show("Product ID is required to generate a barcode.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Return
@@ -48,7 +80,6 @@ Public Class Barcodegenerate
                 Return
 
             End If
-            ' Create BarcodeEncoder instance
             Dim barcodeEncoder As New BarcodeEncoder()
 
             ' Encode the barcode in Code 128 format
@@ -63,8 +94,8 @@ Public Class Barcodegenerate
             ' Create a panel with a border to display the barcode
             Dim barcodePanel As New Panel With {
             .Width = 250,
-            .Height = 145, ' Height to accommodate label, barcode, and "RSMART" text
-            .Margin = New Padding(10),
+            .Height = 146, ' Height to accommodate label, barcode, and "RSMART" text
+            .Margin = New Padding(7),
             .BorderStyle = BorderStyle.FixedSingle,
             .BackColor = Color.White ' Optional: Set a background color for better contrast
         }
@@ -72,7 +103,7 @@ Public Class Barcodegenerate
             ' Label for the product name
             Dim labelName As New Label With {
             .Text = productName,
-            .Top = 8,
+            .Top = 7,
             .Left = (barcodePanel.Width - 200) / 2, ' Center align horizontally
             .Width = 200,
             .Font = New Font("Arial", 10, FontStyle.Bold),
@@ -82,7 +113,7 @@ Public Class Barcodegenerate
             ' Label for the MRP with a crossed-out text
             Dim labelMRP As New Label With {
             .Text = "MRP: " & mrp.ToString("C2"),
-            .Top = 28,
+            .Top = 25,
             .Left = (barcodePanel.Width - 200) / 2, ' Center align horizontally
             .Width = 200,
             .Font = New Font("Arial", 8, FontStyle.Strikeout), ' Strikethrough the MRP
@@ -92,7 +123,7 @@ Public Class Barcodegenerate
             ' Label for the special price
             Dim labelSpecialPrice As New Label With {
             .Text = "Special Price: " & specialPrice.ToString("C2"),
-            .Top = 48, ' Positioning below the MRP label
+            .Top = 40, ' Positioning below the MRP label
             .Left = (barcodePanel.Width - 200) / 2, ' Center align horizontally
             .Width = 200,
             .Font = New Font("Arial", 8, FontStyle.Bold), ' Bold to highlight the special price
@@ -102,7 +133,7 @@ Public Class Barcodegenerate
             ' Label for "RSMART"
             Dim labelRSMART As New Label With {
             .Text = "RSMART",
-            .Top = 110, ' Positioning below the barcode
+            .Top = 113, ' Positioning below the barcode
             .Left = (barcodePanel.Width - 150) / 2, ' Center align horizontally
             .Width = 150, ' Adjust width for better appearance
             .Font = New Font("Arial", 12, FontStyle.Bold),
@@ -113,9 +144,9 @@ Public Class Barcodegenerate
             ' PictureBox for Barcode image
             Dim pictureBox As New PictureBox With {
             .Image = barcodeImage,
-            .Width = 200,
-            .Height = 55,
-            .Top = 50, ' Adjusted to make the barcode more centered vertically
+            .Width = 205,
+            .Height = 57,
+            .Top = 57, ' Adjusted to make the barcode more centered vertically
             .Left = (barcodePanel.Width - 200) / 2, ' Center align horizontally
             .SizeMode = PictureBoxSizeMode.StretchImage
         }
@@ -135,13 +166,30 @@ Public Class Barcodegenerate
         End Try
     End Sub
 
-    ' Function to retrieve discount percentage from the database
 
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        ' Generate barcode for the selected product
         If DataGridViewProducts.SelectedRows.Count > 0 Then
+
             Dim selectedRow = DataGridViewProducts.SelectedRows(0)
+            If selectedRow.Cells("Product ID").Value Is Nothing OrElse String.IsNullOrWhiteSpace(selectedRow.Cells("Product ID").Value.ToString()) Then
+                MessageBox.Show("Product ID is missing or invalid.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+            If selectedRow.Cells("Product Name").Value Is Nothing OrElse String.IsNullOrWhiteSpace(selectedRow.Cells("Product Name").Value.ToString()) Then
+                MessageBox.Show("Product Name is missing or invalid.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+            If selectedRow.Cells("MRP").Value Is Nothing OrElse Not IsNumeric(selectedRow.Cells("MRP").Value) Then
+                MessageBox.Show("MRP is missing or invalid.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+            If selectedRow.Cells("Dis").Value Is Nothing OrElse Not IsNumeric(selectedRow.Cells("Dis").Value) Then
+                MessageBox.Show("Discount is missing or invalid.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+
+
             Dim productId = selectedRow.Cells("Product ID").Value.ToString()
             Dim productName = selectedRow.Cells("Product Name").Value.ToString()
             Dim mrp = Convert.ToDecimal(selectedRow.Cells("MRP").Value)
@@ -201,11 +249,21 @@ Public Class Barcodegenerate
         Try
             Dim printDoc As New PrintDocument()
             AddHandler printDoc.PrintPage, AddressOf PrintPage
-            printDoc.Print()
+
+            ' Optional: Show print preview dialog
+            Dim previewDialog As New PrintPreviewDialog With {
+            .Document = printDoc,
+            .Width = 800,
+            .Height = 600
+        }
+            If previewDialog.ShowDialog() = DialogResult.OK Then
+                printDoc.Print() ' Directly print the document
+            End If
         Catch ex As Exception
             MessageBox.Show("Error printing barcodes: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
 
     Private Sub PrintPage(sender As Object, e As PrintPageEventArgs)
         ' Set initial positions for drawing barcodes on the page
@@ -258,5 +316,15 @@ Public Class Barcodegenerate
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         FlowLayoutPanelPreview.Controls.Clear()
         count = 0
+    End Sub
+
+    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
+        If user = "admin" Then
+            AdminDashboard.Show()
+        ElseIf user = "manager" Then
+            ManagerDashboard.Show()
+        ElseIf user = "emp" Then
+            EmployeeDashboard.Show()
+        End If
     End Sub
 End Class

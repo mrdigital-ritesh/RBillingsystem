@@ -35,18 +35,21 @@ Partial Class Barcodegenerate
         PrintDocument1 = New Printing.PrintDocument()
         DataGridViewProducts = New DataGridView()
         Panel2 = New Panel()
+        Button3 = New Button()
         Button2 = New Button()
         Button1 = New Button()
         ButtonSearch = New Button()
         Label1 = New Label()
         TextBox1 = New TextBox()
         FlowLayoutPanelPreview = New FlowLayoutPanel()
-        Button3 = New Button()
+        Label2 = New Label()
+        PictureBox2 = New PictureBox()
         Panel1.SuspendLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
         CType(DataGridViewProducts, ComponentModel.ISupportInitialize).BeginInit()
         Panel2.SuspendLayout()
+        CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' Timer1
@@ -54,6 +57,7 @@ Partial Class Barcodegenerate
         ' 
         ' Panel1
         ' 
+        Panel1.BackColor = SystemColors.Control
         Panel1.Controls.Add(PictureBox1)
         Panel1.Controls.Add(Label27)
         Panel1.Controls.Add(PictureBox3)
@@ -92,7 +96,7 @@ Partial Class Barcodegenerate
         PictureBox3.BackColor = Color.Transparent
         PictureBox3.BackgroundImage = My.Resources.Resources.calender
         PictureBox3.BackgroundImageLayout = ImageLayout.Zoom
-        PictureBox3.Location = New Point(24, 9)
+        PictureBox3.Location = New Point(26, 9)
         PictureBox3.Name = "PictureBox3"
         PictureBox3.Size = New Size(24, 27)
         PictureBox3.TabIndex = 72
@@ -148,7 +152,7 @@ Partial Class Barcodegenerate
         DataGridViewProducts.Location = New Point(12, 258)
         DataGridViewProducts.Name = "DataGridViewProducts"
         DataGridViewProducts.ReadOnly = True
-        DataGridViewProducts.Size = New Size(456, 440)
+        DataGridViewProducts.Size = New Size(486, 440)
         DataGridViewProducts.TabIndex = 18
         ' 
         ' Panel2
@@ -159,51 +163,60 @@ Partial Class Barcodegenerate
         Panel2.Controls.Add(ButtonSearch)
         Panel2.Controls.Add(Label1)
         Panel2.Controls.Add(TextBox1)
-        Panel2.Location = New Point(12, 11)
+        Panel2.Location = New Point(12, 48)
         Panel2.Name = "Panel2"
-        Panel2.Size = New Size(456, 241)
+        Panel2.Size = New Size(486, 204)
         Panel2.TabIndex = 19
+        ' 
+        ' Button3
+        ' 
+        Button3.Location = New Point(313, 128)
+        Button3.Name = "Button3"
+        Button3.Size = New Size(151, 40)
+        Button3.TabIndex = 4
+        Button3.Text = "CLEAR PAGE (ESC)"
+        Button3.UseVisualStyleBackColor = True
         ' 
         ' Button2
         ' 
-        Button2.Location = New Point(298, 133)
+        Button2.Location = New Point(313, 82)
         Button2.Name = "Button2"
-        Button2.Size = New Size(75, 23)
+        Button2.Size = New Size(151, 40)
         Button2.TabIndex = 3
-        Button2.Text = "Button2"
+        Button2.Text = "PRINT PAGE (F5)"
         Button2.UseVisualStyleBackColor = True
         ' 
         ' Button1
         ' 
-        Button1.Location = New Point(155, 133)
+        Button1.Location = New Point(313, 36)
         Button1.Name = "Button1"
-        Button1.Size = New Size(75, 23)
+        Button1.Size = New Size(151, 40)
         Button1.TabIndex = 2
-        Button1.Text = "Button1"
+        Button1.Text = "GENERATE BARCODE (F1)"
         Button1.UseVisualStyleBackColor = True
         ' 
         ' ButtonSearch
         ' 
-        ButtonSearch.Location = New Point(22, 133)
+        ButtonSearch.Location = New Point(36, 117)
         ButtonSearch.Name = "ButtonSearch"
-        ButtonSearch.Size = New Size(95, 23)
-        ButtonSearch.TabIndex = 0
-        ButtonSearch.Text = "ButtonSearch"
+        ButtonSearch.Size = New Size(89, 40)
+        ButtonSearch.TabIndex = 1
+        ButtonSearch.Text = "SEARCH"
         ButtonSearch.UseVisualStyleBackColor = True
         ' 
         ' Label1
         ' 
         Label1.AutoSize = True
         Label1.Font = New Font("Arial", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label1.Location = New Point(22, 59)
+        Label1.Location = New Point(36, 37)
         Label1.Name = "Label1"
-        Label1.Size = New Size(127, 16)
+        Label1.Size = New Size(116, 16)
         Label1.TabIndex = 1
-        Label1.Text = "SEARCH PRODUCT"
+        Label1.Text = "ENTER PRODUCT"
         ' 
         ' TextBox1
         ' 
-        TextBox1.Location = New Point(22, 78)
+        TextBox1.Location = New Point(36, 64)
         TextBox1.Multiline = True
         TextBox1.Name = "TextBox1"
         TextBox1.Size = New Size(247, 36)
@@ -213,25 +226,41 @@ Partial Class Barcodegenerate
         ' 
         FlowLayoutPanelPreview.AutoScroll = True
         FlowLayoutPanelPreview.BorderStyle = BorderStyle.FixedSingle
-        FlowLayoutPanelPreview.Location = New Point(474, 11)
+        FlowLayoutPanelPreview.Location = New Point(504, 48)
         FlowLayoutPanelPreview.Name = "FlowLayoutPanelPreview"
-        FlowLayoutPanelPreview.Size = New Size(884, 687)
+        FlowLayoutPanelPreview.Size = New Size(854, 650)
         FlowLayoutPanelPreview.TabIndex = 20
         ' 
-        ' Button3
+        ' Label2
         ' 
-        Button3.Location = New Point(155, 184)
-        Button3.Name = "Button3"
-        Button3.Size = New Size(75, 23)
-        Button3.TabIndex = 4
-        Button3.Text = "Button3"
-        Button3.UseVisualStyleBackColor = True
+        Label2.AutoSize = True
+        Label2.BackColor = Color.Transparent
+        Label2.Font = New Font("Times New Roman", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label2.ForeColor = Color.White
+        Label2.Location = New Point(556, 9)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(258, 24)
+        Label2.TabIndex = 2
+        Label2.Text = "BARCODE GENERATION"
+        ' 
+        ' PictureBox2
+        ' 
+        PictureBox2.BackColor = Color.Transparent
+        PictureBox2.BackgroundImage = My.Resources.Resources.backbtn2
+        PictureBox2.BackgroundImageLayout = ImageLayout.Zoom
+        PictureBox2.Location = New Point(10, 2)
+        PictureBox2.Name = "PictureBox2"
+        PictureBox2.Size = New Size(62, 46)
+        PictureBox2.TabIndex = 93
+        PictureBox2.TabStop = False
         ' 
         ' Barcodegenerate
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1370, 749)
+        Controls.Add(PictureBox2)
+        Controls.Add(Label2)
         Controls.Add(FlowLayoutPanelPreview)
         Controls.Add(Panel2)
         Controls.Add(DataGridViewProducts)
@@ -245,7 +274,9 @@ Partial Class Barcodegenerate
         CType(DataGridViewProducts, ComponentModel.ISupportInitialize).EndInit()
         Panel2.ResumeLayout(False)
         Panel2.PerformLayout()
+        CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
+        PerformLayout()
     End Sub
 
     Friend WithEvents Timer1 As Timer
@@ -267,4 +298,6 @@ Partial Class Barcodegenerate
     Friend WithEvents Button1 As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents Button3 As Button
+    Friend WithEvents Label2 As Label
+    Friend WithEvents PictureBox2 As PictureBox
 End Class

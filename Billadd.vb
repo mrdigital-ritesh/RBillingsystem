@@ -45,12 +45,36 @@ Public Class Billadd
         Label19.Text = "NET AMOUNT"
         Label20.Text = "BILL NO:"
         Label21.Text = ""
-        Label27.Text = username
-        Label26.Text = userid
         Label22.Text = "AMOUNT"
-        Label25.Text = "EMPLOYEE ID:"
-        Label28.Text = "EMPLOYEE NAME:"
+
+
+        If user = "admin" Then
+            Label27.Text = username
+            Label26.Text = userid
+            Label25.Text = "ADMIN ID:"
+            Label28.Text = "ADMIN NAME:"
+
+        ElseIf user = "manager" Then
+            Label27.Text = username
+            Label26.Text = userid
+            Label25.Text = "MANAGER ID:"
+            Label28.Text = "MANAGER NAME:"
+        ElseIf user = "emp" Then
+            Label27.Text = username
+            Label26.Text = userid
+            Label25.Text = "EMPLOYEE ID:"
+            Label28.Text = "EMPLOYEE NAME:"
+
+        End If
         Label24.Text = ""
+        Label25.AutoSize = True
+        Label26.AutoSize = True
+        Label27.AutoSize = True
+        Label28.AutoSize = True
+
+        Label26.Left = Label25.Right + 8
+        Label27.Left = Label28.Right + 8
+
         Timer1.Enabled = True
         TextBox1.Enabled = False
         TextBox2.Enabled = False
@@ -58,6 +82,7 @@ Public Class Billadd
         TextBox4.Enabled = False
         TextBox6.Enabled = False
         TextBox7.Enabled = False
+
 
         autobill()
         Button1.Text = "UPDATE ITEM (F1)"

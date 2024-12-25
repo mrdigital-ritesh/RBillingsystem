@@ -4,12 +4,44 @@ Imports MySql.Data.MySqlClient
 Public Class EmployeeInsert
     Dim qry As String
     Private imageChanged As Boolean = False
-
+    Protected Overrides ReadOnly Property CreateParams As CreateParams
+        Get
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ExStyle = cp.ExStyle Or &H2000000 ' WS_EX_COMPOSITED
+            Return cp
+        End Get
+    End Property
     Private Sub Employee_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
         Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
         Me.Size = New Size(screenWidth, screenHeight)
         Me.WindowState = FormWindowState.Maximized
+
+
+        If user = "admin" Then
+            Label27.Text = username
+            Label26.Text = userid
+            Label25.Text = "ADMIN ID:"
+            Label28.Text = "ADMIN NAME:"
+
+        ElseIf user = "manager" Then
+            Label27.Text = username
+            Label26.Text = userid
+            Label25.Text = "MANAGER ID:"
+            Label28.Text = "MANAGER NAME:"
+
+        End If
+        Label25.AutoSize = True
+        Label26.AutoSize = True
+        Label27.AutoSize = True
+        Label28.AutoSize = True
+
+        Label26.Left = Label25.Right + 8
+        Label27.Left = Label28.Right + 8
+        Label24.Text = ""
+
+        Timer1.Enabled = True
+
         AdminDashboard.Close()
         ManagerDashboard.Close()
         EmployeeDashboard.Close()
@@ -28,6 +60,11 @@ Public Class EmployeeInsert
         End If
     End Sub
 
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        ' Update the date and time display
+        Label24.Text = DateTime.Now.ToString("dddd")
+        Label24.Text += "   " & DateTime.Now.ToString("dd MMMM yyyy") & "   " & TimeOfDay.ToString("HH:mm:ss")
+    End Sub
     Public Sub showdata()
         Call connect()
         TextBox1.Enabled = True

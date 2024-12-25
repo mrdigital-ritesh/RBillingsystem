@@ -23,14 +23,20 @@ Partial Class AdminDashboard
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
-        Dim ChartCustomPoint1 As Syncfusion.Windows.Forms.Chart.ChartCustomPoint = New Syncfusion.Windows.Forms.Chart.ChartCustomPoint()
         Label1 = New Label()
         Label2 = New Label()
         Panel1 = New Panel()
         PictureBox2 = New PictureBox()
         Panel3 = New Panel()
-        ChartControl1 = New Syncfusion.Windows.Forms.Chart.ChartControl()
+        PlotView1 = New OxyPlot.WindowsForms.PlotView()
+        Label15 = New Label()
+        Label16 = New Label()
+        Label17 = New Label()
+        Label14 = New Label()
+        Label13 = New Label()
+        Label12 = New Label()
         Panel7 = New Panel()
+        PictureBox4 = New PictureBox()
         PictureBox1 = New PictureBox()
         Panel6 = New Panel()
         Label11 = New Label()
@@ -57,6 +63,7 @@ Partial Class AdminDashboard
         CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
         Panel3.SuspendLayout()
         Panel7.SuspendLayout()
+        CType(PictureBox4, ComponentModel.ISupportInitialize).BeginInit()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         Panel6.SuspendLayout()
         Panel5.SuspendLayout()
@@ -112,7 +119,13 @@ Partial Class AdminDashboard
         ' 
         Panel3.BackColor = Color.White
         Panel3.BorderStyle = BorderStyle.FixedSingle
-        Panel3.Controls.Add(ChartControl1)
+        Panel3.Controls.Add(PlotView1)
+        Panel3.Controls.Add(Label15)
+        Panel3.Controls.Add(Label16)
+        Panel3.Controls.Add(Label17)
+        Panel3.Controls.Add(Label14)
+        Panel3.Controls.Add(Label13)
+        Panel3.Controls.Add(Label12)
         Panel3.Controls.Add(Panel7)
         Panel3.Controls.Add(Panel6)
         Panel3.Controls.Add(Panel5)
@@ -123,45 +136,116 @@ Partial Class AdminDashboard
         Panel3.Size = New Size(1101, 667)
         Panel3.TabIndex = 4
         ' 
-        ' ChartControl1
+        ' PlotView1
         ' 
-        ChartControl1.ChartArea.CursorLocation = New Point(0, 0)
-        ChartControl1.ChartArea.CursorReDraw = False
-        ChartCustomPoint1.Font.Facename = "Segoe UI"
-        ChartControl1.CustomPoints.Add(ChartCustomPoint1)
-        ChartControl1.Font = New Font("Microsoft Sans Serif", 8.25F)
+        PlotView1.Location = New Point(498, 238)
+        PlotView1.Name = "PlotView1"
+        PlotView1.PanCursor = Cursors.Hand
+        PlotView1.Size = New Size(405, 351)
+        PlotView1.TabIndex = 19
+        PlotView1.Text = "PlotView1"
+        PlotView1.ZoomHorizontalCursor = Cursors.SizeWE
+        PlotView1.ZoomRectangleCursor = Cursors.SizeNWSE
+        PlotView1.ZoomVerticalCursor = Cursors.SizeNS
         ' 
+        ' Label15
         ' 
+        Label15.AutoSize = True
+        Label15.BackColor = Color.Transparent
+        Label15.Font = New Font("Arial", 12F, FontStyle.Bold)
+        Label15.ForeColor = Color.DimGray
+        Label15.ImageAlign = ContentAlignment.TopLeft
+        Label15.Location = New Point(207, 626)
+        Label15.Name = "Label15"
+        Label15.Size = New Size(69, 19)
+        Label15.TabIndex = 18
+        Label15.Text = "Label15"
         ' 
-        ChartControl1.Legend.Location = New Point(405, 75)
-        ChartControl1.Location = New Point(519, 216)
-        ChartControl1.Name = "ChartControl1"
-        ChartControl1.Palette = Syncfusion.Windows.Forms.Chart.ChartColorPalette.WarmCold
-        ChartControl1.PrimaryXAxis.LogLabelsDisplayMode = Syncfusion.Windows.Forms.Chart.LogLabelsDisplayMode.Default
-        ChartControl1.PrimaryXAxis.Margin = True
-        ChartControl1.PrimaryYAxis.LogLabelsDisplayMode = Syncfusion.Windows.Forms.Chart.LogLabelsDisplayMode.Default
-        ChartControl1.PrimaryYAxis.Margin = True
-        ChartControl1.Size = New Size(514, 412)
-        ChartControl1.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
-        ChartControl1.Style3D = True
-        ChartControl1.TabIndex = 6
-        ChartControl1.Text = "SALES "
-        ChartControl1.Tilt = 35F
+        ' Label16
         ' 
+        Label16.AutoSize = True
+        Label16.BackColor = Color.Transparent
+        Label16.Font = New Font("Arial", 12F, FontStyle.Bold)
+        Label16.ForeColor = Color.DimGray
+        Label16.ImageAlign = ContentAlignment.TopLeft
+        Label16.Location = New Point(207, 591)
+        Label16.Name = "Label16"
+        Label16.Size = New Size(69, 19)
+        Label16.TabIndex = 17
+        Label16.Text = "Label16"
         ' 
+        ' Label17
         ' 
-        ChartControl1.Title.Name = "Default"
-        ChartControl1.Titles.Add(ChartControl1.Title)
+        Label17.AutoSize = True
+        Label17.BackColor = Color.Transparent
+        Label17.Font = New Font("Arial", 12F, FontStyle.Bold)
+        Label17.ForeColor = Color.DimGray
+        Label17.ImageAlign = ContentAlignment.TopLeft
+        Label17.Location = New Point(207, 556)
+        Label17.Name = "Label17"
+        Label17.Size = New Size(69, 19)
+        Label17.TabIndex = 16
+        Label17.Text = "Label17"
+        ' 
+        ' Label14
+        ' 
+        Label14.AutoSize = True
+        Label14.BackColor = Color.Transparent
+        Label14.Font = New Font("Arial", 12F, FontStyle.Bold)
+        Label14.ForeColor = Color.DimGray
+        Label14.ImageAlign = ContentAlignment.TopLeft
+        Label14.Location = New Point(48, 626)
+        Label14.Name = "Label14"
+        Label14.Size = New Size(69, 19)
+        Label14.TabIndex = 15
+        Label14.Text = "Label14"
+        ' 
+        ' Label13
+        ' 
+        Label13.AutoSize = True
+        Label13.BackColor = Color.Transparent
+        Label13.Font = New Font("Arial", 12F, FontStyle.Bold)
+        Label13.ForeColor = Color.DimGray
+        Label13.ImageAlign = ContentAlignment.TopLeft
+        Label13.Location = New Point(48, 591)
+        Label13.Name = "Label13"
+        Label13.Size = New Size(69, 19)
+        Label13.TabIndex = 14
+        Label13.Text = "Label13"
+        ' 
+        ' Label12
+        ' 
+        Label12.AutoSize = True
+        Label12.BackColor = Color.Transparent
+        Label12.Font = New Font("Arial", 12F, FontStyle.Bold)
+        Label12.ForeColor = Color.DimGray
+        Label12.ImageAlign = ContentAlignment.TopLeft
+        Label12.Location = New Point(48, 556)
+        Label12.Name = "Label12"
+        Label12.Size = New Size(69, 19)
+        Label12.TabIndex = 13
+        Label12.Text = "Label12"
         ' 
         ' Panel7
         ' 
         Panel7.BackColor = Color.SlateBlue
+        Panel7.Controls.Add(PictureBox4)
         Panel7.Controls.Add(PictureBox1)
         Panel7.Controls.Add(Label1)
         Panel7.Location = New Point(0, -1)
         Panel7.Name = "Panel7"
         Panel7.Size = New Size(1113, 56)
         Panel7.TabIndex = 5
+        ' 
+        ' PictureBox4
+        ' 
+        PictureBox4.BackgroundImage = My.Resources.Resources.building
+        PictureBox4.BackgroundImageLayout = ImageLayout.Zoom
+        PictureBox4.Location = New Point(1020, 5)
+        PictureBox4.Name = "PictureBox4"
+        PictureBox4.Size = New Size(45, 45)
+        PictureBox4.TabIndex = 7
+        PictureBox4.TabStop = False
         ' 
         ' PictureBox1
         ' 
@@ -198,11 +282,11 @@ Partial Class AdminDashboard
         ' 
         Label6.AutoSize = True
         Label6.Font = New Font("Adobe Gothic Std B", 12F, FontStyle.Bold)
-        Label6.Location = New Point(14, 18)
+        Label6.Location = New Point(44, 18)
         Label6.Name = "Label6"
-        Label6.Size = New Size(187, 20)
+        Label6.Size = New Size(133, 20)
         Label6.TabIndex = 0
-        Label6.Text = "TODAY RITESH  - SHRUTI"
+        Label6.Text = "MONTHLY SALES"
         ' 
         ' Panel5
         ' 
@@ -409,8 +493,10 @@ Partial Class AdminDashboard
         Panel1.ResumeLayout(False)
         CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
         Panel3.ResumeLayout(False)
+        Panel3.PerformLayout()
         Panel7.ResumeLayout(False)
         Panel7.PerformLayout()
+        CType(PictureBox4, ComponentModel.ISupportInitialize).EndInit()
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         Panel6.ResumeLayout(False)
         Panel6.PerformLayout()
@@ -453,5 +539,12 @@ Partial Class AdminDashboard
     Friend WithEvents Label9 As Label
     Friend WithEvents Label11 As Label
     Friend WithEvents Label10 As Label
-    Friend WithEvents ChartControl1 As Syncfusion.Windows.Forms.Chart.ChartControl
+    Friend WithEvents PictureBox4 As PictureBox
+    Friend WithEvents Label14 As Label
+    Friend WithEvents Label13 As Label
+    Friend WithEvents Label12 As Label
+    Friend WithEvents Label15 As Label
+    Friend WithEvents Label16 As Label
+    Friend WithEvents Label17 As Label
+    Friend WithEvents PlotView1 As OxyPlot.WindowsForms.PlotView
 End Class

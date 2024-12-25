@@ -18,6 +18,9 @@ Public Class loginform
 
     Private Sub loginform_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         start.Close()
+        AdminDashboard.Close()
+        ManagerDashboard.Close()
+        EmployeeDashboard.Close()
         TextBox1.Focus()
 
         Label3.Text = "OR"
@@ -83,6 +86,8 @@ Public Class loginform
 
                 End If
             Else
+                TextBox1.Clear()
+                TextBox2.Clear()
                 MessageBox.Show("Invalid User ID or Password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
             Reader.Close()

@@ -12,11 +12,28 @@ Public Class ManagerInsert
             Return cp
         End Get
     End Property
+
     Private Sub Manager_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
         Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
         Me.Size = New Size(screenWidth, screenHeight)
         Me.WindowState = FormWindowState.Maximized
+
+            Label27.Text = username
+            Label26.Text = userid
+            Label25.Text = "ADMIN ID:"
+        Label28.Text = "ADMIN NAME:"
+
+        Label25.AutoSize = True
+        Label26.AutoSize = True
+        Label27.AutoSize = True
+        Label28.AutoSize = True
+
+        Label26.Left = Label25.Right + 8
+        Label27.Left = Label28.Right + 8
+        Label24.Text = ""
+        Timer1.Enabled = True
+
         AdminDashboard.Close()
         ManagerDashboard.Close()
         EmployeeDashboard.Close()
@@ -24,7 +41,11 @@ Public Class ManagerInsert
         showdata()
         PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage ' Make the image stretch to fit the PictureBox
     End Sub
-
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        ' Update the date and time display
+        Label24.Text = DateTime.Now.ToString("dddd")
+        Label24.Text += "   " & DateTime.Now.ToString("dd MMMM yyyy") & "   " & TimeOfDay.ToString("HH:mm:ss")
+    End Sub
     Private Sub ButtonBrowse_Click(sender As Object, e As EventArgs) Handles ButtonBrowse.Click
         Dim openFileDialog As New OpenFileDialog()
         openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp"

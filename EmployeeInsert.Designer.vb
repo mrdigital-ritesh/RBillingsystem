@@ -22,7 +22,9 @@ Partial Class EmployeeInsert
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        components = New ComponentModel.Container()
         Panel1 = New Panel()
+        PictureBox2 = New PictureBox()
         ButtonBrowse = New Button()
         Button4 = New Button()
         Button3 = New Button()
@@ -53,12 +55,23 @@ Partial Class EmployeeInsert
         TextBox7 = New TextBox()
         Label10 = New Label()
         DataGridView1 = New DataGridView()
-        PictureBox2 = New PictureBox()
+        Panel3 = New Panel()
+        PictureBox3 = New PictureBox()
+        Label27 = New Label()
+        PictureBox4 = New PictureBox()
+        Label24 = New Label()
+        Label25 = New Label()
+        Label28 = New Label()
+        Label26 = New Label()
+        Timer1 = New Timer(components)
         Panel1.SuspendLayout()
+        CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         Panel2.SuspendLayout()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
-        CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
+        Panel3.SuspendLayout()
+        CType(PictureBox3, ComponentModel.ISupportInitialize).BeginInit()
+        CType(PictureBox4, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' Panel1
@@ -92,6 +105,16 @@ Partial Class EmployeeInsert
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(1350, 287)
         Panel1.TabIndex = 0
+        ' 
+        ' PictureBox2
+        ' 
+        PictureBox2.BackgroundImage = My.Resources.Resources.backbtn2
+        PictureBox2.BackgroundImageLayout = ImageLayout.Zoom
+        PictureBox2.Location = New Point(0, -3)
+        PictureBox2.Name = "PictureBox2"
+        PictureBox2.Size = New Size(62, 46)
+        PictureBox2.TabIndex = 91
+        PictureBox2.TabStop = False
         ' 
         ' ButtonBrowse
         ' 
@@ -383,30 +406,108 @@ Partial Class EmployeeInsert
         ' DataGridView1
         ' 
         DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-        DataGridView1.BackgroundColor = SystemColors.ButtonFace
+        DataGridView1.BackgroundColor = SystemColors.Info
         DataGridView1.BorderStyle = BorderStyle.Fixed3D
         DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridView1.GridColor = SystemColors.InfoText
         DataGridView1.Location = New Point(10, 363)
         DataGridView1.Name = "DataGridView1"
-        DataGridView1.Size = New Size(1348, 374)
+        DataGridView1.Size = New Size(1348, 335)
         DataGridView1.TabIndex = 2
         ' 
-        ' PictureBox2
+        ' Panel3
         ' 
-        PictureBox2.BackgroundImage = My.Resources.Resources.backbtn2
-        PictureBox2.BackgroundImageLayout = ImageLayout.Zoom
-        PictureBox2.Location = New Point(0, -3)
-        PictureBox2.Name = "PictureBox2"
-        PictureBox2.Size = New Size(62, 46)
-        PictureBox2.TabIndex = 91
-        PictureBox2.TabStop = False
+        Panel3.BackColor = Color.LightSeaGreen
+        Panel3.Controls.Add(PictureBox3)
+        Panel3.Controls.Add(Label27)
+        Panel3.Controls.Add(PictureBox4)
+        Panel3.Controls.Add(Label24)
+        Panel3.Controls.Add(Label25)
+        Panel3.Controls.Add(Label28)
+        Panel3.Controls.Add(Label26)
+        Panel3.Location = New Point(-7, 703)
+        Panel3.Name = "Panel3"
+        Panel3.Size = New Size(1410, 113)
+        Panel3.TabIndex = 3
+        ' 
+        ' PictureBox3
+        ' 
+        PictureBox3.BackColor = Color.Transparent
+        PictureBox3.BackgroundImage = My.Resources.Resources.customers
+        PictureBox3.BackgroundImageLayout = ImageLayout.Zoom
+        PictureBox3.Location = New Point(317, 5)
+        PictureBox3.Name = "PictureBox3"
+        PictureBox3.Size = New Size(32, 34)
+        PictureBox3.TabIndex = 73
+        PictureBox3.TabStop = False
+        ' 
+        ' Label27
+        ' 
+        Label27.AutoSize = True
+        Label27.Font = New Font("Arial Narrow", 11.25F, FontStyle.Bold)
+        Label27.Location = New Point(682, 13)
+        Label27.Name = "Label27"
+        Label27.Size = New Size(57, 20)
+        Label27.TabIndex = 71
+        Label27.Text = "Label27"
+        ' 
+        ' PictureBox4
+        ' 
+        PictureBox4.BackColor = Color.Transparent
+        PictureBox4.BackgroundImage = My.Resources.Resources.calender
+        PictureBox4.BackgroundImageLayout = ImageLayout.Zoom
+        PictureBox4.Location = New Point(24, 9)
+        PictureBox4.Name = "PictureBox4"
+        PictureBox4.Size = New Size(24, 27)
+        PictureBox4.TabIndex = 72
+        PictureBox4.TabStop = False
+        ' 
+        ' Label24
+        ' 
+        Label24.AutoSize = True
+        Label24.Font = New Font("Arial Narrow", 11.25F, FontStyle.Bold)
+        Label24.Location = New Point(59, 13)
+        Label24.Name = "Label24"
+        Label24.Size = New Size(57, 20)
+        Label24.TabIndex = 67
+        Label24.Text = "Label24"
+        ' 
+        ' Label25
+        ' 
+        Label25.AutoSize = True
+        Label25.Font = New Font("Arial Narrow", 11.25F, FontStyle.Bold)
+        Label25.Location = New Point(358, 13)
+        Label25.Name = "Label25"
+        Label25.Size = New Size(57, 20)
+        Label25.TabIndex = 68
+        Label25.Text = "Label25"
+        ' 
+        ' Label28
+        ' 
+        Label28.AutoSize = True
+        Label28.Font = New Font("Arial Narrow", 11.25F, FontStyle.Bold)
+        Label28.Location = New Point(562, 13)
+        Label28.Name = "Label28"
+        Label28.Size = New Size(57, 20)
+        Label28.TabIndex = 70
+        Label28.Text = "Label28"
+        ' 
+        ' Label26
+        ' 
+        Label26.AutoSize = True
+        Label26.Font = New Font("Arial Narrow", 11.25F, FontStyle.Bold)
+        Label26.Location = New Point(456, 13)
+        Label26.Name = "Label26"
+        Label26.Size = New Size(57, 20)
+        Label26.TabIndex = 69
+        Label26.Text = "Label26"
         ' 
         ' EmployeeInsert
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1370, 749)
+        Controls.Add(Panel3)
         Controls.Add(DataGridView1)
         Controls.Add(Panel2)
         Controls.Add(Panel1)
@@ -415,11 +516,15 @@ Partial Class EmployeeInsert
         Text = "path"
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
+        CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         Panel2.ResumeLayout(False)
         Panel2.PerformLayout()
         CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
-        CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
+        Panel3.ResumeLayout(False)
+        Panel3.PerformLayout()
+        CType(PictureBox3, ComponentModel.ISupportInitialize).EndInit()
+        CType(PictureBox4, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
@@ -455,4 +560,13 @@ Partial Class EmployeeInsert
     Friend WithEvents Button5 As Button
     Friend WithEvents ButtonBrowse As Button
     Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents Panel3 As Panel
+    Friend WithEvents PictureBox3 As PictureBox
+    Friend WithEvents Label27 As Label
+    Friend WithEvents PictureBox4 As PictureBox
+    Friend WithEvents Label24 As Label
+    Friend WithEvents Label25 As Label
+    Friend WithEvents Label28 As Label
+    Friend WithEvents Label26 As Label
+    Friend WithEvents Timer1 As Timer
 End Class

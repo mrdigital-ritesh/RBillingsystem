@@ -161,16 +161,16 @@ Public Class checkout
             If (number Mod 10) > 0 Then words &= "-" & unitsMap(number Mod 10)
         ElseIf number < 1000 Then
             words = unitsMap(number \ 100) & " Hundred"
-            If (number Mod 100) > 0 Then words &= " and " & NumberToWords(number Mod 100)
+            If (number Mod 100) > 0 Then words &= "" & NumberToWords(number Mod 100)
         ElseIf number < 100000 Then
             words = NumberToWords(number \ 1000) & " Thousand"
-            If (number Mod 1000) > 0 Then words &= " and " & NumberToWords(number Mod 1000)
+            If (number Mod 1000) > 0 Then words &= "" & NumberToWords(number Mod 1000)
         ElseIf number < 10000000 Then
             words = NumberToWords(number \ 100000) & " Lakh"
-            If (number Mod 100000) > 0 Then words &= " and " & NumberToWords(number Mod 100000)
+            If (number Mod 100000) > 0 Then words &= "" & NumberToWords(number Mod 100000)
         Else
             words = NumberToWords(number \ 10000000) & " Crore"
-            If (number Mod 10000000) > 0 Then words &= " and " & NumberToWords(number Mod 10000000)
+            If (number Mod 10000000) > 0 Then words &= "" & NumberToWords(number Mod 10000000)
         End If
 
         Return words
@@ -197,7 +197,7 @@ Public Class checkout
             cmd.Parameters.AddWithValue("@total_dis", Convert.ToDouble(totalDiscount))
             cmd.Parameters.AddWithValue("@cgst", Convert.ToDouble(cgst))
             cmd.Parameters.AddWithValue("@sgst", Convert.ToDouble(sgst))
-            cmd.Parameters.AddWithValue("@netamount", Convert.ToDouble(totalAmount))
+            cmd.Parameters.AddWithValue("@netamount", Convert.ToDouble(Math.Round(totalAmount)))
             cmd.Parameters.AddWithValue("@date", DateTime.Now)
             cmd.Parameters.AddWithValue("@mode", mode)
 
