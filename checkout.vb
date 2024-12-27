@@ -3,7 +3,7 @@ Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports MySql.Data.MySqlClient
 Imports QRCoder
 Imports System.Drawing
-
+Imports System.Threading.Tasks
 
 Public Class checkout
 
@@ -259,7 +259,6 @@ Public Class checkout
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         SaveBillData()
-
     End Sub
 
     'new code logic for all db
@@ -300,7 +299,7 @@ Public Class checkout
 
                 InsertBillData(billid, productID, productname, productbrand, producthsn, productMRP, productQty, discount, gstrate, totalamt, PropreGst)
             Next
-            Billadd.reloadBill()
+
 
             MessageBox.Show("Bill Generated succesfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Dim result As DialogResult = MessageBox.Show("Do you want to print the bill?", "Print Bill Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
@@ -313,7 +312,11 @@ Public Class checkout
             Else
 
                 MessageBox.Show("Bill printing canceled.", "Action Canceled", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
             End If
+            Billadd.reloadBill()
+
+
         Catch ex As Exception
             MessageBox.Show("Error: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try

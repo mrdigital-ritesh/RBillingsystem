@@ -97,6 +97,7 @@ Module BillingReportModule
                     If reader.Read() Then
                         customerName = reader("cust_name").ToString()
                         cashierName = reader("cashier_name").ToString()
+                        customerPhone = reader("cust_ph").ToString()
                     End If
                 End Using
             End Using
@@ -249,7 +250,7 @@ Module BillingReportModule
         xCenter = (e.PageBounds.Width - textSize.Width) / 2
         g.DrawString("-------------------- Phone: " & mob & " --------------------", font, Brushes.Black, xCenter, y)
         y += lineHeight * 2
-
+        Dim dateValue As DateTime = DateTime.Parse(bdate)
         ' customer
         g.DrawString("Bill No: " & billid.ToString(), boldFont, Brushes.Black, x, y)
         y += lineHeight
@@ -259,7 +260,7 @@ Module BillingReportModule
         y += lineHeight
         g.DrawString("Cashier: " & cashierName, font, Brushes.Black, x, y)
         y += lineHeight
-        g.DrawString("Bill Date: " & bdate.ToString(), font, Brushes.Black, x, y)
+        g.DrawString("Bill Date: " & dateValue.ToString("dd/MM/yyyy"), font, Brushes.Black, x, y)
         y += lineHeight
         y += lineHeight * 0.5
         g.DrawString(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", boldFont, Brushes.Black, x, y)
