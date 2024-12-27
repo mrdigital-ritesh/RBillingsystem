@@ -16,6 +16,8 @@ Public Class checkout
     End Sub
 
     Private Sub checkout_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Setform(Me)
+
         TextBox2.Focus()
         mode = "CASH"
         ListView2.Visible = False

@@ -14,6 +14,8 @@ Public Class Barcodegenerate
     End Property
     Dim count As Integer = 0
     Private Sub Barcodegenerate_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Setform(Me)
+
         SearchProducts()
         Me.KeyPreview = True
         AdminDashboard.Close()

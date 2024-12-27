@@ -3,6 +3,7 @@ Imports System.Drawing.Printing
 Imports System.Drawing
 Imports MessagingToolkit.Barcode
 Imports Org.BouncyCastle.Utilities
+Imports System.IO
 
 Module BillingReportModule
     Private WithEvents PD As New PrintDocument
@@ -155,8 +156,40 @@ Module BillingReportModule
         conn.Close()
     End Sub
 
+    Private Function GetCompanyLogo() As Image
+        Dim logo As Image = Nothing
+
+        Try
+            ' Check if the connection is closed, then open it
+            If conn.State = ConnectionState.Closed Then
+                conn.Open()
+            End If
+
+            Dim logoQuery As String = "SELECT logo FROM company WHERE comid = 1"
+            Using cmd As New MySqlCommand(logoQuery, conn)
+                ' Fetch the logo data
+                Dim logoData As Byte() = DirectCast(cmd.ExecuteScalar(), Byte())
+                If logoData IsNot Nothing AndAlso logoData.Length > 0 Then
+                    Using ms As New MemoryStream(logoData)
+                        logo = Image.FromStream(ms)
+                    End Using
+                End If
+            End Using
+
+        Catch ex As Exception
+            MessageBox.Show("Error fetching logo: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            ' Close the connection if it was opened in this function
+            If conn.State = ConnectionState.Open Then
+                conn.Close()
+            End If
+        End Try
+
+        Return logo
+    End Function
+
     Sub changelongpaper(rowcount As Integer)
-        longpaper = rowcount * 18 + 750
+        longpaper = rowcount * 18 + 800
     End Sub
 
     Private Sub GenerateAndPrintBill(billid As Integer, billData As List(Of BillData), totalAmount As Double, cgst As Double, sgst As Double, modeOfPayment As String, customerName As String, customerPhone As String, cashierName As String, businessName As String, branch As String, gstin As String, city As String, state As String, bdate As String, mob As String, items As String, totalqty As String, gstSummary As List(Of GstSummary))
@@ -178,12 +211,21 @@ Module BillingReportModule
                                       Dim previewControl As PrintPreviewControl = FindPreviewControl(PPD)
                                       If previewControl IsNot Nothing Then
                                           AddHandler PPD.MouseWheel, Sub(sender, e)
-                                                                         If e.Delta > 0 Then
-                                                                             previewControl.Zoom += 0.1 ' Zoom In
-                                                                         ElseIf e.Delta < 0 Then
-                                                                             previewControl.Zoom -= 0.1 ' Zoom Out
-                                                                         End If
-                                                                         If previewControl.Zoom < 0.1 Then previewControl.Zoom = 0.1 ' Prevent too small zoom
+                                                                         Try
+                                                                             If e.Delta > 0 Then
+                                                                                 previewControl.Zoom += 0.1 ' Zoom In
+                                                                             ElseIf e.Delta < 0 Then
+                                                                                 previewControl.Zoom -= 0.1 ' Zoom Out
+                                                                             End If
+
+                                                                             ' Prevent zoom from going below the minimum threshold
+                                                                             If previewControl.Zoom < 0.0 Then
+                                                                                 previewControl.Zoom = 0.0
+                                                                             End If
+                                                                         Catch ex As Exception
+                                                                             MessageBox.Show("An error occurred while adjusting zoom: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                                                                         End Try
+
                                                                      End Sub
                                       End If
 
@@ -230,25 +272,56 @@ Module BillingReportModule
         g.DrawString("Printed on: " & DateTime.Now.ToString("dd/MM/yyyy hh:mm tt"), fonth, Brushes.Black, x + 163, y)
         y += lineHeight * 1
 
+        Dim logo As Image = GetCompanyLogo()
+        If logo IsNot Nothing Then
+            Dim maxWidth As Integer = 100 ' Base maximum width
+            Dim maxHeight As Integer = 100 ' Base maximum height
+            Dim scaleFactor As Double = 3 ' Increase size by 1.5 times
+
+            Dim originalWidth As Integer = logo.Width
+            Dim originalHeight As Integer = logo.Height
+
+            Dim aspectRatio As Double = originalWidth / originalHeight
+
+            Dim logoWidth As Integer
+            Dim logoHeight As Integer
+
+            If originalWidth > originalHeight Then
+                logoWidth = CInt(maxWidth * scaleFactor)
+                logoHeight = CInt((maxWidth / aspectRatio) * scaleFactor)
+            Else
+                logoHeight = CInt(maxHeight * scaleFactor)
+                logoWidth = CInt((maxHeight * aspectRatio) * scaleFactor)
+            End If
+
+            Dim xCentr As Integer = (e.PageBounds.Width - logoWidth) / 2
+
+            g.DrawImage(logo, xCentr + 5, y, logoWidth, logoHeight)
+
+            y += logoHeight + 8
+        End If
+
+
+
 
         Dim textSize As SizeF = g.MeasureString(businessName, boldFonth)
         Dim xCenter As Integer = (e.PageBounds.Width - textSize.Width) / 2
-        g.DrawString(businessName, boldFonth, Brushes.Black, xCenter, y)
-        y += lineHeight * 2
+        'g.DrawString(businessName, boldFonth, Brushes.Black, xCenter + 5, y)
+        'y += lineHeight * 2
 
         textSize = g.MeasureString(city & ", " & state, fonth)
         xCenter = (e.PageBounds.Width - textSize.Width) / 2
-        g.DrawString(city & ", " & state, fonth, Brushes.Black, xCenter, y)
+        g.DrawString(city & ", " & state, fonth, Brushes.Black, xCenter + 5, y)
         y += lineHeight
 
         textSize = g.MeasureString("GSTIN: " & gstin, fonth)
         xCenter = (e.PageBounds.Width - textSize.Width) / 2
-        g.DrawString("GSTIN: " & gstin, fonth, Brushes.Black, xCenter, y)
+        g.DrawString("GSTIN: " & gstin, fonth, Brushes.Black, xCenter + 5, y)
         y += lineHeight
 
         textSize = g.MeasureString("-------------------- Phone: " & mob & " --------------------", font)
         xCenter = (e.PageBounds.Width - textSize.Width) / 2
-        g.DrawString("-------------------- Phone: " & mob & " --------------------", font, Brushes.Black, xCenter, y)
+        g.DrawString("-------------------- Phone: " & mob & " --------------------", font, Brushes.Black, xCenter + 5, y)
         y += lineHeight * 2
         Dim dateValue As DateTime = DateTime.Parse(bdate)
         ' customer

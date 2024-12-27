@@ -18,8 +18,9 @@ Public Class ManagerInsert
         Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
         Me.Size = New Size(screenWidth, screenHeight)
         Me.WindowState = FormWindowState.Maximized
+        Setform(Me)
 
-            Label27.Text = username
+        Label27.Text = username
             Label26.Text = userid
             Label25.Text = "ADMIN ID:"
         Label28.Text = "ADMIN NAME:"

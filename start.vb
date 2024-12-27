@@ -8,6 +8,7 @@
     End Property
 
     Private Sub start_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Setform(Me)
         Me.BackgroundImage = My.Resources.bg
         Me.BackgroundImageLayout = ImageLayout.Stretch
         ADMIN.Text = "ADMIN"

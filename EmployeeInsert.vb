@@ -17,6 +17,7 @@ Public Class EmployeeInsert
         Me.Size = New Size(screenWidth, screenHeight)
         Me.WindowState = FormWindowState.Maximized
 
+        Setform(Me)
 
         If user = "admin" Then
             Label27.Text = username

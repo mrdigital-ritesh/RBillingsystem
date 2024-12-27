@@ -28,4 +28,11 @@ Module Module1
             'MsgBox("Connection Established")
         End If
     End Sub
+    Public Sub Setform(form As Form)
+        form.Text = "RBILLING SOFTWARE PVT LTD | RSMART - BILLING | DEZYNE ECOLE COLLEGE"
+        'form.Icon = My.Resources.icon1
+        form.Icon = New Icon(My.Resources.icon1, New Size(128, 128))
+
+    End Sub
+
 End Module

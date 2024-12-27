@@ -6,7 +6,13 @@
     <StartupObject>RBillingsystem.My.MyApplication</StartupObject>
     <UseWindowsForms>true</UseWindowsForms>
     <MyType>WindowsForms</MyType>
+    <ApplicationIcon>ImagesRB\icon1.ico</ApplicationIcon>
+    <PackageIcon>icon1.ico</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="ImagesRB\icon1.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <Import Include="System.Data" />
@@ -47,10 +53,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="ImagesRB\icon1.ico">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Update="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
 
 </Project>

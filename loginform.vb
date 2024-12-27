@@ -18,6 +18,7 @@ Public Class loginform
 
     Private Sub loginform_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         start.Close()
+        Setform(Me)
         AdminDashboard.Close()
         ManagerDashboard.Close()
         EmployeeDashboard.Close()

@@ -141,7 +141,6 @@ Partial Class start
         MaximizeBox = False
         MinimizeBox = False
         Name = "start"
-        ShowIcon = False
         SizeGripStyle = SizeGripStyle.Hide
         StartPosition = FormStartPosition.CenterScreen
         Text = "start"

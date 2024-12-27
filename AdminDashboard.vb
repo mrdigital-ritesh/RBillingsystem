@@ -24,6 +24,7 @@ Public Class AdminDashboard
     Private Sub AdminDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'chart code
         conn.Close()
+        Setform(Me)
 
 
         'main code
@@ -56,33 +57,43 @@ Public Class AdminDashboard
     End Sub
     Private Sub InitializeSalesPieChart()
         Dim plotModel As New PlotModel() With {
-            .Title = "Sales Distribution by Category"
-        }
+        .Title = "Sales Distribution by Payment Method"
+    }
 
-        ' Create PieSeries for displaying sales data
         Dim pieSeries As New PieSeries() With {
-            .StartAngle = 90,
-            .AngleSpan = 360
-        }
+        .StartAngle = 90,
+        .AngleSpan = 360
+    }
 
-        ' Get sales data from the database
-        Dim query As String = "SELECT p.cat_name, SUM(bd.pro_total) AS total_sales FROM bill_data bd JOIN bills b ON bd.bill_id = b.bill_id JOIN products p ON bd.pro_id = p.pro_id GROUP BY p.cat_name ORDER BY total_sales DESC;"
-
-        ' Open connection and fetch data
+        ' Updated query to include only CASH, CARD, and UPI payment methods
+        Dim query As String = "SELECT b.mode, SUM(bd.pro_total) AS total_sales FROM bill_data bd " &
+                          "JOIN bills b ON bd.bill_id = b.bill_id " &
+                          "WHERE b.mode IN ('CASH', 'CARD', 'UPI') " &
+                          "GROUP BY b.mode ORDER BY total_sales DESC;"
 
         conn.Open()
         Using cmd As New MySqlCommand(query, conn)
             Using reader As MySqlDataReader = cmd.ExecuteReader()
                 While reader.Read()
-                    Dim category As String = reader("cat_name").ToString()
+                    Dim paymentMethod As String = reader("mode").ToString()
                     Dim totalSales As Double = Convert.ToDouble(reader("total_sales"))
 
-                    ' Add a slice to the pie chart for each product category
-                    pieSeries.Slices.Add(New PieSlice(category, totalSales) With {.IsExploded = False})
+                    Dim sliceColor As OxyColor
+                    Select Case paymentMethod
+                        Case "CASH"
+                            sliceColor = OxyColor.FromRgb(93, 150, 255) ' Orange
+                        Case "CARD"
+                            sliceColor = OxyColor.FromRgb(79, 171, 142) ' Blue
+                        Case "UPI"
+                            sliceColor = OxyColor.FromRgb(189, 112, 224) ' Green
+                        Case Else
+                            sliceColor = OxyColor.FromRgb(169, 169, 169) ' Default to Gray for unknown
+                    End Select
+                    ' Add the payment method as a slice in the pie chart
+                    pieSeries.Slices.Add(New PieSlice(paymentMethod, totalSales) With {.IsExploded = False, .Fill = sliceColor})
                 End While
             End Using
         End Using
-
 
         ' Add the pie series to the plot model
         plotModel.Series.Add(pieSeries)
@@ -91,6 +102,7 @@ Public Class AdminDashboard
         PlotView1.Model = plotModel
         conn.Close()
     End Sub
+
 
     Public Sub fetchcompany()
         Try
@@ -134,10 +146,10 @@ Public Class AdminDashboard
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
 
             If reader.Read() Then
-                Label8.Text = If(IsDBNull(reader("today_sales")), "0", reader("today_sales").ToString())
+                Label8.Text = If(IsDBNull(reader("today_sales")), "0.00", Convert.ToDecimal(If(IsDBNull(reader("today_sales")), 0, reader("today_sales"))).ToString("F2"))
                 Label10.Text = If(IsDBNull(reader("total_products")), "0", reader("total_products").ToString())
                 Label9.Text = If(IsDBNull(reader("total_bills")), "0", reader("total_bills").ToString())
-                Label11.Text = If(IsDBNull(reader("monthly_sales")), "0", reader("monthly_sales").ToString())
+                Label11.Text = If(IsDBNull(reader("monthly_sales")), "0.00", Convert.ToDecimal(If(IsDBNull(reader("monthly_sales")), 0, reader("monthly_sales"))).ToString("F2"))
             End If
             Label8.Left = (Panel2.ClientSize.Width - Label8.Width) / 2
             Label10.Left = (Panel4.ClientSize.Width - Label10.Width) / 2

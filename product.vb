@@ -12,6 +12,7 @@ Public Class product
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Call connect()
         Me.KeyPreview = True
+        Setform(Me)
 
         Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
         Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height

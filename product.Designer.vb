@@ -75,10 +75,10 @@ Partial Class product
         DataGridView1.BackgroundColor = Color.Azure
         DataGridView1.BorderStyle = BorderStyle.Fixed3D
         DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridView1.Location = New Point(12, 369)
+        DataGridView1.Location = New Point(12, 399)
         DataGridView1.Name = "DataGridView1"
         DataGridView1.ReadOnly = True
-        DataGridView1.Size = New Size(1346, 328)
+        DataGridView1.Size = New Size(1346, 298)
         DataGridView1.TabIndex = 15
         ' 
         ' Panel1
@@ -90,6 +90,8 @@ Partial Class product
         Panel1.Controls.Add(ComboBox1)
         Panel1.Controls.Add(Button4)
         Panel1.Controls.Add(stockdate)
+        Panel1.Controls.Add(PictureBox2)
+        Panel1.Controls.Add(Label9)
         Panel1.Controls.Add(Label11)
         Panel1.Controls.Add(disc)
         Panel1.Controls.Add(Label10)
@@ -111,9 +113,9 @@ Partial Class product
         Panel1.Controls.Add(Label2)
         Panel1.Controls.Add(pid)
         Panel1.Controls.Add(Label1)
-        Panel1.Location = New Point(12, 46)
+        Panel1.Location = New Point(12, 12)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(1346, 317)
+        Panel1.Size = New Size(1346, 381)
         Panel1.TabIndex = 17
         ' 
         ' ComboBox1
@@ -121,7 +123,7 @@ Partial Class product
         ComboBox1.AllowDrop = True
         ComboBox1.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         ComboBox1.FormattingEnabled = True
-        ComboBox1.Location = New Point(433, 256)
+        ComboBox1.Location = New Point(433, 298)
         ComboBox1.Name = "ComboBox1"
         ComboBox1.Size = New Size(159, 29)
         ComboBox1.TabIndex = 41
@@ -131,7 +133,7 @@ Partial Class product
         Button4.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         Button4.BackColor = SystemColors.ButtonFace
         Button4.FlatStyle = FlatStyle.Flat
-        Button4.Location = New Point(1192, 221)
+        Button4.Location = New Point(1216, 255)
         Button4.Name = "Button4"
         Button4.Size = New Size(86, 34)
         Button4.TabIndex = 40
@@ -141,7 +143,7 @@ Partial Class product
         ' stockdate
         ' 
         stockdate.Font = New Font("Segoe UI", 12F)
-        stockdate.Location = New Point(872, 256)
+        stockdate.Location = New Point(872, 298)
         stockdate.Name = "stockdate"
         stockdate.Size = New Size(159, 29)
         stockdate.TabIndex = 10
@@ -150,7 +152,7 @@ Partial Class product
         ' 
         Label11.AutoSize = True
         Label11.Font = New Font("Segoe UI", 12F)
-        Label11.Location = New Point(747, 256)
+        Label11.Location = New Point(747, 298)
         Label11.Name = "Label11"
         Label11.Size = New Size(65, 21)
         Label11.TabIndex = 39
@@ -159,7 +161,7 @@ Partial Class product
         ' disc
         ' 
         disc.Font = New Font("Segoe UI", 12F)
-        disc.Location = New Point(433, 201)
+        disc.Location = New Point(433, 243)
         disc.Name = "disc"
         disc.Size = New Size(159, 29)
         disc.TabIndex = 7
@@ -168,7 +170,7 @@ Partial Class product
         ' 
         Label10.AutoSize = True
         Label10.Font = New Font("Segoe UI", 12F)
-        Label10.Location = New Point(243, 256)
+        Label10.Location = New Point(243, 298)
         Label10.Name = "Label10"
         Label10.Size = New Size(65, 21)
         Label10.TabIndex = 37
@@ -179,7 +181,7 @@ Partial Class product
         category.AllowDrop = True
         category.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         category.FormattingEnabled = True
-        category.Location = New Point(872, 97)
+        category.Location = New Point(872, 139)
         category.Name = "category"
         category.Size = New Size(159, 29)
         category.TabIndex = 4
@@ -189,7 +191,7 @@ Partial Class product
         Button3.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         Button3.BackColor = SystemColors.ButtonFace
         Button3.FlatStyle = FlatStyle.Flat
-        Button3.Location = New Point(1192, 167)
+        Button3.Location = New Point(1216, 201)
         Button3.Name = "Button3"
         Button3.Size = New Size(86, 34)
         Button3.TabIndex = 12
@@ -201,7 +203,7 @@ Partial Class product
         Button2.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         Button2.BackColor = SystemColors.ButtonFace
         Button2.FlatStyle = FlatStyle.Flat
-        Button2.Location = New Point(1192, 111)
+        Button2.Location = New Point(1216, 145)
         Button2.Name = "Button2"
         Button2.Size = New Size(86, 34)
         Button2.TabIndex = 13
@@ -213,7 +215,7 @@ Partial Class product
         Button1.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         Button1.BackColor = SystemColors.ButtonFace
         Button1.FlatStyle = FlatStyle.Flat
-        Button1.Location = New Point(1192, 54)
+        Button1.Location = New Point(1216, 88)
         Button1.Name = "Button1"
         Button1.Size = New Size(86, 34)
         Button1.TabIndex = 11
@@ -224,7 +226,7 @@ Partial Class product
         ' 
         Label8.AutoSize = True
         Label8.Font = New Font("Segoe UI", 12F)
-        Label8.Location = New Point(747, 204)
+        Label8.Location = New Point(747, 246)
         Label8.Name = "Label8"
         Label8.Size = New Size(56, 21)
         Label8.TabIndex = 30
@@ -233,7 +235,7 @@ Partial Class product
         ' qty
         ' 
         qty.Font = New Font("Segoe UI", 12F)
-        qty.Location = New Point(872, 201)
+        qty.Location = New Point(872, 243)
         qty.Name = "qty"
         qty.Size = New Size(159, 29)
         qty.TabIndex = 8
@@ -242,7 +244,7 @@ Partial Class product
         ' 
         Label7.AutoSize = True
         Label7.Font = New Font("Segoe UI", 12F)
-        Label7.Location = New Point(243, 204)
+        Label7.Location = New Point(243, 246)
         Label7.Name = "Label7"
         Label7.Size = New Size(56, 21)
         Label7.TabIndex = 28
@@ -252,7 +254,7 @@ Partial Class product
         ' 
         Label6.AutoSize = True
         Label6.Font = New Font("Segoe UI", 12F)
-        Label6.Location = New Point(747, 159)
+        Label6.Location = New Point(747, 201)
         Label6.Name = "Label6"
         Label6.Size = New Size(56, 21)
         Label6.TabIndex = 26
@@ -261,7 +263,7 @@ Partial Class product
         ' mrp
         ' 
         mrp.Font = New Font("Segoe UI", 12F)
-        mrp.Location = New Point(872, 151)
+        mrp.Location = New Point(872, 193)
         mrp.Name = "mrp"
         mrp.Size = New Size(159, 29)
         mrp.TabIndex = 6
@@ -270,7 +272,7 @@ Partial Class product
         ' 
         Label5.AutoSize = True
         Label5.Font = New Font("Segoe UI", 12F)
-        Label5.Location = New Point(243, 159)
+        Label5.Location = New Point(243, 201)
         Label5.Name = "Label5"
         Label5.Size = New Size(56, 21)
         Label5.TabIndex = 24
@@ -279,7 +281,7 @@ Partial Class product
         ' purprice
         ' 
         purprice.Font = New Font("Segoe UI", 12F)
-        purprice.Location = New Point(433, 151)
+        purprice.Location = New Point(433, 193)
         purprice.Name = "purprice"
         purprice.Size = New Size(159, 29)
         purprice.TabIndex = 5
@@ -288,7 +290,7 @@ Partial Class product
         ' 
         Label4.AutoSize = True
         Label4.Font = New Font("Segoe UI", 12F)
-        Label4.Location = New Point(747, 105)
+        Label4.Location = New Point(747, 147)
         Label4.Name = "Label4"
         Label4.Size = New Size(56, 21)
         Label4.TabIndex = 22
@@ -297,7 +299,7 @@ Partial Class product
         ' pbrand
         ' 
         pbrand.Font = New Font("Segoe UI", 12F)
-        pbrand.Location = New Point(433, 94)
+        pbrand.Location = New Point(433, 136)
         pbrand.Name = "pbrand"
         pbrand.Size = New Size(159, 29)
         pbrand.TabIndex = 3
@@ -306,7 +308,7 @@ Partial Class product
         ' 
         Label3.AutoSize = True
         Label3.Font = New Font("Segoe UI", 12F)
-        Label3.Location = New Point(243, 105)
+        Label3.Location = New Point(243, 147)
         Label3.Name = "Label3"
         Label3.Size = New Size(56, 21)
         Label3.TabIndex = 20
@@ -315,7 +317,7 @@ Partial Class product
         ' pname
         ' 
         pname.Font = New Font("Segoe UI", 12F)
-        pname.Location = New Point(872, 47)
+        pname.Location = New Point(872, 89)
         pname.Name = "pname"
         pname.Size = New Size(159, 29)
         pname.TabIndex = 2
@@ -324,7 +326,7 @@ Partial Class product
         ' 
         Label2.AutoSize = True
         Label2.Font = New Font("Segoe UI", 12F)
-        Label2.Location = New Point(747, 55)
+        Label2.Location = New Point(747, 97)
         Label2.Name = "Label2"
         Label2.Size = New Size(56, 21)
         Label2.TabIndex = 18
@@ -333,7 +335,7 @@ Partial Class product
         ' pid
         ' 
         pid.Font = New Font("Segoe UI", 12F)
-        pid.Location = New Point(433, 47)
+        pid.Location = New Point(433, 89)
         pid.Name = "pid"
         pid.Size = New Size(159, 29)
         pid.TabIndex = 1
@@ -342,7 +344,7 @@ Partial Class product
         ' 
         Label1.AutoSize = True
         Label1.Font = New Font("Segoe UI", 12F)
-        Label1.Location = New Point(243, 55)
+        Label1.Location = New Point(243, 97)
         Label1.Name = "Label1"
         Label1.Size = New Size(56, 21)
         Label1.TabIndex = 16
@@ -353,7 +355,7 @@ Partial Class product
         PictureBox2.BackColor = Color.Transparent
         PictureBox2.BackgroundImage = My.Resources.Resources.backbtn2
         PictureBox2.BackgroundImageLayout = ImageLayout.Zoom
-        PictureBox2.Location = New Point(12, 5)
+        PictureBox2.Location = New Point(4, 4)
         PictureBox2.Name = "PictureBox2"
         PictureBox2.Size = New Size(62, 46)
         PictureBox2.TabIndex = 92
@@ -365,7 +367,7 @@ Partial Class product
         Label9.AutoSize = True
         Label9.BackColor = Color.Transparent
         Label9.Font = New Font("Times New Roman", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label9.Location = New Point(539, 12)
+        Label9.Location = New Point(519, 15)
         Label9.Name = "Label9"
         Label9.Size = New Size(293, 24)
         Label9.TabIndex = 35
@@ -381,7 +383,7 @@ Partial Class product
         Panel2.Controls.Add(Label25)
         Panel2.Controls.Add(Label28)
         Panel2.Controls.Add(Label26)
-        Panel2.Location = New Point(-7, 704)
+        Panel2.Location = New Point(-7, 703)
         Panel2.Name = "Panel2"
         Panel2.Size = New Size(1410, 113)
         Panel2.TabIndex = 18
@@ -471,8 +473,6 @@ Partial Class product
         Controls.Add(Panel2)
         Controls.Add(Panel1)
         Controls.Add(DataGridView1)
-        Controls.Add(Label9)
-        Controls.Add(PictureBox2)
         Name = "product"
         StartPosition = FormStartPosition.CenterScreen
         Text = "product"

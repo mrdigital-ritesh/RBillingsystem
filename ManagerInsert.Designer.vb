@@ -417,7 +417,7 @@ Partial Class ManagerInsert
         ' 
         ' Panel3
         ' 
-        Panel3.BackColor = Color.LightSeaGreen
+        Panel3.BackColor = SystemColors.Control
         Panel3.Controls.Add(PictureBox3)
         Panel3.Controls.Add(Label27)
         Panel3.Controls.Add(PictureBox4)
@@ -501,6 +501,9 @@ Partial Class ManagerInsert
         Label26.Size = New Size(57, 20)
         Label26.TabIndex = 69
         Label26.Text = "Label26"
+        ' 
+        ' Timer1
+        ' 
         ' 
         ' ManagerInsert
         ' 

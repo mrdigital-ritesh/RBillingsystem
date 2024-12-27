@@ -20,6 +20,8 @@ Public Class Organization
     Private Sub Organization_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.BackgroundImage = My.Resources.bg
         Me.BackgroundImageLayout = ImageLayout.Stretch
+        Setform(Me)
+
         Me.TopMost = True
         PictureBox1.Image = My.Resources.comapanydefault
         PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage

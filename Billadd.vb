@@ -12,6 +12,8 @@ Public Class Billadd
         Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
         Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
         Me.Size = New Size(screenWidth, screenHeight)
+        Setform(Me)
+
         LoadDraftBills()
         Me.KeyPreview = True
         Me.TopMost = False
@@ -200,10 +202,10 @@ Public Class Billadd
         sgst = 0.0
 
         For Each itm As ListViewItem In ListView1.Items
-            Dim qty As Integer = Convert.ToInt32(itm.SubItems(5).Text) ' Quantity
-            Dim price As Double = Convert.ToDouble(itm.SubItems(4).Text) ' Price
-            Dim discount As Double = Convert.ToDouble(itm.SubItems(6).Text) ' Discount percentage
-            Dim gst As Double = Convert.ToDouble(itm.SubItems(7).Text) ' GST percentage
+            Dim qty As Integer = Convert.ToInt32(itm.SubItems(5).Text)
+            Dim price As Double = Convert.ToDouble(itm.SubItems(4).Text)
+            Dim discount As Double = Convert.ToDouble(itm.SubItems(6).Text)
+            Dim gst As Double = Convert.ToDouble(itm.SubItems(7).Text)
 
             Dim discountedPrice As Double = price - (price * discount / 100)
             Dim itemTotal As Double = discountedPrice * qty

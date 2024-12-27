@@ -424,8 +424,9 @@ Partial Class ManagerDashboard
         ' 
         ' PictureBox1
         ' 
-        PictureBox1.BackgroundImage = My.Resources.Resources.adm
+        PictureBox1.BackgroundImage = My.Resources.Resources.man1
         PictureBox1.BackgroundImageLayout = ImageLayout.Zoom
+        PictureBox1.InitialImage = Nothing
         PictureBox1.Location = New Point(16, 5)
         PictureBox1.Name = "PictureBox1"
         PictureBox1.Size = New Size(51, 59)

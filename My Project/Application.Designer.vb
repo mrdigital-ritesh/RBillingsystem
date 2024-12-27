@@ -33,7 +33,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.RBillingsystem.testprint
+            Me.MainForm = Global.RBillingsystem.start
         End Sub
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
