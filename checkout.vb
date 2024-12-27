@@ -49,7 +49,6 @@ Public Class checkout
         ListView2.Columns.Add("TOTAL", 120, HorizontalAlignment.Center)
         ListView2.Columns.Add("PREGST", 120, HorizontalAlignment.Center)
     End Sub
-    'To clone billform listview in this form
     Public Sub SetListViewData(listViewItems As ListViewItemCollection)
         ListView2.Items.Clear()
 
@@ -260,6 +259,7 @@ Public Class checkout
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         SaveBillData()
+
     End Sub
 
     'new code logic for all db
@@ -303,6 +303,17 @@ Public Class checkout
             Billadd.reloadBill()
 
             MessageBox.Show("Bill Generated succesfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Dim result As DialogResult = MessageBox.Show("Do you want to print the bill?", "Print Bill Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+
+            If result = DialogResult.Yes Then
+
+                BillingReportModule.TriggerPrint(billid)
+
+            Else
+
+                MessageBox.Show("Bill printing canceled.", "Action Canceled", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
         Catch ex As Exception
             MessageBox.Show("Error: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try

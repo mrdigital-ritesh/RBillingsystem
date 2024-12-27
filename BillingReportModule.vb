@@ -8,12 +8,13 @@ Module BillingReportModule
     Private WithEvents PD As New PrintDocument
     Private PPD As New PrintPreviewDialog
     Private longpaper As Integer
-
+    Dim totalAmount As Double = 0
+    Dim cgst As Double = 0
+    Dim sgst As Double = 0
     Private Sub PrintBillReport(billid As Integer)
         Dim billData As New List(Of BillData)()
-        Dim totalAmount As Double = 0
-        Dim cgst As Double = 0
-        Dim sgst As Double = 0
+        Dim gstSummary As New List(Of GstSummary)()
+
         Dim modeOfPayment As String = String.Empty
         Dim customerName As String = String.Empty
         Dim customerPhone As String = String.Empty
@@ -29,6 +30,8 @@ Module BillingReportModule
         Dim totalqty As String = String.Empty
         Try
             connect()
+            checkout.Close()
+
             'company 
             Dim companyQuery As String = "SELECT * FROM company WHERE comid = 1"
             Using cmd As New MySqlCommand(companyQuery, conn)
@@ -74,6 +77,7 @@ Module BillingReportModule
                         billData.Add(New BillData With {
                 .HSNCode = reader("hsn_code"),
                 .ProductName = reader("pro_name"),
+                .PGstRate = reader("pro_gst"),
                 .Quantity = qty,
                 .Rate = actualPrice, 'MRP
                 .Amount = total
@@ -97,9 +101,52 @@ Module BillingReportModule
                 End Using
             End Using
 
+            'gst logic
+            Dim gstSummaryQuery As String = "
+            SELECT 
+
+                bd.pro_gst,
+                SUM(bd.pro_total - bd.pre_gst) AS total_gst,
+                SUM(bd.pre_gst * bd.pro_qty) AS taxableamt,
+                SUM((bd.pro_total - (bd.pre_gst * bd.pro_qty)) / 2) AS cgst,
+                SUM((bd.pro_total - (bd.pre_gst * bd.pro_qty)) / 2) AS sgst,
+                SUM(pro_total) AS prototal
+
+
+            FROM 
+                bill_data bd
+            JOIN 
+                bills b ON bd.bill_id = b.bill_id
+            WHERE 
+                b.bill_id = @billid
+            GROUP BY 
+                bd.pro_gst
+        ORDER BY 
+        bd.pro_gst ASC"
+
+
+            Using cmd As New MySqlCommand(gstSummaryQuery, conn)
+                cmd.Parameters.AddWithValue("@billid", billid)
+                Using reader As MySqlDataReader = cmd.ExecuteReader()
+                    While reader.Read()
+                        gstSummary.Add(New GstSummary With {
+                        .GstRate = reader("pro_gst"),
+                        .TotalGst = reader("total_gst"),
+                        .taxableamt = reader("taxableamt"),
+                        .prototal = reader("prototal"),
+                        .Cgst = reader("cgst"),
+                        .Sgst = reader("sgst")
+                    })
+                    End While
+                End Using
+            End Using
+
+
+
+
             changelongpaper(billData.Count)
 
-            GenerateAndPrintBill(billid, billData, totalAmount, cgst, sgst, modeOfPayment, customerName, customerPhone, cashierName, businessName, branch, gstin, city, state, bdate, mob, items, totalqty)
+            GenerateAndPrintBill(billid, billData, totalAmount, cgst, sgst, modeOfPayment, customerName, customerPhone, cashierName, businessName, branch, gstin, city, state, bdate, mob, items, totalqty, gstSummary)
 
         Catch ex As Exception
             MessageBox.Show("Error during fetching or printing the bill: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -108,33 +155,27 @@ Module BillingReportModule
     End Sub
 
     Sub changelongpaper(rowcount As Integer)
-        longpaper = rowcount * 18 + 550
+        longpaper = rowcount * 18 + 750
     End Sub
 
-    Private Sub GenerateAndPrintBill(billid As Integer, billData As List(Of BillData), totalAmount As Double, cgst As Double, sgst As Double, modeOfPayment As String, customerName As String, customerPhone As String, cashierName As String, businessName As String, branch As String, gstin As String, city As String, state As String, bdate As String, mob As String, items As String, totalqty As String)
+    Private Sub GenerateAndPrintBill(billid As Integer, billData As List(Of BillData), totalAmount As Double, cgst As Double, sgst As Double, modeOfPayment As String, customerName As String, customerPhone As String, cashierName As String, businessName As String, branch As String, gstin As String, city As String, state As String, bdate As String, mob As String, items As String, totalqty As String, gstSummary As List(Of GstSummary))
         Try
-            ' Create the PrintDocument
             Dim printDoc As New PrintDocument()
 
-            ' Set custom paper size and margins
             printDoc.DefaultPageSettings.PaperSize = New PaperSize("Custom", 315, longpaper) ' Width set to 315 (3.15 inches)
-            printDoc.DefaultPageSettings.Margins = New Margins(10, 10, 10, 10) ' Margins for better space utilization
+            printDoc.DefaultPageSettings.Margins = New Margins(10, 10, 10, 10) ' Margins 
 
-            ' Define the PrintPage event handler
             AddHandler printDoc.PrintPage, Sub(previewSender As Object, previewEventArgs As PrintPageEventArgs)
-                                               printBillPage(previewSender, previewEventArgs, billData, billid, totalAmount, cgst, sgst, modeOfPayment, customerName, customerPhone, cashierName, businessName, branch, gstin, city, state, bdate, mob, items, totalqty)
+                                               printBillPage(previewSender, previewEventArgs, billData, billid, totalAmount, cgst, sgst, modeOfPayment, customerName, customerPhone, cashierName, businessName, branch, gstin, city, state, bdate, mob, items, totalqty, gstSummary)
                                            End Sub
 
-            ' Set up the PrintPreviewDialog
             PPD.Document = printDoc
             PPD.StartPosition = FormStartPosition.CenterScreen
             PPD.WindowState = FormWindowState.Maximized
 
-            ' Add event handler for the print preview dialog to show the print dialog
             AddHandler PPD.Shown, Sub(previewSender As Object, previewEventArgs As EventArgs)
                                       Dim previewControl As PrintPreviewControl = FindPreviewControl(PPD)
                                       If previewControl IsNot Nothing Then
-                                          ' Enable zoom functionality
                                           AddHandler PPD.MouseWheel, Sub(sender, e)
                                                                          If e.Delta > 0 Then
                                                                              previewControl.Zoom += 0.1 ' Zoom In
@@ -145,16 +186,13 @@ Module BillingReportModule
                                                                      End Sub
                                       End If
 
-                                      ' Show the print dialog once preview is shown
                                       Dim printDialog As New PrintDialog()
                                       printDialog.Document = printDoc
                                       printDialog.AllowSomePages = True
                                       printDialog.AllowPrintToFile = False
                                       printDialog.PrinterSettings.DefaultPageSettings.PaperSize = printDoc.DefaultPageSettings.PaperSize
 
-                                      ' Open the PrintDialog
                                       If printDialog.ShowDialog() = DialogResult.OK Then
-                                          ' If the user clicks OK, print the document
                                           printDoc.Print()
                                       End If
                                   End Sub
@@ -162,7 +200,6 @@ Module BillingReportModule
             PPD.ShowDialog()
 
         Catch ex As Exception
-            ' Handle any errors during printing
             MessageBox.Show("Error during printing: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
@@ -176,7 +213,7 @@ Module BillingReportModule
         Next
         Return Nothing
     End Function
-    Private Sub printBillPage(sender As Object, e As PrintPageEventArgs, billData As List(Of BillData), billid As Integer, totalAmount As Double, cgst As Double, sgst As Double, modeOfPayment As String, customerName As String, customerPhone As String, cashierName As String, businessName As String, branch As String, gstin As String, city As String, state As String, bdate As String, mob As String, items As String, totalqty As String)
+    Private Sub printBillPage(sender As Object, e As PrintPageEventArgs, billData As List(Of BillData), billid As Integer, totalAmount As Double, cgst As Double, sgst As Double, modeOfPayment As String, customerName As String, customerPhone As String, cashierName As String, businessName As String, branch As String, gstin As String, city As String, state As String, bdate As String, mob As String, items As String, totalqty As String, gstSummary As List(Of GstSummary))
         Dim g As Graphics = e.Graphics
         Dim font As New Font("Arial", 8) ' Standard font
         Dim fonth As New Font("Arial", 7) ' Standard font
@@ -247,27 +284,62 @@ Module BillingReportModule
         y += lineHeight
 
         ' Print Bill
-        For Each item In billData
-            g.DrawString(item.HSNCode.ToString(), font, Brushes.Black, x, y)
+        '  For Each item In billData
+        '      g.DrawString(item.HSNCode.ToString(), font, Brushes.Black, x, y)
+        '
+        '      Dim productName As String = item.ProductName
+        '      Dim productColumnWidth As Integer = columnWidths(1)
+        '      Dim wrappedText As String = WrapText(g, productName, font, productColumnWidth)
+        '      Dim productHeight As Integer = CInt(g.MeasureString(wrappedText, font, productColumnWidth).Height)
+        '
+        '      g.DrawString(wrappedText, font, Brushes.Black, x + columnWidths(0), y)
+        '
+        '      ' Quantity
+        '      g.DrawString(item.Quantity.ToString(), font, Brushes.Black, x + columnWidths(0) + columnWidths(1), y)
+        '
+        '      ' Rate
+        '      g.DrawString(item.Rate.ToString(), font, Brushes.Black, x + columnWidths(0) + columnWidths(1) + columnWidths(2), y)
+        '
+        '      ' Total
+        '      g.DrawString(item.Amount.ToString(), font, Brushes.Black, x + columnWidths(0) + columnWidths(1) + columnWidths(2) + columnWidths(3), y)
+        '
+        '      y += Math.Max(lineHeight, productHeight)
+        '  Next
 
-            Dim productName As String = item.ProductName
-            Dim productColumnWidth As Integer = columnWidths(1)
-            Dim wrappedText As String = WrapText(g, productName, font, productColumnWidth)
-            Dim productHeight As Integer = CInt(g.MeasureString(wrappedText, font, productColumnWidth).Height)
+        Dim groupedByGst = billData.GroupBy(Function(bd) bd.PGstRate).OrderBy(Function(gstGroup) gstGroup.Key)
 
-            g.DrawString(wrappedText, font, Brushes.Black, x + columnWidths(0), y)
+        Dim gstIndex As Integer = 1
+        For Each group In groupedByGst
+            g.DrawString(gstIndex.ToString() & ") GST " & group.Key.ToString("0") & "%", boldFont8, Brushes.Black, x, y)
+            y += lineHeight
 
-            ' Quantity
-            g.DrawString(item.Quantity.ToString(), font, Brushes.Black, x + columnWidths(0) + columnWidths(1), y)
+            'GST group
+            For Each item In group
+                g.DrawString(item.HSNCode.ToString(), font, Brushes.Black, x, y)
+                Dim productName As String = item.ProductName
+                Dim productColumnWidth As Integer = columnWidths(1)
+                Dim wrappedText As String = WrapText(g, productName, font, productColumnWidth)
+                Dim productHeight As Integer = CInt(g.MeasureString(wrappedText, font, productColumnWidth).Height)
 
-            ' Rate
-            g.DrawString(item.Rate.ToString(), font, Brushes.Black, x + columnWidths(0) + columnWidths(1) + columnWidths(2), y)
+                g.DrawString(wrappedText, font, Brushes.Black, x + columnWidths(0), y)
 
-            ' Total
-            g.DrawString(item.Amount.ToString(), font, Brushes.Black, x + columnWidths(0) + columnWidths(1) + columnWidths(2) + columnWidths(3), y)
+                g.DrawString(item.Quantity.ToString(), font, Brushes.Black, x + columnWidths(0) + columnWidths(1), y)
 
-            y += Math.Max(lineHeight, productHeight)
+                g.DrawString(item.Rate.ToString(), font, Brushes.Black, x + columnWidths(0) + columnWidths(1) + columnWidths(2), y)
+
+                g.DrawString(item.Amount.ToString(), font, Brushes.Black, x + columnWidths(0) + columnWidths(1) + columnWidths(2) + columnWidths(3), y)
+
+                y += Math.Max(lineHeight, productHeight)
+            Next
+
+            'g.DrawString(" ", boldFont8, Brushes.Black, x, y)
+            'y += lineHeight '
+
+            gstIndex += 1 'gst label +1 
         Next
+
+
+
         g.DrawString(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", boldFont, Brushes.Black, x, y)
         y += lineHeight
         g.DrawString("      Items:  " & items & "          QTY:   " & totalqty & "            " & Math.Round(totalAmount), boldFont, Brushes.Black, x, y)
@@ -276,11 +348,61 @@ Module BillingReportModule
         y += lineHeight
 
 
-        g.DrawString("CGST: " & cgst.ToString("C2"), font, Brushes.Black, x, y)
-        y += lineHeight
-        g.DrawString("SGST: " & sgst.ToString("C2"), font, Brushes.Black, x, y)
+
+        textSize = g.MeasureString("GST Breakup Details" & gstin, fonth)
+        xCenter = (e.PageBounds.Width - textSize.Width) / 2
+        g.DrawString("GST Breakup Details", boldFont8, Brushes.Black, xCenter + 20, y)
+
+
+
         y += lineHeight
 
+        g.DrawString("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", font, Brushes.Black, x, y)
+        y += lineHeight
+        g.DrawString("GST", font, Brushes.Black, x, y)
+        x += 50
+        g.DrawString("Taxable Amt", font, Brushes.Black, x, y)
+        x += 85
+        g.DrawString("CGST", font, Brushes.Black, x, y)
+        x += 52
+        g.DrawString("SGST", font, Brushes.Black, x, y)
+        x += 52
+        g.DrawString("Total Amt", font, Brushes.Black, x, y)
+        y += lineHeight
+        x = 10
+        g.DrawString("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", font, Brushes.Black, x, y)
+        y += lineHeight
+        Dim totaltaxamt As Double = totalAmount - cgst - sgst
+
+        For Each gst In gstSummary
+            x = 10 ' Reset the X position 
+            g.DrawString(gst.GstRate.ToString() & "%", font, Brushes.Black, x, y)
+            x += 50
+            g.DrawString(gst.taxableamt.ToString("F2"), font, Brushes.Black, x, y)
+            x += 85
+            g.DrawString(gst.Cgst.ToString("F2"), font, Brushes.Black, x, y)
+            x += 52
+            g.DrawString(gst.Sgst.ToString("F2"), font, Brushes.Black, x, y)
+            x += 52
+            g.DrawString(gst.prototal.ToString("F2"), font, Brushes.Black, x, y)
+            y += lineHeight
+        Next
+        x = 10
+        g.DrawString("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", font, Brushes.Black, x, y)
+        y += lineHeight
+        g.DrawString("TOTAL:", font, Brushes.Black, x, y)
+        x += 50
+        g.DrawString(totaltaxamt.ToString("F2"), font, Brushes.Black, x, y)
+        x += 85
+        g.DrawString(cgst.ToString("F2"), font, Brushes.Black, x, y)
+        x += 52
+        g.DrawString(sgst.ToString("F2"), font, Brushes.Black, x, y)
+        x += 52
+        g.DrawString(totalAmount.ToString("F2"), font, Brushes.Black, x, y)
+        y += lineHeight
+        x = 10
+        g.DrawString("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", font, Brushes.Black, x, y)
+        y += lineHeight
         textSize = g.MeasureString("Net Amount: " & Math.Round(totalAmount).ToString("C2"), boldFont)
         xCenter = (e.PageBounds.Width - textSize.Width) / 2
         g.DrawString("Net Amount: " & Math.Round(totalAmount).ToString("C2"), boldFont, Brushes.Black, xCenter, y)
@@ -294,20 +416,21 @@ Module BillingReportModule
 
 
         Try
+            x = 10
             Dim barcode As New MessagingToolkit.Barcode.BarcodeEncoder()
             Dim barcodeImage As Image = barcode.Encode(MessagingToolkit.Barcode.BarcodeFormat.Code128, billid.ToString())
 
-            Dim resizedBarcode As New Bitmap(barcodeImage, New Size(170, 35)) ' Adjust size
+            Dim resizedBarcode As New Bitmap(barcodeImage, New Size(170, 35))
 
-            g.DrawImage(resizedBarcode, x + 65, y) ' Adjust position
+            g.DrawImage(resizedBarcode, x + 65, y)
             y += resizedBarcode.Height + lineHeight
         Catch ex As Exception
             MessageBox.Show("Error generating barcode: " & ex.Message)
         End Try
 
-        textSize = g.MeasureString("Thank you for shopping with us!", fonth)
+        textSize = g.MeasureString("Thank you for shopping with us!", font)
         xCenter = (e.PageBounds.Width - textSize.Width) / 2
-        g.DrawString("Thank you for shopping with us!", boldFont, Brushes.Black, xCenter - 20, y)
+        g.DrawString("Thank you for shopping with us!", boldFont, Brushes.Black, xCenter - 26, y)
         y += lineHeight
     End Sub
 
@@ -335,8 +458,17 @@ Module BillingReportModule
     End Sub
 End Module
 
+Public Class GstSummary
+    Public Property GstRate As Double
+    Public Property TotalGst As Double
+    Public Property Cgst As Double
+    Public Property Sgst As Double
+    Public Property taxableamt As Double
+    Public Property prototal As Double
+End Class
 Public Class BillData
     Public Property HSNCode As String
+    Public Property PGstRate As Double
     Public Property ProductName As String
     Public Property Quantity As Integer
     Public Property Rate As Double
