@@ -9,7 +9,6 @@ Module BillingReportModule
     Private PPD As New PrintPreviewDialog
     Private longpaper As Integer
 
-    ' Fetch and print bill data
     Private Sub PrintBillReport(billid As Integer)
         Dim billData As New List(Of BillData)()
         Dim totalAmount As Double = 0
@@ -70,15 +69,14 @@ Module BillingReportModule
                         Dim total As Double = reader("pro_total")
                         Dim qty As Integer = reader("pro_qty")
 
-                        ' Calculate actual price per unit (divide pro_total by pro_qty)
                         Dim actualPrice As Double = If(qty > 0, total / qty, 0) ' Prevent division by zero
 
                         billData.Add(New BillData With {
                 .HSNCode = reader("hsn_code"),
                 .ProductName = reader("pro_name"),
                 .Quantity = qty,
-                .Rate = actualPrice, ' Use the calculated actual price
-                .Amount = total ' The total amount remains the same
+                .Rate = actualPrice, 'MRP
+                .Amount = total
             })
                     End While
                 End Using
@@ -115,36 +113,80 @@ Module BillingReportModule
 
     Private Sub GenerateAndPrintBill(billid As Integer, billData As List(Of BillData), totalAmount As Double, cgst As Double, sgst As Double, modeOfPayment As String, customerName As String, customerPhone As String, cashierName As String, businessName As String, branch As String, gstin As String, city As String, state As String, bdate As String, mob As String, items As String, totalqty As String)
         Try
-            ' Set up the print document
+            ' Create the PrintDocument
             Dim printDoc As New PrintDocument()
-            AddHandler printDoc.PrintPage, Sub(sender As Object, e As PrintPageEventArgs)
-                                               printBillPage(sender, e, billData, billid, totalAmount, cgst, sgst, modeOfPayment, customerName, customerPhone, cashierName, businessName, branch, gstin, city, state, bdate, mob, items, totalqty)
+
+            ' Set custom paper size and margins
+            printDoc.DefaultPageSettings.PaperSize = New PaperSize("Custom", 315, longpaper) ' Width set to 315 (3.15 inches)
+            printDoc.DefaultPageSettings.Margins = New Margins(10, 10, 10, 10) ' Margins for better space utilization
+
+            ' Define the PrintPage event handler
+            AddHandler printDoc.PrintPage, Sub(previewSender As Object, previewEventArgs As PrintPageEventArgs)
+                                               printBillPage(previewSender, previewEventArgs, billData, billid, totalAmount, cgst, sgst, modeOfPayment, customerName, customerPhone, cashierName, businessName, branch, gstin, city, state, bdate, mob, items, totalqty)
                                            End Sub
 
-            printDoc.DefaultPageSettings.PaperSize = New PaperSize("Custom", 315, longpaper) ' Adjust width to 285 for narrower paper
-            printDoc.DefaultPageSettings.Margins = New Margins(10, 10, 10, 10) ' Reduce margins for better space utilization
-
-            ' Show the print preview
+            ' Set up the PrintPreviewDialog
             PPD.Document = printDoc
+            PPD.StartPosition = FormStartPosition.CenterScreen
+            PPD.WindowState = FormWindowState.Maximized
+
+            ' Add event handler for the print preview dialog to show the print dialog
+            AddHandler PPD.Shown, Sub(previewSender As Object, previewEventArgs As EventArgs)
+                                      Dim previewControl As PrintPreviewControl = FindPreviewControl(PPD)
+                                      If previewControl IsNot Nothing Then
+                                          ' Enable zoom functionality
+                                          AddHandler PPD.MouseWheel, Sub(sender, e)
+                                                                         If e.Delta > 0 Then
+                                                                             previewControl.Zoom += 0.1 ' Zoom In
+                                                                         ElseIf e.Delta < 0 Then
+                                                                             previewControl.Zoom -= 0.1 ' Zoom Out
+                                                                         End If
+                                                                         If previewControl.Zoom < 0.1 Then previewControl.Zoom = 0.1 ' Prevent too small zoom
+                                                                     End Sub
+                                      End If
+
+                                      ' Show the print dialog once preview is shown
+                                      Dim printDialog As New PrintDialog()
+                                      printDialog.Document = printDoc
+                                      printDialog.AllowSomePages = True
+                                      printDialog.AllowPrintToFile = False
+                                      printDialog.PrinterSettings.DefaultPageSettings.PaperSize = printDoc.DefaultPageSettings.PaperSize
+
+                                      ' Open the PrintDialog
+                                      If printDialog.ShowDialog() = DialogResult.OK Then
+                                          ' If the user clicks OK, print the document
+                                          printDoc.Print()
+                                      End If
+                                  End Sub
+
             PPD.ShowDialog()
 
         Catch ex As Exception
+            ' Handle any errors during printing
             MessageBox.Show("Error during printing: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
-    ' Method to print bill details
+
+    Private Function FindPreviewControl(dialog As PrintPreviewDialog) As PrintPreviewControl
+        For Each control As Control In dialog.Controls
+            If TypeOf control Is PrintPreviewControl Then
+                Return DirectCast(control, PrintPreviewControl)
+            End If
+        Next
+        Return Nothing
+    End Function
     Private Sub printBillPage(sender As Object, e As PrintPageEventArgs, billData As List(Of BillData), billid As Integer, totalAmount As Double, cgst As Double, sgst As Double, modeOfPayment As String, customerName As String, customerPhone As String, cashierName As String, businessName As String, branch As String, gstin As String, city As String, state As String, bdate As String, mob As String, items As String, totalqty As String)
         Dim g As Graphics = e.Graphics
         Dim font As New Font("Arial", 8) ' Standard font
         Dim fonth As New Font("Arial", 7) ' Standard font
-        Dim boldFonth As New Font("Times New Roman", 18, FontStyle.Bold) ' Bold font for important sections
-        Dim boldFont As New Font("Arial", 10, FontStyle.Bold) ' Bold font for important sections
-        Dim boldFont8 As New Font("Arial", 8, FontStyle.Bold) ' Bold font for important sections
-        Dim x As Integer = 10 ' X position for text alignment
-        Dim y As Integer = 10 ' Starting Y position
-        Dim lineHeight As Integer = 16 ' Line height for spacing
-        Dim columnWidths As Integer() = {50, 120, 30, 50, 60} ' Widths for each column (adjust as needed)
+        Dim boldFonth As New Font("Times New Roman", 18, FontStyle.Bold) ' Bold font
+        Dim boldFont As New Font("Arial", 10, FontStyle.Bold) ' Bold font
+        Dim boldFont8 As New Font("Arial", 8, FontStyle.Bold) ' Bold font
+        Dim x As Integer = 10
+        Dim y As Integer = 10
+        Dim lineHeight As Integer = 16 'spacing
+        Dim columnWidths As Integer() = {50, 120, 30, 50, 60}
 
 
         g.DrawString("Printed on: " & DateTime.Now.ToString("dd/MM/yyyy hh:mm tt"), fonth, Brushes.Black, x + 163, y)
@@ -206,10 +248,8 @@ Module BillingReportModule
 
         ' Print Bill
         For Each item In billData
-            ' HSN Code
             g.DrawString(item.HSNCode.ToString(), font, Brushes.Black, x, y)
 
-            ' Product Name with wrapping
             Dim productName As String = item.ProductName
             Dim productColumnWidth As Integer = columnWidths(1)
             Dim wrappedText As String = WrapText(g, productName, font, productColumnWidth)
@@ -226,7 +266,6 @@ Module BillingReportModule
             ' Total
             g.DrawString(item.Amount.ToString(), font, Brushes.Black, x + columnWidths(0) + columnWidths(1) + columnWidths(2) + columnWidths(3), y)
 
-            ' Adjust the row height based on the tallest text (e.g., product name wrapping)
             y += Math.Max(lineHeight, productHeight)
         Next
         g.DrawString(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", boldFont, Brushes.Black, x, y)
@@ -268,11 +307,10 @@ Module BillingReportModule
 
         textSize = g.MeasureString("Thank you for shopping with us!", fonth)
         xCenter = (e.PageBounds.Width - textSize.Width) / 2
-        g.DrawString("Thank you for shopping with us!", boldFont, Brushes.Black, xCenter, y)
+        g.DrawString("Thank you for shopping with us!", boldFont, Brushes.Black, xCenter - 20, y)
         y += lineHeight
     End Sub
 
-    ' Helper method to wrap text
     Private Function WrapText(g As Graphics, text As String, font As Font, maxWidth As Integer) As String
         Dim words As String() = text.Split(" "c)
         Dim wrappedText As String = String.Empty
@@ -292,13 +330,11 @@ Module BillingReportModule
         Return wrappedText
     End Function
 
-    ' Public method to trigger the print action
     Public Sub TriggerPrint(billid As Integer)
         PrintBillReport(billid)
     End Sub
 End Module
 
-' BillData class to hold the retrieved bill data
 Public Class BillData
     Public Property HSNCode As String
     Public Property ProductName As String
