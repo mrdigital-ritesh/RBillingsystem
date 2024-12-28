@@ -85,7 +85,6 @@ Public Class product
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        ' Update the date and time display
         Label24.Text = DateTime.Now.ToString("dddd")
         Label24.Text += "   " & DateTime.Now.ToString("dd MMMM yyyy") & "   " & TimeOfDay.ToString("HH:mm:ss")
     End Sub
@@ -120,7 +119,6 @@ Public Class product
     End Sub
 
     'Category load in dropdown
-    'Load categories into the dropdown and store HSN codes
     Public Sub loadcat()
         Call connect()
         qry = "SELECT cat_name, hsn_code FROM category"
@@ -129,7 +127,7 @@ Public Class product
 
         da.Fill(dt)
         category.Items.Clear()
-        category.Tag = New Dictionary(Of String, List(Of String)) ' Use Tag property to store HSN codes
+        category.Tag = New Dictionary(Of String, List(Of String))
         Dim hsnDict As Dictionary(Of String, List(Of String)) = CType(category.Tag, Dictionary(Of String, List(Of String)))
 
         For Each row As DataRow In dt.Rows
@@ -166,18 +164,25 @@ Public Class product
     'Insert data
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         If ValidateFields() Then
-            connect()
-            Dim cmd As New MySqlCommand
-            qry = "insert into products values('" & pid.Text & "','" & pname.Text & "','" & pbrand.Text &
-              "','" & category.Text & "','" & purprice.Text & "','" & mrp.Text & "','" & disc.Text & "','" & qty.Text & "',
+            Try
+
+
+                connect()
+                Dim cmd As New MySqlCommand
+                qry = "insert into products values('" & pid.Text & "','" & pname.Text & "','" & pbrand.Text &
+                  "','" & category.Text & "','" & purprice.Text & "','" & mrp.Text & "','" & disc.Text & "','" & qty.Text & "',
               '" & ComboBox1.Text & "', curdate())"
-            cmd.CommandText = qry
-            cmd.Connection = conn
-            cmd.ExecuteNonQuery()
-            conn.Close()
-            showdata()
-            MsgBox("DATA SUCCESSFULLY INSERTED...")
-            clear()
+                cmd.CommandText = qry
+                cmd.Connection = conn
+                cmd.ExecuteNonQuery()
+                conn.Close()
+                showdata()
+                MsgBox("DATA SUCCESSFULLY INSERTED...")
+                clear()
+            Catch ex As Exception
+                MsgBox("PRODUCT ID IS ALREADY IN INVENTORY...", MsgBoxStyle.Critical
+                       )
+            End Try
         End If
     End Sub
 
@@ -228,17 +233,21 @@ Public Class product
         If Not String.IsNullOrEmpty(pid.Text) Then
             Dim cmd As New MySqlCommand
             Dim r As Integer
-            connect()
-            qry = "delete from products where pro_id = '" & pid.Text & "'"
-            cmd.CommandText = qry
-            cmd.Connection = conn
-            r = MsgBox("Do you want to delete Product id: " & pid.Text & "...", MsgBoxStyle.YesNo)
-            If r = 6 Then
-                cmd.ExecuteNonQuery()
-            End If
-            conn.Close()
-            showdata()
-            clear()
+            Try
+                connect()
+                qry = "delete from products where pro_id = '" & pid.Text & "'"
+                cmd.CommandText = qry
+                cmd.Connection = conn
+                r = MsgBox("Do you want to delete Product id: " & pid.Text & "...", MsgBoxStyle.YesNo)
+                If r = 6 Then
+                    cmd.ExecuteNonQuery()
+                End If
+                conn.Close()
+                showdata()
+                clear()
+            Catch ex As Exception
+                MsgBox("Deletion Operation not proceed..")
+            End Try
         Else
             MsgBox("Please select a product to delete.")
         End If
@@ -249,23 +258,29 @@ Public Class product
         If ValidateFields() Then
             Dim cmd As New MySqlCommand
             Dim r As Integer
-            connect()
-            qry = "update products set pro_name = '" & pname.Text & "', pro_brand = '" & pbrand.Text & "', cat_name='" & category.Text & "', " &
-              "pro_purprice='" & purprice.Text & "', pro_mrp='" & mrp.Text & "', pro_disc = '" & disc.Text & "', pro_qty ='" & qty.Text & "', " &
-              "hsn_code = '" & ComboBox1.Text & "', stockdate = curdate() where pro_id = '" & pid.Text & "'"
-            cmd.CommandText = qry
-            cmd.Connection = conn
-            r = MsgBox("Do you want to Update Product id: " & pid.Text & "...", MsgBoxStyle.YesNo)
-            If r = 6 Then
-                cmd.ExecuteNonQuery()
-            End If
-            conn.Close()
-            showdata()
-            clear()
+            Try
+
+
+                connect()
+                qry = "update products set pro_name = '" & pname.Text & "', pro_brand = '" & pbrand.Text & "', cat_name='" & category.Text & "', " &
+                  "pro_purprice='" & purprice.Text & "', pro_mrp='" & mrp.Text & "', pro_disc = '" & disc.Text & "', pro_qty ='" & qty.Text & "', " &
+                  "hsn_code = '" & ComboBox1.Text & "', stockdate = curdate() where pro_id = '" & pid.Text & "'"
+                cmd.CommandText = qry
+                cmd.Connection = conn
+                r = MsgBox("Do you want to Update Product id: " & pid.Text & "...", MsgBoxStyle.YesNo)
+                If r = 6 Then
+                    cmd.ExecuteNonQuery()
+                End If
+                conn.Close()
+                showdata()
+                clear()
+            Catch ex As Exception
+                MsgBox("Update Operation not proceed..")
+
+            End Try
         End If
     End Sub
     Private Function ValidateFields() As Boolean
-        ' Check if product name, brand, and category are empty
         If pname.Text.Trim() = "" Then
             MsgBox("Please enter Product Name.")
             pname.Focus()
@@ -284,7 +299,6 @@ Public Class product
             Return False
         End If
 
-        ' Validate numeric fields
         If Not IsNumeric(purprice.Text) OrElse Convert.ToDecimal(purprice.Text) <= 0 Then
             MsgBox("Please enter a valid Purchase Price.")
             purprice.Focus()
@@ -309,7 +323,6 @@ Public Class product
             Return False
         End If
 
-        ' Ensure HSN code is selected
         If ComboBox1.Text.Trim() = "" Then
             MsgBox("Please select a valid HSN Code.")
             ComboBox1.Focus()

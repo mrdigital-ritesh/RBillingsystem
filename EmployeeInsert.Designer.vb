@@ -517,6 +517,7 @@ Partial Class EmployeeInsert
         Name = "EmployeeInsert"
         StartPosition = FormStartPosition.CenterScreen
         Text = "path"
+        WindowState = FormWindowState.Maximized
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
         CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()

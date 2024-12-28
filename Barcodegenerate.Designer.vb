@@ -266,7 +266,9 @@ Partial Class Barcodegenerate
         Controls.Add(DataGridViewProducts)
         Controls.Add(Panel1)
         Name = "Barcodegenerate"
+        StartPosition = FormStartPosition.CenterScreen
         Text = "Barcodegenerate"
+        WindowState = FormWindowState.Maximized
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()

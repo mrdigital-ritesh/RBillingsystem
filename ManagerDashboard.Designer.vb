@@ -57,6 +57,7 @@ Partial Class ManagerDashboard
         Panel7 = New Panel()
         PictureBox1 = New PictureBox()
         Panel6 = New Panel()
+        Button2 = New Button()
         Panel5.SuspendLayout()
         Panel4.SuspendLayout()
         Panel2.SuspendLayout()
@@ -182,9 +183,10 @@ Partial Class ManagerDashboard
         ' 
         Button4.BackgroundImage = My.Resources.Resources.inventory
         Button4.BackgroundImageLayout = ImageLayout.Zoom
-        Button4.Location = New Point(10, 386)
+        Button4.Location = New Point(10, 320)
         Button4.Name = "Button4"
-        Button4.Size = New Size(249, 160)
+        Button4.RightToLeft = RightToLeft.No
+        Button4.Size = New Size(249, 120)
         Button4.TabIndex = 21
         ToolTip1.SetToolTip(Button4, "INVENTORY MANAGEMENT")
         Button4.UseVisualStyleBackColor = True
@@ -193,9 +195,9 @@ Partial Class ManagerDashboard
         ' 
         Button3.BackgroundImage = My.Resources.Resources.cashier
         Button3.BackgroundImageLayout = ImageLayout.Zoom
-        Button3.Location = New Point(10, 218)
+        Button3.Location = New Point(12, 185)
         Button3.Name = "Button3"
-        Button3.Size = New Size(249, 160)
+        Button3.Size = New Size(249, 120)
         Button3.TabIndex = 20
         ToolTip1.SetToolTip(Button3, "EMPLOYEE INFORMATION")
         Button3.UseVisualStyleBackColor = True
@@ -208,7 +210,7 @@ Partial Class ManagerDashboard
         Button1.ForeColor = Color.Black
         Button1.Location = New Point(10, 50)
         Button1.Name = "Button1"
-        Button1.Size = New Size(249, 160)
+        Button1.Size = New Size(249, 120)
         Button1.TabIndex = 18
         Button1.TextAlign = ContentAlignment.BottomCenter
         Button1.TextImageRelation = TextImageRelation.ImageBeforeText
@@ -240,9 +242,9 @@ Partial Class ManagerDashboard
         ' 
         Button5.BackgroundImage = My.Resources.Resources.Barode1
         Button5.BackgroundImageLayout = ImageLayout.Stretch
-        Button5.Location = New Point(12, 554)
+        Button5.Location = New Point(10, 590)
         Button5.Name = "Button5"
-        Button5.Size = New Size(249, 160)
+        Button5.Size = New Size(249, 120)
         Button5.TabIndex = 22
         Button5.TextAlign = ContentAlignment.BottomCenter
         ToolTip1.SetToolTip(Button5, "BARCODE GENERATION")
@@ -444,11 +446,24 @@ Partial Class ManagerDashboard
         Panel6.Size = New Size(222, 120)
         Panel6.TabIndex = 4
         ' 
+        ' Button2
+        ' 
+        Button2.BackgroundImage = My.Resources.Resources.bill
+        Button2.BackgroundImageLayout = ImageLayout.Zoom
+        Button2.Location = New Point(10, 455)
+        Button2.Name = "Button2"
+        Button2.Size = New Size(249, 120)
+        Button2.TabIndex = 23
+        Button2.TextAlign = ContentAlignment.BottomCenter
+        ToolTip1.SetToolTip(Button2, "BILL DETAILS")
+        Button2.UseVisualStyleBackColor = True
+        ' 
         ' ManagerDashboard
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1370, 749)
+        Controls.Add(Button2)
         Controls.Add(Label7)
         Controls.Add(Button4)
         Controls.Add(Button3)
@@ -461,6 +476,7 @@ Partial Class ManagerDashboard
         Name = "ManagerDashboard"
         StartPosition = FormStartPosition.CenterScreen
         Text = "ManagerDashboard"
+        WindowState = FormWindowState.Maximized
         Panel5.ResumeLayout(False)
         Panel5.PerformLayout()
         Panel4.ResumeLayout(False)
@@ -515,4 +531,5 @@ Partial Class ManagerDashboard
     Friend WithEvents Panel7 As Panel
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Panel6 As Panel
+    Friend WithEvents Button2 As Button
 End Class

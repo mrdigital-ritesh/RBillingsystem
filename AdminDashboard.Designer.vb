@@ -23,11 +23,14 @@ Partial Class AdminDashboard
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(AdminDashboard))
         Label1 = New Label()
         Label2 = New Label()
         Panel1 = New Panel()
         PictureBox2 = New PictureBox()
         Panel3 = New Panel()
+        Panel8 = New Panel()
+        Button6 = New Button()
         PlotView1 = New OxyPlot.WindowsForms.PlotView()
         Label15 = New Label()
         Label16 = New Label()
@@ -62,6 +65,7 @@ Partial Class AdminDashboard
         Panel1.SuspendLayout()
         CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
         Panel3.SuspendLayout()
+        Panel8.SuspendLayout()
         Panel7.SuspendLayout()
         CType(PictureBox4, ComponentModel.ISupportInitialize).BeginInit()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
@@ -119,6 +123,7 @@ Partial Class AdminDashboard
         ' 
         Panel3.BackColor = Color.White
         Panel3.BorderStyle = BorderStyle.FixedSingle
+        Panel3.Controls.Add(Panel8)
         Panel3.Controls.Add(PlotView1)
         Panel3.Controls.Add(Label15)
         Panel3.Controls.Add(Label16)
@@ -135,6 +140,29 @@ Partial Class AdminDashboard
         Panel3.Name = "Panel3"
         Panel3.Size = New Size(1101, 667)
         Panel3.TabIndex = 4
+        ' 
+        ' Panel8
+        ' 
+        Panel8.BackColor = Color.WhiteSmoke
+        Panel8.BorderStyle = BorderStyle.FixedSingle
+        Panel8.Controls.Add(Button6)
+        Panel8.Location = New Point(33, 271)
+        Panel8.Name = "Panel8"
+        Panel8.Size = New Size(222, 120)
+        Panel8.TabIndex = 21
+        ' 
+        ' Button6
+        ' 
+        Button6.BackColor = Color.WhiteSmoke
+        Button6.BackgroundImage = CType(resources.GetObject("Button6.BackgroundImage"), Image)
+        Button6.BackgroundImageLayout = ImageLayout.Zoom
+        Button6.Location = New Point(1, 3)
+        Button6.Name = "Button6"
+        Button6.Size = New Size(218, 113)
+        Button6.TabIndex = 20
+        Button6.TextAlign = ContentAlignment.BottomCenter
+        ToolTip1.SetToolTip(Button6, "BILL DETAILS")
+        Button6.UseVisualStyleBackColor = False
         ' 
         ' PlotView1
         ' 
@@ -490,10 +518,12 @@ Partial Class AdminDashboard
         Name = "AdminDashboard"
         StartPosition = FormStartPosition.CenterScreen
         Text = "AdminDashboard"
+        WindowState = FormWindowState.Maximized
         Panel1.ResumeLayout(False)
         CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
         Panel3.ResumeLayout(False)
         Panel3.PerformLayout()
+        Panel8.ResumeLayout(False)
         Panel7.ResumeLayout(False)
         Panel7.PerformLayout()
         CType(PictureBox4, ComponentModel.ISupportInitialize).EndInit()
@@ -547,4 +577,6 @@ Partial Class AdminDashboard
     Friend WithEvents Label16 As Label
     Friend WithEvents Label17 As Label
     Friend WithEvents PlotView1 As OxyPlot.WindowsForms.PlotView
+    Friend WithEvents Button6 As Button
+    Friend WithEvents Panel8 As Panel
 End Class

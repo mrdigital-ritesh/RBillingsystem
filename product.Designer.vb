@@ -28,6 +28,8 @@ Partial Class product
         ComboBox1 = New ComboBox()
         Button4 = New Button()
         stockdate = New TextBox()
+        PictureBox2 = New PictureBox()
+        Label9 = New Label()
         Label11 = New Label()
         disc = New TextBox()
         Label10 = New Label()
@@ -49,8 +51,6 @@ Partial Class product
         Label2 = New Label()
         pid = New TextBox()
         Label1 = New Label()
-        PictureBox2 = New PictureBox()
-        Label9 = New Label()
         Panel2 = New Panel()
         PictureBox1 = New PictureBox()
         Label27 = New Label()
@@ -147,6 +147,29 @@ Partial Class product
         stockdate.Name = "stockdate"
         stockdate.Size = New Size(159, 29)
         stockdate.TabIndex = 10
+        ' 
+        ' PictureBox2
+        ' 
+        PictureBox2.BackColor = Color.Transparent
+        PictureBox2.BackgroundImage = My.Resources.Resources.backbtn2
+        PictureBox2.BackgroundImageLayout = ImageLayout.Zoom
+        PictureBox2.Location = New Point(4, 4)
+        PictureBox2.Name = "PictureBox2"
+        PictureBox2.Size = New Size(62, 46)
+        PictureBox2.TabIndex = 92
+        PictureBox2.TabStop = False
+        ' 
+        ' Label9
+        ' 
+        Label9.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+        Label9.AutoSize = True
+        Label9.BackColor = Color.Transparent
+        Label9.Font = New Font("Times New Roman", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label9.Location = New Point(519, 15)
+        Label9.Name = "Label9"
+        Label9.Size = New Size(293, 24)
+        Label9.TabIndex = 35
+        Label9.Text = "INVENTORY MANAGEMENT"
         ' 
         ' Label11
         ' 
@@ -350,29 +373,6 @@ Partial Class product
         Label1.TabIndex = 16
         Label1.Text = "Label1"
         ' 
-        ' PictureBox2
-        ' 
-        PictureBox2.BackColor = Color.Transparent
-        PictureBox2.BackgroundImage = My.Resources.Resources.backbtn2
-        PictureBox2.BackgroundImageLayout = ImageLayout.Zoom
-        PictureBox2.Location = New Point(4, 4)
-        PictureBox2.Name = "PictureBox2"
-        PictureBox2.Size = New Size(62, 46)
-        PictureBox2.TabIndex = 92
-        PictureBox2.TabStop = False
-        ' 
-        ' Label9
-        ' 
-        Label9.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
-        Label9.AutoSize = True
-        Label9.BackColor = Color.Transparent
-        Label9.Font = New Font("Times New Roman", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label9.Location = New Point(519, 15)
-        Label9.Name = "Label9"
-        Label9.Size = New Size(293, 24)
-        Label9.TabIndex = 35
-        Label9.Text = "INVENTORY MANAGEMENT"
-        ' 
         ' Panel2
         ' 
         Panel2.BorderStyle = BorderStyle.FixedSingle
@@ -476,6 +476,7 @@ Partial Class product
         Name = "product"
         StartPosition = FormStartPosition.CenterScreen
         Text = "product"
+        WindowState = FormWindowState.Maximized
         CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()

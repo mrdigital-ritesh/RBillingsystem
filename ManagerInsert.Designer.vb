@@ -516,6 +516,7 @@ Partial Class ManagerInsert
         Controls.Add(Panel1)
         Name = "ManagerInsert"
         Text = "ManagerInsert"
+        WindowState = FormWindowState.Maximized
         Panel2.ResumeLayout(False)
         Panel2.PerformLayout()
         CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()

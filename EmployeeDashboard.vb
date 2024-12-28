@@ -30,6 +30,7 @@ Public Class EmployeeDashboard
         Setform(Me)
 
         'main code
+        billhistory.Close()
         loginform.Close()
         ManagerInsert.Close()
         EmployeeInsert.Close()
@@ -189,7 +190,7 @@ Public Class EmployeeDashboard
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
-        Barcodegenerate.Show()
+        billhistory.Show()
     End Sub
 
     Private Sub Panel3_Paint(sender As Object, e As PaintEventArgs) Handles Panel3.Paint
@@ -202,5 +203,9 @@ Public Class EmployeeDashboard
         If confirm = DialogResult.Yes Then
             loginform.Show()
         End If
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Barcodegenerate.Show()
     End Sub
 End Class

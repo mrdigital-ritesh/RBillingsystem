@@ -237,7 +237,7 @@ Public Class Billadd
     Private suppressTextChanged As Boolean = False ' Prevent overlap
 
     Private Sub pid_TextChanged(sender As Object, e As EventArgs) Handles pid.TextChanged
-        If suppressTextChanged Then Exit Sub ' Prevent overlapping executions
+        If suppressTextChanged Then Exit Sub
         suppressTextChanged = True
 
         Try
@@ -246,7 +246,7 @@ Public Class Billadd
                 Exit Sub
             End If
 
-            TextBox5.Clear() ' Clear quantity input
+            TextBox5.Clear()
 
             If conn.State = ConnectionState.Closed Then
                 connect()
@@ -284,7 +284,7 @@ Public Class Billadd
                 proGST = Convert.ToDouble(Reader("gst"))
                 stock = Convert.ToInt32(Reader("pro_qty"))
 
-                ' Update UI fields
+
                 TextBox1.Text = proName
                 TextBox2.Text = proBrand
                 TextBox3.Text = proHSN
@@ -296,7 +296,7 @@ Public Class Billadd
                     enteredQty = Convert.ToInt32(TextBox5.Text)
                 End If
 
-                ' Validate stock
+                ' stock check
                 If enteredQty > stock Then
                     MessageBox.Show("Insufficient stock. Available quantity: " & stock.ToString(), "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Reader.Close()
@@ -306,7 +306,7 @@ Public Class Billadd
                     Exit Sub
                 End If
 
-                ' Check if product is already in the ListView
+                ' product checking in list
                 Dim exists As Boolean = False
                 For Each itm As ListViewItem In ListView1.Items
                     If String.Equals(itm.SubItems(0).Text, proID, StringComparison.OrdinalIgnoreCase) Then
@@ -331,7 +331,6 @@ Public Class Billadd
                     End If
                 Next
 
-                ' If the product is not already in the ListView, add it
                 If Not exists Then
                     Dim discountedPrice As Double = proPrice - (proPrice * proDiscount / 100)
                     Dim totalAmount As Double = discountedPrice * enteredQty
@@ -405,7 +404,6 @@ Public Class Billadd
                     cmd = New MySqlCommand(qry, conn)
                     cmd.Parameters.AddWithValue("@ProID", productID)
 
-                    ' Execute the query to fetch the stock quantity
                     Reader = cmd.ExecuteReader()
 
                     If Reader.HasRows Then
@@ -415,7 +413,6 @@ Public Class Billadd
                     End If
                     Reader.Close()
 
-                    ' Check if the new quantity exceeds available stock
                     If newQty > stock Then
                         MessageBox.Show("Insufficient stock. Available quantity: " & stock.ToString(), "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         conn.Close()
@@ -432,7 +429,6 @@ Public Class Billadd
                     End If
                 End Try
 
-                ' If stock is sufficient, update the quantity and total amount in ListView
                 selectedItem.SubItems(5).Text = newQty.ToString()
 
                 ' Calculate new total amount
@@ -442,7 +438,7 @@ Public Class Billadd
                 Dim totalAmount As Double = discountedPrice * newQty
 
                 selectedItem.SubItems(8).Text = Format(totalAmount, "0.00")
-                UpdateBill() ' Recalculate the total bill
+                UpdateBill()
 
             Else
                 MessageBox.Show("Please enter a valid quantity.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -543,7 +539,7 @@ Public Class Billadd
         TextBox15.Clear
         TextBox16.Clear
         TextBox17.Clear()
-
+        totalAmount = 0
         DateTimePicker1.Text = Now
         ListView1.Items.Clear
 
@@ -560,9 +556,9 @@ Public Class Billadd
         checkout.Show()
     End Sub
 
-    'draft billing starts from here
+    'draft billing
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
-        If Not String.IsNullOrWhiteSpace(TextBox8.Text) AndAlso Not String.IsNullOrWhiteSpace(TextBox9.Text) Then ' Ensure both phone and name are provided
+        If Not String.IsNullOrWhiteSpace(TextBox8.Text) AndAlso Not String.IsNullOrWhiteSpace(TextBox9.Text) Then
             Try
                 If conn.State = ConnectionState.Closed Then
                     connect()
@@ -620,7 +616,7 @@ Public Class Billadd
             While Reader.Read()
                 Dim customerPhone As String = Reader("customer_phone").ToString()
                 Dim customerName As String = Reader("customer_name").ToString()
-                ComboBox1.Items.Add(customerName & " (" & customerPhone & ")") ' Display both name and phone
+                ComboBox1.Items.Add(customerName & " (" & customerPhone & ")")
             End While
 
         Catch ex As Exception
@@ -674,7 +670,7 @@ Public Class Billadd
                     Dim totalAmount As Double = 0
 
                     While Reader.Read()
-                        ' Populate ListView with draft bill data
+
                         Dim itm As New ListViewItem(Reader("product_id").ToString())
                         itm.SubItems.Add(Reader("product_name").ToString())
                         itm.SubItems.Add(Reader("brand").ToString()) ' Brand

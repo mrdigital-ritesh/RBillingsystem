@@ -12,6 +12,8 @@ Module BillingReportModule
     Dim totalAmount As Double = 0
     Dim cgst As Double = 0
     Dim sgst As Double = 0
+    Dim totaldiscount As Double = 0
+
     Private Sub PrintBillReport(billid As Integer)
         Dim billData As New List(Of BillData)()
         Dim gstSummary As New List(Of GstSummary)()
@@ -61,6 +63,7 @@ Module BillingReportModule
                         bdate = reader("date").ToString()
                         items = reader("total_item").ToString()
                         totalqty = reader("total_qty").ToString()
+                        totalDiscount = reader("total_dis").ToString()
                     End If
                 End Using
             End Using
@@ -73,14 +76,14 @@ Module BillingReportModule
                         Dim total As Double = reader("pro_total")
                         Dim qty As Integer = reader("pro_qty")
 
-                        Dim actualPrice As Double = If(qty > 0, total / qty, 0) ' Prevent division by zero
+                        Dim actualPrice As Double = If(qty > 0, total / qty, 0)
 
                         billData.Add(New BillData With {
                 .HSNCode = reader("hsn_code"),
                 .ProductName = reader("pro_name"),
                 .PGstRate = reader("pro_gst"),
                 .Quantity = qty,
-                .Rate = actualPrice, 'MRP
+                .Rate = actualPrice,
                 .Amount = total
             })
                     End While
@@ -160,14 +163,12 @@ Module BillingReportModule
         Dim logo As Image = Nothing
 
         Try
-            ' Check if the connection is closed, then open it
             If conn.State = ConnectionState.Closed Then
                 conn.Open()
             End If
 
             Dim logoQuery As String = "SELECT logo FROM company WHERE comid = 1"
             Using cmd As New MySqlCommand(logoQuery, conn)
-                ' Fetch the logo data
                 Dim logoData As Byte() = DirectCast(cmd.ExecuteScalar(), Byte())
                 If logoData IsNot Nothing AndAlso logoData.Length > 0 Then
                     Using ms As New MemoryStream(logoData)
@@ -179,7 +180,6 @@ Module BillingReportModule
         Catch ex As Exception
             MessageBox.Show("Error fetching logo: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
-            ' Close the connection if it was opened in this function
             If conn.State = ConnectionState.Open Then
                 conn.Close()
             End If
@@ -196,7 +196,7 @@ Module BillingReportModule
         Try
             Dim printDoc As New PrintDocument()
 
-            printDoc.DefaultPageSettings.PaperSize = New PaperSize("Custom", 315, longpaper) ' Width set to 315 (3.15 inches)
+            printDoc.DefaultPageSettings.PaperSize = New PaperSize("Custom", 315, longpaper) '3.15 inch
             printDoc.DefaultPageSettings.Margins = New Margins(10, 10, 10, 10) ' Margins 
 
             AddHandler printDoc.PrintPage, Sub(previewSender As Object, previewEventArgs As PrintPageEventArgs)
@@ -213,12 +213,11 @@ Module BillingReportModule
                                           AddHandler PPD.MouseWheel, Sub(sender, e)
                                                                          Try
                                                                              If e.Delta > 0 Then
-                                                                                 previewControl.Zoom += 0.1 ' Zoom In
+                                                                                 previewControl.Zoom += 0.1
                                                                              ElseIf e.Delta < 0 Then
                                                                                  previewControl.Zoom -= 0.1 ' Zoom Out
                                                                              End If
 
-                                                                             ' Prevent zoom from going below the minimum threshold
                                                                              If previewControl.Zoom < 0.0 Then
                                                                                  previewControl.Zoom = 0.0
                                                                              End If
@@ -416,7 +415,7 @@ Module BillingReportModule
 
         g.DrawString(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", boldFont, Brushes.Black, x, y)
         y += lineHeight
-        g.DrawString("      Items:  " & items & "          QTY:   " & totalqty & "            " & Math.Round(totalAmount), boldFont, Brushes.Black, x, y)
+        g.DrawString("      Items:  " & items & "          QTY:   " & totalqty & "            " & totalAmount.ToString("F2"), boldFont, Brushes.Black, x, y)
         y += lineHeight
         g.DrawString(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", boldFont, Brushes.Black, x, y)
         y += lineHeight
@@ -480,8 +479,12 @@ Module BillingReportModule
         textSize = g.MeasureString("Net Amount: " & Math.Round(totalAmount).ToString("C2"), boldFont)
         xCenter = (e.PageBounds.Width - textSize.Width) / 2
         g.DrawString("Net Amount: " & Math.Round(totalAmount).ToString("C2"), boldFont, Brushes.Black, xCenter, y)
-        y += lineHeight
+        y += lineHeight * 1.5
 
+        textSize = g.MeasureString("* * Saved Rs. " & totalDiscount.ToString("") & "/- On MRP * *", boldFont)
+        xCenter = (e.PageBounds.Width - textSize.Width) / 2
+        g.DrawString("* * Saved Rs. " & totaldiscount.ToString("") & "/- On MRP * *", boldFont8, Brushes.Black, xCenter + 25, y)
+        y += lineHeight * 1.5
 
         textSize = g.MeasureString("Mode of Payment: ", fonth)
         xCenter = (e.PageBounds.Width - textSize.Width) / 2
@@ -547,5 +550,6 @@ Public Class BillData
     Public Property Quantity As Integer
     Public Property Rate As Double
     Public Property Amount As Double
+
 
 End Class

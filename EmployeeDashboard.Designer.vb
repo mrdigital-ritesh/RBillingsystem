@@ -52,6 +52,7 @@ Partial Class EmployeeDashboard
         Button5 = New Button()
         ToolTip1 = New ToolTip(components)
         Button1 = New Button()
+        Button2 = New Button()
         Label7 = New Label()
         Timer1 = New Timer(components)
         PictureBox3 = New PictureBox()
@@ -368,14 +369,14 @@ Partial Class EmployeeDashboard
         ' 
         ' Button5
         ' 
-        Button5.BackgroundImage = My.Resources.Resources.Barode1
-        Button5.BackgroundImageLayout = ImageLayout.Stretch
-        Button5.Location = New Point(10, 248)
+        Button5.BackgroundImage = My.Resources.Resources.bill1
+        Button5.BackgroundImageLayout = ImageLayout.Zoom
+        Button5.Location = New Point(10, 254)
         Button5.Name = "Button5"
         Button5.Size = New Size(249, 160)
         Button5.TabIndex = 31
         Button5.TextAlign = ContentAlignment.BottomCenter
-        ToolTip1.SetToolTip(Button5, "BARCODE GENERATION")
+        ToolTip1.SetToolTip(Button5, "BILL GENERATION")
         Button5.UseVisualStyleBackColor = True
         ' 
         ' Button1
@@ -392,6 +393,18 @@ Partial Class EmployeeDashboard
         Button1.TextImageRelation = TextImageRelation.ImageBeforeText
         ToolTip1.SetToolTip(Button1, "BILLING")
         Button1.UseVisualStyleBackColor = True
+        ' 
+        ' Button2
+        ' 
+        Button2.BackgroundImage = My.Resources.Resources.Barode1
+        Button2.BackgroundImageLayout = ImageLayout.Stretch
+        Button2.Location = New Point(10, 454)
+        Button2.Name = "Button2"
+        Button2.Size = New Size(249, 160)
+        Button2.TabIndex = 32
+        Button2.TextAlign = ContentAlignment.BottomCenter
+        ToolTip1.SetToolTip(Button2, "BARCODE GENERATION")
+        Button2.UseVisualStyleBackColor = True
         ' 
         ' Label7
         ' 
@@ -425,6 +438,7 @@ Partial Class EmployeeDashboard
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1370, 749)
+        Controls.Add(Button2)
         Controls.Add(Label2)
         Controls.Add(Panel3)
         Controls.Add(Panel1)
@@ -435,6 +449,7 @@ Partial Class EmployeeDashboard
         Name = "EmployeeDashboard"
         StartPosition = FormStartPosition.CenterScreen
         Text = "EmployeeDashboard"
+        WindowState = FormWindowState.Maximized
         Panel7.ResumeLayout(False)
         Panel7.PerformLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
@@ -487,4 +502,5 @@ Partial Class EmployeeDashboard
     Friend WithEvents Label7 As Label
     Friend WithEvents Timer1 As Timer
     Friend WithEvents PictureBox3 As PictureBox
+    Friend WithEvents Button2 As Button
 End Class

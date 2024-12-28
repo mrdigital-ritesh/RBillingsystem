@@ -87,7 +87,6 @@ Public Class loginform
 
                 End If
             Else
-                TextBox1.Clear()
                 TextBox2.Clear()
                 MessageBox.Show("Invalid User ID or Password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If

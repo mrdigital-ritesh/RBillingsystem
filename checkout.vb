@@ -100,7 +100,7 @@ Public Class checkout
         Dim cashPaid As Integer
 
         If Not Integer.TryParse(TextBox1.Text, amountDue) Then
-            TextBox3.Text = "0" ' Reset return amount if invalid
+            TextBox3.Text = "0"
             Exit Sub
         End If
 
@@ -109,10 +109,10 @@ Public Class checkout
                 Dim returnAmt As Integer = cashPaid - amountDue
                 TextBox3.Text = returnAmt.ToString()
             Else
-                TextBox3.Text = "0" ' Reset return amount if cash is insufficient
+                TextBox3.Text = "0"
             End If
         Else
-            TextBox3.Text = "0" ' Reset return amount if invalid
+            TextBox3.Text = "0"
         End If
     End Sub
 
@@ -168,10 +168,10 @@ Public Class checkout
             If (number Mod 1000) > 0 Then words &= "" & NumberToWords(number Mod 1000)
         ElseIf number < 10000000 Then
             words = NumberToWords(number \ 100000) & " Lakh"
-            If (number Mod 100000) > 0 Then words &= "" & NumberToWords(number Mod 100000)
+            If (number Mod 100000) > 0 Then words &= " " & NumberToWords(number Mod 100000)
         Else
             words = NumberToWords(number \ 10000000) & " Crore"
-            If (number Mod 10000000) > 0 Then words &= "" & NumberToWords(number Mod 10000000)
+            If (number Mod 10000000) > 0 Then words &= " " & NumberToWords(number Mod 10000000)
         End If
 
         Return words
@@ -317,6 +317,7 @@ Public Class checkout
 
             End If
             Billadd.reloadBill()
+            totalAmount = 0
 
 
         Catch ex As Exception
@@ -335,12 +336,11 @@ Public Class checkout
             cmd = New MySqlCommand(qry, conn)
             cmd.Parameters.AddWithValue("@PhoneNumber", phoneNumber)
 
-            ' Use Using block to ensure the reader is closed automatically
             Using reader As MySqlDataReader = cmd.ExecuteReader()
                 If reader.HasRows Then
                     result = True
                 End If
-            End Using ' reader will be closed here automatically
+            End Using
 
         Catch ex As Exception
             MessageBox.Show("Error: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

@@ -14,6 +14,7 @@ Public Class AdminDashboard
     Dim cmd As MySqlCommand
     Dim Reader As MySqlDataReader
 
+
     Protected Overrides ReadOnly Property CreateParams As CreateParams
         Get
             Dim cp As CreateParams = MyBase.CreateParams
@@ -28,6 +29,7 @@ Public Class AdminDashboard
 
 
         'main code
+        billhistory.Close()
         loginform.Close()
         ManagerInsert.Close()
         EmployeeInsert.Close()
@@ -65,7 +67,6 @@ Public Class AdminDashboard
         .AngleSpan = 360
     }
 
-        ' Updated query to include only CASH, CARD, and UPI payment methods
         Dim query As String = "SELECT b.mode, SUM(bd.pro_total) AS total_sales FROM bill_data bd " &
                           "JOIN bills b ON bd.bill_id = b.bill_id " &
                           "WHERE b.mode IN ('CASH', 'CARD', 'UPI') " &
@@ -87,18 +88,15 @@ Public Class AdminDashboard
                         Case "UPI"
                             sliceColor = OxyColor.FromRgb(189, 112, 224) ' Green
                         Case Else
-                            sliceColor = OxyColor.FromRgb(169, 169, 169) ' Default to Gray for unknown
+                            sliceColor = OxyColor.FromRgb(169, 169, 169) ' Default 
                     End Select
-                    ' Add the payment method as a slice in the pie chart
                     pieSeries.Slices.Add(New PieSlice(paymentMethod, totalSales) With {.IsExploded = False, .Fill = sliceColor})
                 End While
             End Using
         End Using
 
-        ' Add the pie series to the plot model
         plotModel.Series.Add(pieSeries)
 
-        ' Set the PlotModel (chart model) to the PlotView
         PlotView1.Model = plotModel
         conn.Close()
     End Sub
@@ -190,7 +188,7 @@ Public Class AdminDashboard
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
-        Barcodegenerate.Show()
+        Barcodegenerate.Show
     End Sub
 
     Private Sub PictureBox4_Click(sender As Object, e As EventArgs) Handles PictureBox4.Click
@@ -203,5 +201,9 @@ Public Class AdminDashboard
         If confirm = DialogResult.Yes Then
             loginform.Show()
         End If
+    End Sub
+
+    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+        billhistory.Show()
     End Sub
 End Class

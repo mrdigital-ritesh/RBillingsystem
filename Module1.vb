@@ -20,19 +20,24 @@ Module Module1
 
     Public conn As New MySqlConnection
     Public Sub connect()
-        conn.ConnectionString = "server=localhost;user id=root;password=Ritesh@123;database=vbbilling"
-        conn.Open()
-        If conn.State <> ConnectionState.Open Then
-            MsgBox("Not Connected")
-            'Else
-            'MsgBox("Connection Established")
-        End If
+        Try
+            conn.ConnectionString = "server=localhost;user id=root;password=Ritesh@123;database=vbbilling"
+            conn.Open()
+            If conn.State <> ConnectionState.Open Then
+                MsgBox("Not Connected")
+                'Else
+                'MsgBox("Connection Established")
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Failed to connect to the database: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
     Public Sub Setform(form As Form)
         form.Text = "RBILLING SOFTWARE PVT LTD | RSMART - BILLING | DEZYNE ECOLE COLLEGE"
         'form.Icon = My.Resources.icon1
         form.Icon = New Icon(My.Resources.icon1, New Size(128, 128))
-
+        'form.WindowState = FormWindowState.Maximized
+        form.StartPosition = FormStartPosition.CenterScreen
     End Sub
 
 End Module
