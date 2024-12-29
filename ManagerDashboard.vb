@@ -28,7 +28,8 @@ Public Class ManagerDashboard
         'chart code
         conn.Close()
         Setform(Me)
-
+        PictureBox5.Image = My.Resources.show
+        Label11.Visible = False
 
         'main code
         billhistory.Close()
@@ -208,5 +209,15 @@ Public Class ManagerDashboard
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         billhistory.Show()
+    End Sub
+
+    Private Sub PictureBox5_Click(sender As Object, e As EventArgs) Handles PictureBox5.Click
+        Label11.Visible = True
+        PictureBox5.Visible = False
+    End Sub
+
+    Private Sub Label11_Click(sender As Object, e As EventArgs) Handles Label11.Click
+        PictureBox5.Visible = True
+        Label11.Visible = False
     End Sub
 End Class

@@ -26,8 +26,8 @@ Public Class AdminDashboard
         'chart code
         conn.Close()
         Setform(Me)
-
-
+        PictureBox5.Image = My.Resources.show
+        Label11.Visible = False
         'main code
         billhistory.Close()
         loginform.Close()
@@ -205,5 +205,15 @@ Public Class AdminDashboard
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
         billhistory.Show()
+    End Sub
+
+    Private Sub PictureBox5_Click(sender As Object, e As EventArgs) Handles PictureBox5.Click
+        Label11.Visible = True
+        PictureBox5.Visible = False
+    End Sub
+
+    Private Sub Label11_Click(sender As Object, e As EventArgs) Handles Label11.Click
+        PictureBox5.Visible = True
+        Label11.Visible = False
     End Sub
 End Class

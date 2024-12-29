@@ -29,6 +29,7 @@ Partial Class AdminDashboard
         Panel1 = New Panel()
         PictureBox2 = New PictureBox()
         Panel3 = New Panel()
+        PictureBox5 = New PictureBox()
         Panel8 = New Panel()
         Button6 = New Button()
         PlotView1 = New OxyPlot.WindowsForms.PlotView()
@@ -65,6 +66,7 @@ Partial Class AdminDashboard
         Panel1.SuspendLayout()
         CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
         Panel3.SuspendLayout()
+        CType(PictureBox5, ComponentModel.ISupportInitialize).BeginInit()
         Panel8.SuspendLayout()
         Panel7.SuspendLayout()
         CType(PictureBox4, ComponentModel.ISupportInitialize).BeginInit()
@@ -140,6 +142,16 @@ Partial Class AdminDashboard
         Panel3.Name = "Panel3"
         Panel3.Size = New Size(1101, 667)
         Panel3.TabIndex = 4
+        ' 
+        ' PictureBox5
+        ' 
+        PictureBox5.Image = My.Resources.Resources.show
+        PictureBox5.Location = New Point(58, 44)
+        PictureBox5.Name = "PictureBox5"
+        PictureBox5.Size = New Size(104, 59)
+        PictureBox5.SizeMode = PictureBoxSizeMode.Zoom
+        PictureBox5.TabIndex = 22
+        PictureBox5.TabStop = False
         ' 
         ' Panel8
         ' 
@@ -289,6 +301,7 @@ Partial Class AdminDashboard
         ' 
         Panel6.BackColor = Color.WhiteSmoke
         Panel6.BorderStyle = BorderStyle.FixedSingle
+        Panel6.Controls.Add(PictureBox5)
         Panel6.Controls.Add(Label11)
         Panel6.Controls.Add(Label6)
         Panel6.Location = New Point(831, 72)
@@ -523,6 +536,7 @@ Partial Class AdminDashboard
         CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
         Panel3.ResumeLayout(False)
         Panel3.PerformLayout()
+        CType(PictureBox5, ComponentModel.ISupportInitialize).EndInit()
         Panel8.ResumeLayout(False)
         Panel7.ResumeLayout(False)
         Panel7.PerformLayout()
@@ -579,4 +593,5 @@ Partial Class AdminDashboard
     Friend WithEvents PlotView1 As OxyPlot.WindowsForms.PlotView
     Friend WithEvents Button6 As Button
     Friend WithEvents Panel8 As Panel
+    Friend WithEvents PictureBox5 As PictureBox
 End Class

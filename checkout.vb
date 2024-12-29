@@ -162,10 +162,10 @@ Public Class checkout
             If (number Mod 10) > 0 Then words &= "-" & unitsMap(number Mod 10)
         ElseIf number < 1000 Then
             words = unitsMap(number \ 100) & " Hundred"
-            If (number Mod 100) > 0 Then words &= "" & NumberToWords(number Mod 100)
+            If (number Mod 100) > 0 Then words &= " " & NumberToWords(number Mod 100)
         ElseIf number < 100000 Then
             words = NumberToWords(number \ 1000) & " Thousand"
-            If (number Mod 1000) > 0 Then words &= "" & NumberToWords(number Mod 1000)
+            If (number Mod 1000) > 0 Then words &= " " & NumberToWords(number Mod 1000)
         ElseIf number < 10000000 Then
             words = NumberToWords(number \ 100000) & " Lakh"
             If (number Mod 100000) > 0 Then words &= " " & NumberToWords(number Mod 100000)

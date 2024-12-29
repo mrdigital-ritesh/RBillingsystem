@@ -41,12 +41,14 @@ Partial Class ManagerDashboard
         Label11 = New Label()
         ToolTip1 = New ToolTip(components)
         Button5 = New Button()
+        Button2 = New Button()
         Label6 = New Label()
         Panel1 = New Panel()
         PictureBox2 = New PictureBox()
         Label1 = New Label()
         Label2 = New Label()
         Panel3 = New Panel()
+        PictureBox5 = New PictureBox()
         PlotView1 = New OxyPlot.WindowsForms.PlotView()
         Label15 = New Label()
         Label16 = New Label()
@@ -57,7 +59,6 @@ Partial Class ManagerDashboard
         Panel7 = New Panel()
         PictureBox1 = New PictureBox()
         Panel6 = New Panel()
-        Button2 = New Button()
         Panel5.SuspendLayout()
         Panel4.SuspendLayout()
         Panel2.SuspendLayout()
@@ -65,6 +66,7 @@ Partial Class ManagerDashboard
         Panel1.SuspendLayout()
         CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
         Panel3.SuspendLayout()
+        CType(PictureBox5, ComponentModel.ISupportInitialize).BeginInit()
         Panel7.SuspendLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         Panel6.SuspendLayout()
@@ -250,6 +252,18 @@ Partial Class ManagerDashboard
         ToolTip1.SetToolTip(Button5, "BARCODE GENERATION")
         Button5.UseVisualStyleBackColor = True
         ' 
+        ' Button2
+        ' 
+        Button2.BackgroundImage = My.Resources.Resources.bill
+        Button2.BackgroundImageLayout = ImageLayout.Zoom
+        Button2.Location = New Point(10, 455)
+        Button2.Name = "Button2"
+        Button2.Size = New Size(249, 120)
+        Button2.TabIndex = 23
+        Button2.TextAlign = ContentAlignment.BottomCenter
+        ToolTip1.SetToolTip(Button2, "BILL DETAILS")
+        Button2.UseVisualStyleBackColor = True
+        ' 
         ' Label6
         ' 
         Label6.AutoSize = True
@@ -323,6 +337,16 @@ Partial Class ManagerDashboard
         Panel3.Name = "Panel3"
         Panel3.Size = New Size(1101, 667)
         Panel3.TabIndex = 15
+        ' 
+        ' PictureBox5
+        ' 
+        PictureBox5.Image = My.Resources.Resources.show
+        PictureBox5.Location = New Point(59, 43)
+        PictureBox5.Name = "PictureBox5"
+        PictureBox5.Size = New Size(104, 59)
+        PictureBox5.SizeMode = PictureBoxSizeMode.Zoom
+        PictureBox5.TabIndex = 23
+        PictureBox5.TabStop = False
         ' 
         ' PlotView1
         ' 
@@ -439,24 +463,13 @@ Partial Class ManagerDashboard
         ' 
         Panel6.BackColor = Color.WhiteSmoke
         Panel6.BorderStyle = BorderStyle.FixedSingle
+        Panel6.Controls.Add(PictureBox5)
         Panel6.Controls.Add(Label11)
         Panel6.Controls.Add(Label6)
         Panel6.Location = New Point(831, 72)
         Panel6.Name = "Panel6"
         Panel6.Size = New Size(222, 120)
         Panel6.TabIndex = 4
-        ' 
-        ' Button2
-        ' 
-        Button2.BackgroundImage = My.Resources.Resources.bill
-        Button2.BackgroundImageLayout = ImageLayout.Zoom
-        Button2.Location = New Point(10, 455)
-        Button2.Name = "Button2"
-        Button2.Size = New Size(249, 120)
-        Button2.TabIndex = 23
-        Button2.TextAlign = ContentAlignment.BottomCenter
-        ToolTip1.SetToolTip(Button2, "BILL DETAILS")
-        Button2.UseVisualStyleBackColor = True
         ' 
         ' ManagerDashboard
         ' 
@@ -488,6 +501,7 @@ Partial Class ManagerDashboard
         CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
         Panel3.ResumeLayout(False)
         Panel3.PerformLayout()
+        CType(PictureBox5, ComponentModel.ISupportInitialize).EndInit()
         Panel7.ResumeLayout(False)
         Panel7.PerformLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
@@ -532,4 +546,5 @@ Partial Class ManagerDashboard
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Button2 As Button
+    Friend WithEvents PictureBox5 As PictureBox
 End Class

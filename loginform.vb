@@ -15,7 +15,7 @@ Public Class loginform
             Return cp
         End Get
     End Property
-
+    Private passwordVisible As Boolean = False
     Private Sub loginform_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         start.Close()
         Setform(Me)
@@ -23,6 +23,9 @@ Public Class loginform
         ManagerDashboard.Close()
         EmployeeDashboard.Close()
         TextBox1.Focus()
+
+        TextBox2.UseSystemPasswordChar = True
+        PictureBox4.Image = My.Resources.show
 
         Label3.Text = "OR"
         If user = "admin" Then
@@ -156,6 +159,18 @@ Public Class loginform
                 conn.Close()
             End Try
 
+        End If
+    End Sub
+
+    Private Sub PictureBox4_Click(sender As Object, e As EventArgs) Handles PictureBox4.Click
+        passwordVisible = Not passwordVisible
+
+        If passwordVisible Then
+            TextBox2.UseSystemPasswordChar = False
+            PictureBox4.Image = My.Resources.hidden
+        Else
+            TextBox2.UseSystemPasswordChar = True
+            PictureBox4.Image = My.Resources.show
         End If
     End Sub
 End Class
