@@ -481,9 +481,9 @@ Module BillingReportModule
         g.DrawString("Net Amount: " & Math.Round(totalAmount).ToString("C2"), boldFont, Brushes.Black, xCenter, y)
         y += lineHeight * 1.5
 
-        textSize = g.MeasureString("* * Saved Rs. " & totalDiscount.ToString("") & "/- On MRP * *", boldFont)
+        textSize = g.MeasureString("* * Saved Rs. " & totaldiscount.ToString("F2") & "/- On MRP * *", boldFont)
         xCenter = (e.PageBounds.Width - textSize.Width) / 2
-        g.DrawString("* * Saved Rs. " & totaldiscount.ToString("") & "/- On MRP * *", boldFont8, Brushes.Black, xCenter + 25, y)
+        g.DrawString("* * Saved Rs. " & totaldiscount.ToString("F2") & "/- On MRP * *", boldFont8, Brushes.Black, xCenter + 25, y)
         y += lineHeight * 1.5
 
         textSize = g.MeasureString("Mode of Payment: ", fonth)

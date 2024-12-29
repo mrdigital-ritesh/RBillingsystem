@@ -42,7 +42,6 @@ Partial Class billhistory
         Label10 = New Label()
         DataGridView1 = New DataGridView()
         Panel1 = New Panel()
-        Button3 = New Button()
         Button2 = New Button()
         ComboBox1 = New ComboBox()
         Label3 = New Label()
@@ -249,7 +248,6 @@ Partial Class billhistory
         ' Panel1
         ' 
         Panel1.BackColor = Color.DarkTurquoise
-        Panel1.Controls.Add(Button3)
         Panel1.Controls.Add(Button2)
         Panel1.Controls.Add(ComboBox1)
         Panel1.Controls.Add(Label3)
@@ -265,18 +263,6 @@ Partial Class billhistory
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(1348, 195)
         Panel1.TabIndex = 7
-        ' 
-        ' Button3
-        ' 
-        Button3.Anchor = AnchorStyles.Top Or AnchorStyles.Right
-        Button3.BackColor = SystemColors.ButtonFace
-        Button3.FlatStyle = FlatStyle.Flat
-        Button3.Location = New Point(1234, 130)
-        Button3.Name = "Button3"
-        Button3.Size = New Size(86, 34)
-        Button3.TabIndex = 95
-        Button3.Text = "PRINT"
-        Button3.UseVisualStyleBackColor = False
         ' 
         ' Button2
         ' 
@@ -416,7 +402,6 @@ Partial Class billhistory
     Friend WithEvents Label1 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents ComboBox1 As ComboBox
-    Friend WithEvents Button3 As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents Button4 As Button
 End Class

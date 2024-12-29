@@ -23,8 +23,6 @@ Partial Class Organization
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Panel1 = New Panel()
-        Panel2 = New Panel()
-        PictureBox1 = New PictureBox()
         Button2 = New Button()
         GroupBox3 = New GroupBox()
         TextBoxland = New TextBox()
@@ -57,18 +55,18 @@ Partial Class Organization
         Button1 = New Button()
         Label2 = New Label()
         MySqlCommand1 = New MySql.Data.MySqlClient.MySqlCommand()
+        PictureBox1 = New PictureBox()
         Panel1.SuspendLayout()
-        Panel2.SuspendLayout()
-        CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         GroupBox3.SuspendLayout()
         CType(closebt, ComponentModel.ISupportInitialize).BeginInit()
         GroupBox2.SuspendLayout()
         GroupBox1.SuspendLayout()
+        CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' Panel1
         ' 
-        Panel1.Controls.Add(Panel2)
+        Panel1.Controls.Add(PictureBox1)
         Panel1.Controls.Add(Button2)
         Panel1.Controls.Add(GroupBox3)
         Panel1.Controls.Add(closebt)
@@ -81,29 +79,9 @@ Partial Class Organization
         Panel1.Size = New Size(861, 517)
         Panel1.TabIndex = 71
         ' 
-        ' Panel2
-        ' 
-        Panel2.BackColor = SystemColors.Desktop
-        Panel2.Controls.Add(PictureBox1)
-        Panel2.Location = New Point(22, 62)
-        Panel2.Name = "Panel2"
-        Panel2.Size = New Size(148, 139)
-        Panel2.TabIndex = 79
-        ' 
-        ' PictureBox1
-        ' 
-        PictureBox1.BackColor = SystemColors.ControlText
-        PictureBox1.BackgroundImageLayout = ImageLayout.Stretch
-        PictureBox1.InitialImage = My.Resources.Resources.comapanydefault
-        PictureBox1.Location = New Point(3, 1)
-        PictureBox1.Name = "PictureBox1"
-        PictureBox1.Size = New Size(143, 136)
-        PictureBox1.TabIndex = 72
-        PictureBox1.TabStop = False
-        ' 
         ' Button2
         ' 
-        Button2.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Button2.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Button2.Location = New Point(706, 466)
         Button2.Name = "Button2"
         Button2.Size = New Size(108, 40)
@@ -120,7 +98,7 @@ Partial Class Organization
         GroupBox3.Controls.Add(TextBoxmail)
         GroupBox3.Controls.Add(TextBoxmobile)
         GroupBox3.Controls.Add(Label10)
-        GroupBox3.Font = New Font("Segoe UI Semibold", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        GroupBox3.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         GroupBox3.Location = New Point(453, 253)
         GroupBox3.Name = "GroupBox3"
         GroupBox3.Size = New Size(376, 198)
@@ -208,7 +186,7 @@ Partial Class Organization
         GroupBox2.Controls.Add(Label3)
         GroupBox2.Controls.Add(Textboxname)
         GroupBox2.Controls.Add(Label1)
-        GroupBox2.Font = New Font("Segoe UI Semibold", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        GroupBox2.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         GroupBox2.Location = New Point(188, 62)
         GroupBox2.Name = "GroupBox2"
         GroupBox2.Size = New Size(647, 171)
@@ -333,7 +311,7 @@ Partial Class Organization
         GroupBox1.Controls.Add(TextBoxacc)
         GroupBox1.Controls.Add(TextBoxbank)
         GroupBox1.Controls.Add(Label6)
-        GroupBox1.Font = New Font("Segoe UI Semibold", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        GroupBox1.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         GroupBox1.Location = New Point(33, 253)
         GroupBox1.Name = "GroupBox1"
         GroupBox1.Size = New Size(376, 198)
@@ -397,11 +375,11 @@ Partial Class Organization
         ' 
         ' Button1
         ' 
-        Button1.Location = New Point(57, 210)
+        Button1.Location = New Point(50, 210)
         Button1.Name = "Button1"
-        Button1.Size = New Size(75, 23)
+        Button1.Size = New Size(98, 23)
         Button1.TabIndex = 74
-        Button1.Text = "Button1"
+        Button1.Text = "Browse Logo"
         Button1.UseVisualStyleBackColor = True
         ' 
         ' Label2
@@ -421,9 +399,21 @@ Partial Class Organization
         MySqlCommand1.EnableCaching = False
         MySqlCommand1.Transaction = Nothing
         ' 
+        ' PictureBox1
+        ' 
+        PictureBox1.BackColor = Color.Transparent
+        PictureBox1.BackgroundImageLayout = ImageLayout.Stretch
+        PictureBox1.BorderStyle = BorderStyle.FixedSingle
+        PictureBox1.InitialImage = My.Resources.Resources.comapanydefault
+        PictureBox1.Location = New Point(26, 61)
+        PictureBox1.Name = "PictureBox1"
+        PictureBox1.Size = New Size(143, 136)
+        PictureBox1.TabIndex = 72
+        PictureBox1.TabStop = False
+        ' 
         ' Organization
         ' 
-        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(880, 539)
         Controls.Add(Panel1)
@@ -436,8 +426,6 @@ Partial Class Organization
         Text = "Organization"
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
-        Panel2.ResumeLayout(False)
-        CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         GroupBox3.ResumeLayout(False)
         GroupBox3.PerformLayout()
         CType(closebt, ComponentModel.ISupportInitialize).EndInit()
@@ -445,6 +433,7 @@ Partial Class Organization
         GroupBox2.PerformLayout()
         GroupBox1.ResumeLayout(False)
         GroupBox1.PerformLayout()
+        CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
@@ -480,7 +469,6 @@ Partial Class Organization
     Friend WithEvents Label6 As Label
     Friend WithEvents Button1 As Button
     Friend WithEvents Label2 As Label
-    Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents MySqlCommand1 As MySql.Data.MySqlClient.MySqlCommand
-    Friend WithEvents Panel2 As Panel
+    Friend WithEvents PictureBox1 As PictureBox
 End Class
