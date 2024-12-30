@@ -274,7 +274,6 @@ Public Class Billadd
             If Reader.HasRows Then
                 Reader.Read()
 
-                ' Fetch product details
                 proID = Reader("pro_id").ToString()
                 proName = Reader("pro_name").ToString()
                 proBrand = Reader("pro_brand").ToString()
@@ -301,12 +300,12 @@ Public Class Billadd
                     MessageBox.Show("Insufficient stock. Available quantity: " & stock.ToString(), "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Reader.Close()
                     conn.Close()
+                    pid.Clear()
                     pid.Focus()
                     suppressTextChanged = False
                     Exit Sub
                 End If
 
-                ' product checking in list
                 Dim exists As Boolean = False
                 For Each itm As ListViewItem In ListView1.Items
                     If String.Equals(itm.SubItems(0).Text, proID, StringComparison.OrdinalIgnoreCase) Then
@@ -348,7 +347,7 @@ Public Class Billadd
                     itm.SubItems.Add(Format(preGstAmount, "0.00"))
                     ListView1.Items.Add(itm)
                 End If
-
+                pid.Clear()
                 UpdateBill()
             Else
                 'MessageBox.Show("Product not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -419,7 +418,7 @@ Public Class Billadd
 
                         Reader.Close()
                         conn.Close()
-                        Exit Sub ' Exit if stock is insufficient
+                        Exit Sub
                     End If
 
                 Catch ex As Exception
@@ -431,7 +430,7 @@ Public Class Billadd
 
                 selectedItem.SubItems(5).Text = newQty.ToString()
 
-                ' Calculate new total amount
+
                 Dim price As Double = Convert.ToDouble(selectedItem.SubItems(4).Text)
                 Dim discount As Double = Convert.ToDouble(selectedItem.SubItems(6).Text)
                 Dim discountedPrice As Double = price - (price * discount / 100)

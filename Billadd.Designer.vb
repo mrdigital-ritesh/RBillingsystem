@@ -108,6 +108,7 @@ Partial Class Billadd
         Panel1.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         Panel1.AutoSize = True
         Panel1.BackColor = Color.DarkTurquoise
+        Panel1.BackgroundImageLayout = ImageLayout.Stretch
         Panel1.BorderStyle = BorderStyle.Fixed3D
         Panel1.Controls.Add(PictureBox2)
         Panel1.Controls.Add(ComboBox1)
