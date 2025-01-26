@@ -159,13 +159,13 @@ Public Class billhistory
 
     Private Sub txtMobileNumber_TextChanged(sender As Object, e As EventArgs) Handles txtMobileNumber.TextChanged
         If Not String.IsNullOrEmpty(txtMobileNumber.Text) Then
-            txtCustomerName.Clear()  ' Clear the name textbox when mobile number is filled
+            txtCustomerName.Clear()
         End If
     End Sub
 
     Private Sub txtCustomerName_TextChanged(sender As Object, e As EventArgs) Handles txtCustomerName.TextChanged
         If Not String.IsNullOrEmpty(txtCustomerName.Text) Then
-            txtMobileNumber.Clear()  ' Clear the mobile number textbox when name is filled
+            txtMobileNumber.Clear()
         End If
     End Sub
 
@@ -178,7 +178,6 @@ Public Class billhistory
             Return
         End If
 
-        ' Construct the query based on which textbox is filled
         Try
             connect()
             Dim query As String = "SELECT b.bill_id, b.userid, u.username AS cashier_name, c.cust_name AS CustomerName, b.cust_ph AS Custom_Phno, " &

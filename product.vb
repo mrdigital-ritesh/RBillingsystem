@@ -118,7 +118,6 @@ Public Class product
         conn.Close()
     End Sub
 
-    'Category load in dropdown
     Public Sub loadcat()
         Call connect()
         qry = "SELECT cat_name, hsn_code FROM category"
@@ -210,7 +209,6 @@ Public Class product
 
     End Sub
 
-    'Clear field
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
         clear()
     End Sub

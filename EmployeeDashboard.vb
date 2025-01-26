@@ -74,7 +74,7 @@ Public Class EmployeeDashboard
         Dim query As String = "SELECT b.mode, SUM(bd.pro_total) AS total_sales FROM bill_data bd " &
                               "JOIN bills b ON bd.bill_id = b.bill_id " &
                               "WHERE b.mode IN ('CASH', 'CARD', 'UPI') " &
-                              "AND b.userid = @currentUser " &  ' Filter by current user
+                              "AND b.userid = @currentUser " &
                               "GROUP BY b.mode ORDER BY total_sales DESC;"
 
         conn.Open()
@@ -86,26 +86,21 @@ Public Class EmployeeDashboard
                 While reader.Read()
                     Dim mode As String = reader("mode").ToString()
                     If String.IsNullOrEmpty(mode) Then
-                        mode = "Unknown" ' Handle empty or null mode
+                        mode = "Unknown"
                     End If
 
                     Dim totalSales As Double = Convert.ToDouble(reader("total_sales"))
 
-                    ' Add a slice to the pie chart for each payment method
                     pieSeries.Slices.Add(New PieSlice(mode, totalSales) With {
-                        .IsExploded = False  ' You can set this to True to explode the slice
+                        .IsExploded = False
                     })
                 End While
             End Using
         End Using
 
-        ' Add the pie series to the plot model
         plotModel.Series.Add(pieSeries)
 
-        ' Set the PlotModel (chart model) to the PlotView
         PlotView1.Model = plotModel
-
-        ' Close the connection
         conn.Close()
 
     End Sub
@@ -149,7 +144,6 @@ Public Class EmployeeDashboard
 
 
             Using cmd As New MySqlCommand(query, conn)
-                ' Add the currentUser parameter to the command
                 cmd.Parameters.AddWithValue("@currentUser", currentUser)
 
                 Using reader As MySqlDataReader = cmd.ExecuteReader()
@@ -166,7 +160,6 @@ Public Class EmployeeDashboard
                 End Using
             End Using
 
-            ' Close the connection
             conn.Close()
 
 

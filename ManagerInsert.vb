@@ -40,10 +40,9 @@ Public Class ManagerInsert
         EmployeeDashboard.Close()
         PictureBox1.Image = My.Resources.defaultphoto
         showdata()
-        PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage ' Make the image stretch to fit the PictureBox
+        PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage
     End Sub
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        ' Update the date and time display
         Label24.Text = DateTime.Now.ToString("dddd")
         Label24.Text += "   " & DateTime.Now.ToString("dd MMMM yyyy") & "   " & TimeOfDay.ToString("HH:mm:ss")
     End Sub
@@ -77,7 +76,6 @@ Public Class ManagerInsert
             Try
                 connect()
 
-                ' Check if the username already exists
                 Dim useridExists As String = "SELECT COUNT(*) FROM users WHERE userid = @userid"
                 Dim checkCmd As New MySqlCommand(useridExists, conn)
                 checkCmd.Parameters.AddWithValue("@userid", TextBox1.Text)
@@ -85,7 +83,6 @@ Public Class ManagerInsert
                 Dim usernameCount As Integer = Convert.ToInt32(checkCmd.ExecuteScalar())
 
                 If usernameCount > 0 Then
-                    ' If the username already exists, show a message
                     MessageBox.Show("The userid is already in use. Please choose a different userid.", "UserID Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     conn.Close()
                     Return
@@ -99,7 +96,6 @@ Public Class ManagerInsert
                     End Using
                 End If
 
-                ' Insert the new employee data into the database
                 qry = "INSERT INTO users (userid, username, pwd, usertype, phone, email, aadhar, dob, doj, photo) " &
               "VALUES (@userid, @username, @pwd, @usertype, @phone, @email, @aadhar, @dob, @doj, @photo)"
 
@@ -199,7 +195,7 @@ Public Class ManagerInsert
                     End If
 
                     Dim tempImage As Image = Image.FromStream(ms)
-                    PictureBox1.Image = CType(tempImage.Clone(), Image) ' Clone the image to avoid stream issues
+                    PictureBox1.Image = CType(tempImage.Clone(), Image)
                     PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage
 
                     tempImage.Dispose()
@@ -290,7 +286,6 @@ Public Class ManagerInsert
                         conn.Close()
                         MessageBox.Show("Manager deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                        ' Refresh the DataGridView
                         showdata()
                     Catch ex As Exception
                         MessageBox.Show("Error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -311,14 +306,13 @@ Public Class ManagerInsert
             Return
         End If
 
-        ' Check if the userid is already in use by someone else 
         Try
             connect()
 
             Dim checkUseridQuery As String = "SELECT COUNT(*) FROM users WHERE userid = @Managerid AND userid != @currentUserId"
             Dim checkCmd As New MySqlCommand(checkUseridQuery, conn)
             checkCmd.Parameters.AddWithValue("@Managerid", TextBox1.Text)
-            checkCmd.Parameters.AddWithValue("@currentUserId", TextBox1.Text) ' Ensure we're not checking for the current record
+            checkCmd.Parameters.AddWithValue("@currentUserId", TextBox1.Text)
 
             Dim count As Integer = Convert.ToInt32(checkCmd.ExecuteScalar())
             If count > 0 Then
@@ -341,7 +335,6 @@ Public Class ManagerInsert
                 Dim photoBytes() As Byte = Nothing
                 Dim updatePhoto As Boolean = False
 
-                ' Only prepare the photo if the image has changed
                 If imageChanged AndAlso PictureBox1.Image IsNot Nothing AndAlso PictureBox1.Image IsNot My.Resources.defaultphoto Then
                     updatePhoto = True
                     Using clonedImage As Image = CType(PictureBox1.Image.Clone(), Image)
@@ -378,7 +371,6 @@ Public Class ManagerInsert
                 conn.Close()
                 MessageBox.Show("Manager data updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                ' Clear the image change flag after successful update
                 imageChanged = False
 
 
@@ -388,7 +380,6 @@ Public Class ManagerInsert
             End Try
             ClearFields()
         End If
-        ' Refresh data
         showdata()
 
 
@@ -426,7 +417,7 @@ Public Class ManagerInsert
                 DataGridView1.Refresh()
             Else
                 MsgBox("No records found.")
-                DataGridView1.DataSource = Nothing  ' Clear the DataGridView if no records found
+                DataGridView1.DataSource = Nothing
             End If
 
             conn.Close()

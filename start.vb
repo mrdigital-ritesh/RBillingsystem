@@ -18,9 +18,6 @@
 
     End Sub
 
-
-
-
     Private Sub closebt_Click(sender As Object, e As EventArgs) Handles closebt.Click
         Me.Close()
     End Sub

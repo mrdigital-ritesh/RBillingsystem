@@ -81,7 +81,7 @@ Public Class checkout
 
         Dim totalAmountQ = Math.Round(totalAmount)
         Panel5.Visible = True
-        Dim formattedAmount As String = totalAmountQ.ToString("F2") ' Ensures two decimal places
+        Dim formattedAmount As String = totalAmountQ.ToString("F2")
         Dim upiString As String = $"upi://pay?pa=7597372851@paytm&pn=RITESH%20BAGDI&am={formattedAmount}&cu=INR&tn=TestTransaction"
 
         Dim qrGenerator As New QRCodeGenerator()
@@ -121,7 +121,7 @@ Public Class checkout
 
         If Decimal.TryParse(TextBox1.Text, totalAmount) Then
             label8.Text = ConvertToWords(totalAmount)
-            label8.Left = (Me.ClientSize.Width - label8.Width) / 2 ' Center align Label8
+            label8.Left = (Me.ClientSize.Width - label8.Width) / 2
         Else
             label8.Text = "Invalid Amount"
         End If
@@ -177,8 +177,6 @@ Public Class checkout
         Return words
     End Function
 
-
-    '------> from here all data go in database -RB
     Private Sub InsertBill()
         Try
             If conn.State = ConnectionState.Closed Then
@@ -240,7 +238,6 @@ Public Class checkout
             cmd.Parameters.AddWithValue("@PreGSTAmount", preGstAmount)
 
             cmd.ExecuteNonQuery()
-            ' FOR MANAGE QTY (STOCK)
             qry = "UPDATE products SET pro_qty = pro_qty - @Quantity WHERE pro_id = @ProductID"
             cmd = New MySqlCommand(qry, conn)
             cmd.Parameters.AddWithValue("@Quantity", quantity)
@@ -263,7 +260,7 @@ Public Class checkout
         SaveBillData()
     End Sub
 
-    'new code logic for all db
+
 
 
     Private Sub SaveBillData()
@@ -277,16 +274,13 @@ Public Class checkout
             If CheckCustomer(custnum) Then
                 UpdateCustomerInfo()
             Else
-                'For ADD new Customer
                 InsertNewCustomer()
                 If Not CheckCustomer(custnum) Then
                     MessageBox.Show("Failed to add new customer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Exit Sub
                 End If
             End If
-            'for BILL TABLE
             InsertBill()
-            'for Bill data table
             For Each item As ListViewItem In ListView2.Items
                 Dim productID As Integer = Convert.ToInt32(item.SubItems(0).Text)
                 Dim productname As String = item.SubItems(1).Text

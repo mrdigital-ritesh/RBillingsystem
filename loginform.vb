@@ -11,7 +11,7 @@ Public Class loginform
     Protected Overrides ReadOnly Property CreateParams As CreateParams
         Get
             Dim cp As CreateParams = MyBase.CreateParams
-            cp.ExStyle = cp.ExStyle Or &H2000000 ' WS_EX_COMPOSITED
+            cp.ExStyle = cp.ExStyle Or &H2000000
             Return cp
         End Get
     End Property

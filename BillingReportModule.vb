@@ -197,7 +197,7 @@ Module BillingReportModule
             Dim printDoc As New PrintDocument()
 
             printDoc.DefaultPageSettings.PaperSize = New PaperSize("Custom", 315, longpaper) '3.15 inch
-            printDoc.DefaultPageSettings.Margins = New Margins(10, 10, 10, 10) ' Margins 
+            printDoc.DefaultPageSettings.Margins = New Margins(10, 10, 10, 10)
 
             AddHandler printDoc.PrintPage, Sub(previewSender As Object, previewEventArgs As PrintPageEventArgs)
                                                printBillPage(previewSender, previewEventArgs, billData, billid, totalAmount, cgst, sgst, modeOfPayment, customerName, customerPhone, cashierName, businessName, branch, gstin, city, state, bdate, mob, items, totalqty, gstSummary)
@@ -257,14 +257,14 @@ Module BillingReportModule
     End Function
     Private Sub printBillPage(sender As Object, e As PrintPageEventArgs, billData As List(Of BillData), billid As Integer, totalAmount As Double, cgst As Double, sgst As Double, modeOfPayment As String, customerName As String, customerPhone As String, cashierName As String, businessName As String, branch As String, gstin As String, city As String, state As String, bdate As String, mob As String, items As String, totalqty As String, gstSummary As List(Of GstSummary))
         Dim g As Graphics = e.Graphics
-        Dim font As New Font("Arial", 8) ' Standard font
-        Dim fonth As New Font("Arial", 7) ' Standard font
-        Dim boldFonth As New Font("Times New Roman", 18, FontStyle.Bold) ' Bold font
-        Dim boldFont As New Font("Arial", 10, FontStyle.Bold) ' Bold font
-        Dim boldFont8 As New Font("Arial", 8, FontStyle.Bold) ' Bold font
+        Dim font As New Font("Arial", 8)
+        Dim fonth As New Font("Arial", 7)
+        Dim boldFonth As New Font("Times New Roman", 18, FontStyle.Bold)
+        Dim boldFont As New Font("Arial", 10, FontStyle.Bold)
+        Dim boldFont8 As New Font("Arial", 8, FontStyle.Bold)
         Dim x As Integer = 10
         Dim y As Integer = 10
-        Dim lineHeight As Integer = 16 'spacing
+        Dim lineHeight As Integer = 16
         Dim columnWidths As Integer() = {50, 120, 30, 50, 60}
 
 
@@ -273,9 +273,9 @@ Module BillingReportModule
 
         Dim logo As Image = GetCompanyLogo()
         If logo IsNot Nothing Then
-            Dim maxWidth As Integer = 100 ' Base maximum width
-            Dim maxHeight As Integer = 100 ' Base maximum height
-            Dim scaleFactor As Double = 3 ' Increase size by 1.5 times
+            Dim maxWidth As Integer = 100
+            Dim maxHeight As Integer = 100
+            Dim scaleFactor As Double = 3
 
             Dim originalWidth As Integer = logo.Width
             Dim originalHeight As Integer = logo.Height
@@ -408,7 +408,7 @@ Module BillingReportModule
             'g.DrawString(" ", boldFont8, Brushes.Black, x, y)
             'y += lineHeight '
 
-            gstIndex += 1 'gst label +1 
+            gstIndex += 1
         Next
 
 
@@ -448,7 +448,7 @@ Module BillingReportModule
         Dim totaltaxamt As Double = totalAmount - cgst - sgst
 
         For Each gst In gstSummary
-            x = 10 ' Reset the X position 
+            x = 10
             g.DrawString(gst.GstRate.ToString() & "%", font, Brushes.Black, x, y)
             x += 50
             g.DrawString(gst.taxableamt.ToString("F2"), font, Brushes.Black, x, y)

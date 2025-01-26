@@ -48,7 +48,7 @@ Public Class EmployeeInsert
         EmployeeDashboard.Close()
         PictureBox1.Image = My.Resources.defaultphoto
         showdata()
-        PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage ' Make the image stretch to fit the PictureBox
+        PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage
     End Sub
 
     Private Sub ButtonBrowse_Click(sender As Object, e As EventArgs) Handles ButtonBrowse.Click
@@ -62,7 +62,6 @@ Public Class EmployeeInsert
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        ' Update the date and time display
         Label24.Text = DateTime.Now.ToString("dddd")
         Label24.Text += "   " & DateTime.Now.ToString("dd MMMM yyyy") & "   " & TimeOfDay.ToString("HH:mm:ss")
     End Sub
@@ -86,7 +85,6 @@ Public Class EmployeeInsert
             Try
                 connect()
 
-                ' Check if the username already exists
                 Dim useridExists As String = "SELECT COUNT(*) FROM users WHERE userid = @userid"
                 Dim checkCmd As New MySqlCommand(useridExists, conn)
                 checkCmd.Parameters.AddWithValue("@userid", TextBox1.Text)
@@ -94,7 +92,6 @@ Public Class EmployeeInsert
                 Dim usernameCount As Integer = Convert.ToInt32(checkCmd.ExecuteScalar())
 
                 If usernameCount > 0 Then
-                    ' If the username already exists, show a message
                     MessageBox.Show("The userid is already in use. Please choose a different userid.", "UserID Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     conn.Close()
                     Return
@@ -108,7 +105,6 @@ Public Class EmployeeInsert
                     End Using
                 End If
 
-                ' Insert the new employee data into the database
                 qry = "INSERT INTO users (userid, username, pwd, usertype, phone, email, aadhar, dob, doj, photo) " &
                   "VALUES (@userid, @username, @pwd, @usertype, @phone, @email, @aadhar, @dob, @doj, @photo)"
 
@@ -147,40 +143,39 @@ Public Class EmployeeInsert
             Dim selectedRow As DataGridViewRow = DataGridView1.Rows(e.RowIndex)
 
             If selectedRow.Cells("EmpID").Value IsNot DBNull.Value Then
-                TextBox1.Text = selectedRow.Cells("EmpID").Value.ToString() ' Employee ID
+                TextBox1.Text = selectedRow.Cells("EmpID").Value.ToString()
             End If
 
             If selectedRow.Cells("EmpName").Value IsNot DBNull.Value Then
-                TextBox2.Text = selectedRow.Cells("EmpName").Value.ToString() ' Employee Name
+                TextBox2.Text = selectedRow.Cells("EmpName").Value.ToString()
             End If
 
             If selectedRow.Cells("phone").Value IsNot DBNull.Value Then
-                TextBox3.Text = selectedRow.Cells("phone").Value.ToString() ' Phone
+                TextBox3.Text = selectedRow.Cells("phone").Value.ToString()
             End If
 
             If selectedRow.Cells("email").Value IsNot DBNull.Value Then
-                TextBox4.Text = selectedRow.Cells("email").Value.ToString() ' Email
+                TextBox4.Text = selectedRow.Cells("email").Value.ToString()
             End If
 
             If selectedRow.Cells("Aadharno").Value IsNot DBNull.Value Then
-                TextBox5.Text = selectedRow.Cells("Aadharno").Value.ToString() ' Aadhar
+                TextBox5.Text = selectedRow.Cells("Aadharno").Value.ToString()
             End If
 
             If selectedRow.Cells("dob").Value IsNot DBNull.Value Then
-                DateTimePicker1.Value = Convert.ToDateTime(selectedRow.Cells("dob").Value) ' DOB
+                DateTimePicker1.Value = Convert.ToDateTime(selectedRow.Cells("dob").Value)
             End If
 
             If selectedRow.Cells("doj").Value IsNot DBNull.Value Then
-                DateTimePicker2.Value = Convert.ToDateTime(selectedRow.Cells("doj").Value) ' DOJ
+                DateTimePicker2.Value = Convert.ToDateTime(selectedRow.Cells("doj").Value)
             End If
 
             If selectedRow.Cells("password").Value IsNot DBNull.Value Then
-                TextBox6.Text = selectedRow.Cells("password").Value.ToString() ' Password
+                TextBox6.Text = selectedRow.Cells("password").Value.ToString()
             End If
 
             imageChanged = False
 
-            ' Check if the EmpID (or any identifier) exists before fetching the image
             Dim empId As String = selectedRow.Cells("EmpID").Value.ToString()
             If Not String.IsNullOrEmpty(empId) Then
                 FetchImageAndDisplay(empId)
@@ -204,21 +199,17 @@ Public Class EmployeeInsert
             If photo IsNot DBNull.Value Then
                 Dim photoBytes As Byte() = CType(photo, Byte())
                 Using ms As New MemoryStream(photoBytes)
-                    ' Dispose of the previous image if it exists
                     If PictureBox1.Image IsNot Nothing Then
                         PictureBox1.Image.Dispose()
                     End If
 
-                    ' Load the image from the stream and clone it
                     Dim tempImage As Image = Image.FromStream(ms)
-                    PictureBox1.Image = CType(tempImage.Clone(), Image) ' Clone the image to avoid stream issues
+                    PictureBox1.Image = CType(tempImage.Clone(), Image)
                     PictureBox1.SizeMode = PictureBoxSizeMode.StretchImage
 
-                    ' Dispose of the temporary image after cloning
                     tempImage.Dispose()
                 End Using
             Else
-                ' Handle the case where there is no image in the database
                 If PictureBox1.Image IsNot Nothing Then
                     PictureBox1.Image.Dispose()
                 End If
@@ -304,7 +295,6 @@ Public Class EmployeeInsert
                         conn.Close()
                         MessageBox.Show("Employee deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                        ' Refresh the DataGridView
                         showdata()
                     Catch ex As Exception
                         MessageBox.Show("Error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -325,7 +315,6 @@ Public Class EmployeeInsert
             Return
         End If
 
-        ' Check if the userid is already in use by someone else 
         If ValidateFields() Then
 
             Try
@@ -334,7 +323,6 @@ Public Class EmployeeInsert
                 Dim photoBytes() As Byte = Nothing
                 Dim updatePhoto As Boolean = False
 
-                ' Only prepare the photo if the image has changed
                 If imageChanged AndAlso PictureBox1.Image IsNot Nothing AndAlso PictureBox1.Image IsNot My.Resources.defaultphoto Then
                     updatePhoto = True
                     Using clonedImage As Image = CType(PictureBox1.Image.Clone(), Image)
@@ -416,7 +404,7 @@ Public Class EmployeeInsert
                 DataGridView1.Refresh()
             Else
                 MsgBox("No records found.")
-                DataGridView1.DataSource = Nothing  ' Clear the DataGridView if no records found
+                DataGridView1.DataSource = Nothing
             End If
 
             conn.Close()

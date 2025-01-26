@@ -25,13 +25,11 @@ Public Class ManagerDashboard
         End Get
     End Property
     Private Sub ManagerDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'chart code
         conn.Close()
         Setform(Me)
         PictureBox5.Image = My.Resources.show
         Label11.Visible = False
 
-        'main code
         billhistory.Close()
         loginform.Close()
         ManagerInsert.Close()
@@ -70,7 +68,6 @@ Public Class ManagerDashboard
         .AngleSpan = 360
     }
 
-        ' Updated query to include only CASH, CARD, and UPI payment methods
         Dim query As String = "SELECT b.mode, SUM(bd.pro_total) AS total_sales FROM bill_data bd " &
                           "JOIN bills b ON bd.bill_id = b.bill_id " &
                           "WHERE b.mode IN ('CASH', 'CARD', 'UPI') " &
@@ -94,16 +91,13 @@ Public Class ManagerDashboard
                         Case Else
                             sliceColor = OxyColor.FromRgb(169, 169, 169) ' Default to Gray for unknown
                     End Select
-                    ' Add the payment method as a slice in the pie chart
                     pieSeries.Slices.Add(New PieSlice(paymentMethod, totalSales) With {.IsExploded = False, .Fill = sliceColor})
                 End While
             End Using
         End Using
 
-        ' Add the pie series to the plot model
         plotModel.Series.Add(pieSeries)
 
-        ' Set the PlotModel (chart model) to the PlotView
         PlotView1.Model = plotModel
         conn.Close()
     End Sub

@@ -374,13 +374,13 @@ Public Class Billadd
         If ListView1.SelectedItems.Count > 0 Then
             Dim selectedItem As ListViewItem = ListView1.SelectedItems(0)
 
-            TextBox1.Text = selectedItem.SubItems(1).Text ' Product Name
-            TextBox2.Text = selectedItem.SubItems(2).Text ' Brand
-            TextBox3.Text = selectedItem.SubItems(3).Text ' Hsn
-            TextBox4.Text = selectedItem.SubItems(4).Text ' Price
-            TextBox5.Text = selectedItem.SubItems(5).Text ' Quantity
-            TextBox6.Text = selectedItem.SubItems(6).Text ' Discount
-            TextBox7.Text = selectedItem.SubItems(7).Text ' GST
+            TextBox1.Text = selectedItem.SubItems(1).Text
+            TextBox2.Text = selectedItem.SubItems(2).Text
+            TextBox3.Text = selectedItem.SubItems(3).Text
+            TextBox4.Text = selectedItem.SubItems(4).Text
+            TextBox5.Text = selectedItem.SubItems(5).Text
+            TextBox6.Text = selectedItem.SubItems(6).Text
+            TextBox7.Text = selectedItem.SubItems(7).Text
         End If
     End Sub
 
@@ -567,8 +567,8 @@ Public Class Billadd
                     Dim qry As String = "INSERT INTO draft_bills (customer_phone, customer_name, product_id, product_name, product_price, quantity, discount, gst, total_amount, brand, hsn, pregst, date_created) " &
                                     "VALUES (@Phone, @Name, @ProID, @ProName, @ProPrice, @Qty, @Discount, @GST, @TotalAmount, @Brand, @HSN, @PreGST, NOW())"
                     cmd = New MySqlCommand(qry, conn)
-                    cmd.Parameters.AddWithValue("@Phone", TextBox8.Text) ' Customer phone number
-                    cmd.Parameters.AddWithValue("@Name", TextBox9.Text) ' Customer name
+                    cmd.Parameters.AddWithValue("@Phone", TextBox8.Text)
+                    cmd.Parameters.AddWithValue("@Name", TextBox9.Text)
                     cmd.Parameters.AddWithValue("@ProID", itm.SubItems(0).Text)
                     cmd.Parameters.AddWithValue("@ProName", itm.SubItems(1).Text)
                     cmd.Parameters.AddWithValue("@ProPrice", Convert.ToDouble(itm.SubItems(4).Text))
@@ -576,9 +576,9 @@ Public Class Billadd
                     cmd.Parameters.AddWithValue("@Discount", Convert.ToDouble(itm.SubItems(6).Text))
                     cmd.Parameters.AddWithValue("@GST", Convert.ToDouble(itm.SubItems(7).Text))
                     cmd.Parameters.AddWithValue("@TotalAmount", Convert.ToDouble(itm.SubItems(8).Text))
-                    cmd.Parameters.AddWithValue("@Brand", itm.SubItems(2).Text) ' Brand
-                    cmd.Parameters.AddWithValue("@HSN", itm.SubItems(3).Text) ' HSN
-                    cmd.Parameters.AddWithValue("@PreGST", Convert.ToDouble(itm.SubItems(9).Text)) 'PreGST
+                    cmd.Parameters.AddWithValue("@Brand", itm.SubItems(2).Text)
+                    cmd.Parameters.AddWithValue("@HSN", itm.SubItems(3).Text)
+                    cmd.Parameters.AddWithValue("@PreGST", Convert.ToDouble(itm.SubItems(9).Text))
 
                     cmd.ExecuteNonQuery()
                 Next
@@ -672,14 +672,14 @@ Public Class Billadd
 
                         Dim itm As New ListViewItem(Reader("product_id").ToString())
                         itm.SubItems.Add(Reader("product_name").ToString())
-                        itm.SubItems.Add(Reader("brand").ToString()) ' Brand
-                        itm.SubItems.Add(Reader("hsn").ToString()) ' HSN
+                        itm.SubItems.Add(Reader("brand").ToString())
+                        itm.SubItems.Add(Reader("hsn").ToString())
                         itm.SubItems.Add(Convert.ToDouble(Reader("product_price").ToString()))
                         itm.SubItems.Add(Reader("quantity").ToString())
                         itm.SubItems.Add(Convert.ToDouble(Reader("discount").ToString()))
                         itm.SubItems.Add(Convert.ToDouble(Reader("gst").ToString()))
                         itm.SubItems.Add(Convert.ToDouble(Reader("total_amount").ToString()))
-                        itm.SubItems.Add(Convert.ToDouble(Reader("pregst").ToString())) ' Pre-GST
+                        itm.SubItems.Add(Convert.ToDouble(Reader("pregst").ToString()))
                         ListView1.Items.Add(itm)
 
                         totalAmount += Convert.ToDouble(Reader("total_amount"))
