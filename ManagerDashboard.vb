@@ -129,18 +129,18 @@ Public Class ManagerDashboard
     Public Sub dashdetail()
         Try
             Call connect()
-
+            Dim currentUser As String = userid
             qry = "
     SELECT 
         (SELECT SUM(netamount) FROM bills WHERE DATE(date) = CURDATE()) AS today_sales,
         (SELECT COUNT(*) FROM products) AS total_products,
         (SELECT COUNT(*) FROM bills WHERE DATE(date) = CURDATE()) AS total_bills,
-        (SELECT SUM(netamount) FROM bills WHERE MONTH(date) = MONTH(CURDATE()) AND YEAR(date) = YEAR(CURDATE())) AS monthly_sales"
+        (SELECT SUM(netamount) FROM bills WHERE MONTH(date) = MONTH(CURDATE()) AND YEAR(date) = YEAR(CURDATE()) AND userid = @currentUser) AS monthly_sales"
 
 
 
             cmd = New MySqlCommand(qry, conn)
-
+            cmd.Parameters.AddWithValue("@currentUser", currentUser)
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
 
             If reader.Read() Then
@@ -214,4 +214,6 @@ Public Class ManagerDashboard
         PictureBox5.Visible = True
         Label11.Visible = False
     End Sub
+
+
 End Class

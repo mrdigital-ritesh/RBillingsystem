@@ -48,7 +48,6 @@ Partial Class ManagerDashboard
         Label1 = New Label()
         Label2 = New Label()
         Panel3 = New Panel()
-        PictureBox5 = New PictureBox()
         PlotView1 = New OxyPlot.WindowsForms.PlotView()
         Label15 = New Label()
         Label16 = New Label()
@@ -59,6 +58,7 @@ Partial Class ManagerDashboard
         Panel7 = New Panel()
         PictureBox1 = New PictureBox()
         Panel6 = New Panel()
+        PictureBox5 = New PictureBox()
         Panel5.SuspendLayout()
         Panel4.SuspendLayout()
         Panel2.SuspendLayout()
@@ -66,10 +66,10 @@ Partial Class ManagerDashboard
         Panel1.SuspendLayout()
         CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
         Panel3.SuspendLayout()
-        CType(PictureBox5, ComponentModel.ISupportInitialize).BeginInit()
         Panel7.SuspendLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         Panel6.SuspendLayout()
+        CType(PictureBox5, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' Panel5
@@ -268,11 +268,11 @@ Partial Class ManagerDashboard
         ' 
         Label6.AutoSize = True
         Label6.Font = New Font("Adobe Gothic Std B", 12F, FontStyle.Bold)
-        Label6.Location = New Point(44, 18)
+        Label6.Location = New Point(33, 18)
         Label6.Name = "Label6"
-        Label6.Size = New Size(133, 20)
+        Label6.Size = New Size(160, 20)
         Label6.TabIndex = 0
-        Label6.Text = "MONTHLY SALES"
+        Label6.Text = "MY MONTHLY SALES"
         ' 
         ' Panel1
         ' 
@@ -337,16 +337,6 @@ Partial Class ManagerDashboard
         Panel3.Name = "Panel3"
         Panel3.Size = New Size(1101, 667)
         Panel3.TabIndex = 15
-        ' 
-        ' PictureBox5
-        ' 
-        PictureBox5.Image = My.Resources.Resources.show
-        PictureBox5.Location = New Point(59, 43)
-        PictureBox5.Name = "PictureBox5"
-        PictureBox5.Size = New Size(104, 59)
-        PictureBox5.SizeMode = PictureBoxSizeMode.Zoom
-        PictureBox5.TabIndex = 23
-        PictureBox5.TabStop = False
         ' 
         ' PlotView1
         ' 
@@ -471,6 +461,16 @@ Partial Class ManagerDashboard
         Panel6.Size = New Size(222, 120)
         Panel6.TabIndex = 4
         ' 
+        ' PictureBox5
+        ' 
+        PictureBox5.Image = My.Resources.Resources.show
+        PictureBox5.Location = New Point(59, 43)
+        PictureBox5.Name = "PictureBox5"
+        PictureBox5.Size = New Size(104, 59)
+        PictureBox5.SizeMode = PictureBoxSizeMode.Zoom
+        PictureBox5.TabIndex = 23
+        PictureBox5.TabStop = False
+        ' 
         ' ManagerDashboard
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -501,12 +501,12 @@ Partial Class ManagerDashboard
         CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
         Panel3.ResumeLayout(False)
         Panel3.PerformLayout()
-        CType(PictureBox5, ComponentModel.ISupportInitialize).EndInit()
         Panel7.ResumeLayout(False)
         Panel7.PerformLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
         Panel6.ResumeLayout(False)
         Panel6.PerformLayout()
+        CType(PictureBox5, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
